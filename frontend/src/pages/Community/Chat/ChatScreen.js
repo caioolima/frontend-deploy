@@ -45,7 +45,7 @@ const ChatScreen = () => {
   return (
     <div className="chat-screen">
       <SidebarMenu />
-      
+
       <MessageList
           AiOutlineUser={AiOutlineUser}
           formatMessageTime={formatMessageTime}
@@ -56,7 +56,7 @@ const ChatScreen = () => {
           userId={userId}
       />
       <MessageInput 
-          AiOutlineCamera={AiOutlineUser} 
+          AiOutlineCamera={AiOutlineCamera} 
           handleKeyPress={handleKeyPress}
           handleUnreadMessageClick={handleUnreadMessageClick}
           lastMessageSeenIndex={lastMessageSeenIndex}
