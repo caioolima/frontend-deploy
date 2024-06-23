@@ -1,0 +1,93 @@
+/* service.css */
+
+body {
+  font-family: "Raleway", sans-serif;
+  background-color: #f0f2f5;
+  margin: 0;
+  padding: 0;
+}
+.highlight {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.paragraph {
+  color: #191919;
+  font-size: 28px;
+  text-align: left;
+  margin-left: -1%;
+  font-weight: bold;
+}
+
+.description-text {
+  font-size: 16px;
+  line-height: 2;
+  color: #191919;
+  text-align: left;
+  margin-top: 50px;
+  margin-bottom: 70px;
+}
+
+.description-text p {
+  margin-bottom: 20px;
+  color: #191919;
+  font-weight: 500;
+}
+
+.section {
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.section h2 {
+  color: #191919;
+  font-size: 24px;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+.section p {
+  color: #191919;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.acknowledgment {
+  color: #191919;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 90px;
+  font-weight: 600;
+  margin-bottom: 80px;
+}
+
+@media only screen and (max-width: 600px) {
+  .highlight {
+    padding: 10px;
+  }
+
+  .paragraph {
+    font-size: 24px;
+    margin-left: 0;
+  }
+
+  .description-text {
+    font-size: 14px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+  }
+
+  .section h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .section p {
+    font-size: 14px;
+  }
+
+  .acknowledgment {
+    margin-top: 60px;
+  }
+}
