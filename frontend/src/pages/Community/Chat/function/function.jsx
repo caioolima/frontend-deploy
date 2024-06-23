@@ -431,7 +431,7 @@ const Function = () => {
 
   useEffect(() => {
     // Estabelece a conexão WebSocket
-    const ws = new WebSocket("ws://localhost:3002");
+    const ws = new WebSocket("wss://websocket-deploy-ac202d6667db.herokuapp.com/");
     let pingInterval; // Variável para armazenar o intervalo do ping
 
     ws.onopen = () => {
