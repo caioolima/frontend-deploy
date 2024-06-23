@@ -1,5 +1,5 @@
 import "./chat.css";
-import SidebarMenu from "../perfil/SidebarMenu/index";
+import SidebarMenu from "../../perfil/SidebarMenu/index";
 import { AiOutlineCamera } from "react-icons/ai"; // Importa o ícone de câmera
 import { AiOutlineUser } from "react-icons/ai"; // Importando o ícone de usuário padrão
 
