@@ -1,5 +1,5 @@
 import "./chat.css";
-import SidebarMenu from "../../perfil/SidebarMenu/index";
+import SidebarMenu from "../perfil/SidebarMenu/index";
 import { AiOutlineCamera } from "react-icons/ai"; // Importa o ícone de câmera
 import { AiOutlineUser } from "react-icons/ai"; // Importando o ícone de usuário padrão
 
@@ -46,7 +46,7 @@ const ChatScreen = () => {
     <div className="chat-screen">
       <SidebarMenu />
 
-     
+      <h2 className="chat-name">Chat</h2>
       <MessageList
           AiOutlineUser={AiOutlineUser}
           formatMessageTime={formatMessageTime}
@@ -57,7 +57,7 @@ const ChatScreen = () => {
           userId={userId}
       />
       <MessageInput 
-          AiOutlineCamera={AiOutlineCamera}
+          AiOutlineCamera={AiOutlineUser} 
           handleKeyPress={handleKeyPress}
           handleUnreadMessageClick={handleUnreadMessageClick}
           lastMessageSeenIndex={lastMessageSeenIndex}

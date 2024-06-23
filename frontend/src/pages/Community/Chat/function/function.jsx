@@ -479,10 +479,9 @@ const Function = () => {
                 setUnreadMessages((prevUnread) => prevUnread + 1);
                 fetchUserProfileImage(newMessage.userId);
                 // Adiciona a mensagem apenas se não for duplicada
-                if (
-                  !messages.find((msg) => msg.message === newMessage.message)
-                ) {
+                if (!messages.find((msg) => msg.message === newMessage.message)) {
                   setMessages((prevMessages) => [...prevMessages, newMessage]);
+                  setScrollToBottomNeeded(true); // Atualiza para rolar até o final
                 }
               }
             }
@@ -497,7 +496,7 @@ const Function = () => {
             console.error("Erro ao analisar a mensagem JSON:", error.message);
             return;
           }
-
+  
           // Verifica se a mensagem recebida não é um ping
           if (newMessage.type !== "ping") {
             // Verifica se a mensagem recebida não é do usuário atual
@@ -507,13 +506,14 @@ const Function = () => {
               // Adiciona a mensagem apenas se não for duplicada
               if (!messages.find((msg) => msg.message === newMessage.message)) {
                 setMessages((prevMessages) => [...prevMessages, newMessage]);
+                setScrollToBottomNeeded(true); // Atualiza para rolar até o final
               }
             }
           }
         }
       };
     }
-  }, [ws, userId]);
+  }, [ws, userId, messages]);
 
   useEffect(() => {
     scrollToBottomIfNeeded();
