@@ -45,8 +45,7 @@ const ChatScreen = () => {
   return (
     <div className="chat-screen">
       <SidebarMenu />
-
-      <h2 className="chat-name">Chat</h2>
+      
       <MessageList
           AiOutlineUser={AiOutlineUser}
           formatMessageTime={formatMessageTime}
