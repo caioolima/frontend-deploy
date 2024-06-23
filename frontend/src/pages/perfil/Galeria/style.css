@@ -32,20 +32,11 @@
   margin: 40px;
 }
 
-.empty-saved-posts-message {
-  color: #666;
-  margin: 40px;
-  text-align: center;
-  font-size: 1.2rem;
-  color: #999; /* Cor de texto cinza claro */
-}
-
 .empty-message {
-  font-size: 1.5rem; /* Tamanho da fonte */
+  font-size: 1.2rem; /* Tamanho da fonte */
   color: #666; /* Cor do texto */
   text-align: center; /* Alinhamento do texto */
   padding: 20px; /* Espaçamento interno */
-  background-color: #f0f0f0; /* Cor de fundo (opcional) */
 }
 
 .line-profile {
