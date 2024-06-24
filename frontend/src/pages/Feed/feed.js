@@ -179,6 +179,8 @@ const FeedPage = () => {
       const data = await response.json();
       setModalUsers(data.likedUsersNames); // Atualiza o estado com a lista de usuários
       openModal();
+      // Armazenar a posição de rolagem atual
+      setScrollPosition(window.pageYOffset);
     } catch (err) {
       console.error(err);
     }
@@ -188,7 +190,7 @@ const FeedPage = () => {
     setModalOpen(true); // Abre o modal
     document.body.style.position = "fixed";
     // Armazenar a posição de rolagem atual
-    setScrollPosition(window.pageYOffset);
+    setScrollPosition(window.pageYOffset); // Armazena a posição de rolagem atual
   };
 
   const closeModal = () => {
