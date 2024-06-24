@@ -187,11 +187,15 @@ const FeedPage = () => {
   const openModal = () => {
     setModalOpen(true); // Abre o modal
     document.body.style.position = "fixed";
+    // Armazenar a posição de rolagem atual
+    setScrollPosition(window.pageYOffset);
   };
 
   const closeModal = () => {
     setModalOpen(false); // Fecha o modal
     document.body.style.position = "static";
+    // Restaurar a posição de rolagem
+    window.scrollTo(0, scrollPosition);
   };
 
   const [commentModalOpen, setCommentModalOpen] = useState(false);
@@ -246,17 +250,20 @@ const FeedPage = () => {
 
   const handleSaved = async (post, postOwnerId, imageUrl, postId) => {
     try {
-      const response = await fetch(`https://connecter-server-033a278d1512.herokuapp.com/feedRoutes/saved`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: user.id,
-          postOwnerId: postOwnerId,
-          imageUrl: post.url,
-        }),
-      });
+      const response = await fetch(
+        `https://connecter-server-033a278d1512.herokuapp.com/feedRoutes/saved`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: user.id,
+            postOwnerId: postOwnerId,
+            imageUrl: post.url,
+          }),
+        }
+      );
       if (!response.ok) {
         throw new Error("Erro ao excluir a postagem dos salvos");
       }
