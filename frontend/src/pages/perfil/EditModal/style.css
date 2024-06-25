@@ -5,11 +5,12 @@
 
 .modal-edit {
   position: fixed;
-  top: 60%;
+  top: 50%;
   left: 50%;
-  width: 200%;
+  width: 90%;
+  max-width: 400px;
   transform: translate(-50%, -50%);
-  height: 100%;
+  height: 89%;
   display: flex;
   justify-content: center; /* Centralize horizontalmente */
   align-items: center; /* Centralize verticalmente */
@@ -103,11 +104,9 @@
   border-radius: 8px;
   text-align: center;
   position: fixed;
-  width: 90%;
+  width: 100%;
   max-width: 400px; /* Ajuste o máximo para 800px */
-  height: 100%; /* Ajuste para altura automática */
-  max-height: 750px; /* Ajuste conforme necessário */ 
-  margin-top: -250px;
+  height: 80%; /* Ajuste para altura automática */
 }
 
 .modal-content-edit .text-edit {
@@ -209,4 +208,23 @@
 
 .confirm-delete-modal .cancel-button-bio:hover{
     background-color: #f12828; /* Cor vermelha para o botão Cancelar */
+}
+
+
+@media (max-width: 600px) {
+  .modal-edit {
+    width: 95%;
+    max-width: none;
+    height: 100%;
+    padding: 10px;
+  }
+
+  .modal-content-edit {
+    height: auto;
+    width: 100%;
+  }
+
+  .modal-content-edit .text-edit {
+    margin-top: 15px;
+  }
 }

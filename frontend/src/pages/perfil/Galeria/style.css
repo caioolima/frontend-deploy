@@ -82,9 +82,23 @@
 
 .photo-item img {
   width: 100%;
-  height: 320px;
+  height:320px;
   object-fit: cover;
   margin-bottom: 200px;
+}
+
+.image-container-button {
+  cursor: pointer;
+  position: relative; /* Garante que o contêiner mantenha o controle do layout */
+  width: 100%;
+  height: 100%; /* Garante que o contêiner ocupe todo o espaço disponível */
+}
+
+.image-container-button img {
+  width: 100%; /* Garante que a imagem ocupe todo o espaço do contêiner */
+  height: 100%; /* Garante que a imagem ocupe todo o espaço do contêiner */
+  object-fit: cover; /* Mantém a proporção e corta a imagem conforme necessário */
+  transition: opacity 0.5s; /* Adiciona uma transição de opacidade */
 }
 
 .photo-item {

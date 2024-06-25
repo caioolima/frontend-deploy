@@ -187,19 +187,18 @@ const FeedPage = () => {
   };
 
   const openModal = () => {
-    setModalOpen(true); // Abre o modal
-    document.body.style.position = "fixed";
-    // Armazenar a posição de rolagem atual
-    setScrollPosition(window.pageYOffset); // Armazena a posição de rolagem atual
+    setModalOpen(true);
+    setScrollPosition(window.pageYOffset);
+    document.documentElement.style.overflowY = 'hidden';
   };
-
+  
   const closeModal = () => {
-    setModalOpen(false); // Fecha o modal
-    document.body.style.position = "static";
-    // Restaurar a posição de rolagem
+    setModalOpen(false);
+    document.documentElement.style.overflowY = 'auto';
     window.scrollTo(0, scrollPosition);
   };
-
+  
+  
   const [commentModalOpen, setCommentModalOpen] = useState(false);
   const [selectedPostImageUrl, setSelectedPostImageUrl] = useState("");
 
@@ -284,6 +283,26 @@ const FeedPage = () => {
     }
   };
 
+  // Função para embaralhar os posts de forma aleatória
+  const shuffle = (array) => {
+    let currentIndex = array.length;
+    let temporaryValue, randomIndex;
+
+    // Enquanto houver elementos para embaralhar
+    while (currentIndex !== 0) {
+      // Escolhe um elemento restante
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // Troca o elemento escolhido com o atual
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  };
+
   useEffect(() => {
     const fetchFeedAndCheckSaved = async () => {
       if (userId) {
@@ -295,17 +314,17 @@ const FeedPage = () => {
             throw new Error("Erro ao carregar o feed");
           }
           const data = await response.json();
-          // Mapear os posts e definir isLoading como true inicialmente
           const updatedFeed = data.map((post) => ({
             ...post,
             isLoading: true,
           }));
-          setFeed(updatedFeed);
 
-          // Verificar e atualizar o estado de salvamento de cada post
+          const shuffledFeed = shuffle(updatedFeed); // Embaralha os posts
+          setFeed(shuffledFeed); // Define os posts embaralhados no estado do feed
+
           await Promise.all(
-            updatedFeed.map(async (post) => {
-              await checkSaved(post, post.userId._id); // Corrigido para passar o postOwnerId
+            shuffledFeed.map(async (post) => {
+              await checkSaved(post, post.userId._id);
             })
           );
         } catch (err) {
@@ -370,8 +389,8 @@ const FeedPage = () => {
             ))}
           </>
         ) : (
-          feed.map((post) => (
-            <div key={post._id} className="post ">
+          feed.map((post, index) => (
+            <div key={`${post._id}-${index}`} className="post">
               <div className="post-header">
                 {post.userId.profileImageUrl ? (
                   <a href={`/profile/${post.userId._id}`}>
@@ -475,8 +494,8 @@ const FeedPage = () => {
                         </h2>
                         {modalUsers.map((user) => (
                           <li className="feed-modal-item" key={user.userId}>
-                            {post.userId.profileImageUrl ? (
-                              <a href={`/profile/${user.userId._id}`}>
+                            {user.profileImageUrl ? (
+                              <a href={`/profile/${user._id}`}>
                                 <img
                                   src={user.profileImageUrl}
                                   alt="Imagem da galeria"
@@ -484,13 +503,11 @@ const FeedPage = () => {
                                 />
                               </a>
                             ) : (
-                              <a href={`/profile/${user.userId._id}`}>
-                                <AiOutlineUser className="profile-icon-profile" />
+                              <a href={`/profile/${user._id}`}>
+                                <AiOutlineUser className="rounded-image-message-feed" />
                               </a>
                             )}
-                            <a href={`/profile/${user.userId._id}`}>
-                              {user.username}
-                            </a>
+                            <a href={`/profile/${user._id}`}>{user.username}</a>
                           </li>
                         ))}
                       </ul>

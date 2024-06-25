@@ -24,7 +24,7 @@
 
 .comment-image {
   width: 100%;
-  height: 62rem;
+  height: 62.8rem;
   object-fit: cover;
 }
 
@@ -193,7 +193,7 @@
   }
 
   .comment-image {
-    height: auto;
+    height: 550px;
     max-width: 100%;
     margin-bottom: -10px;
   }
@@ -219,7 +219,7 @@
 
   .close-comment-modal {
     font-size: 34px;
-    margin-top: 20px;
+    margin-top: 80px;
   }
 
   .comment-textarea {
