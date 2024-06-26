@@ -84,14 +84,14 @@
 }
 
 .a1 {
-  background-image: url("../../../assets/travel-backpacker.jpg");
+  background-image: url("../../../../assets/travel-backpacker.jpg");
 }
 
 .a2 {
-  background-image: url("../../../assets/life-backpacker.png");
+  background-image: url("../../../../assets/life-backpacker.png");
 }
 .a3 {
-  background-image: url("../../../assets/backpacker-camer.png");
+  background-image: url("../../../../assets/backpacker-camer.png");
 }
 
 .imagefieldContainer .textContainer .text-top-intro {

@@ -15,7 +15,10 @@ import FirstWorldCountries from "./pages/Community/World Community/FirstWorldCou
 import Community from "./pages/Community/Community Services/Community.js";
 import ChatScreen from "./pages/Community/Chat/ChatScreen.js";
 import FeedPage from "./pages/Feed/feed.js";
-import NewPassword from "./pages/ResetPassword/NewPassword.jsx"
+import NewPassword from "./pages/ResetPassword/NewPassword.jsx";
+import BackpackingArticle from "./pages/Community/Articles/BestPlaces/BackpackingArticle.jsx"; 
+import BackpackingIntroduction from "./pages/Community/Articles/IntroductionBackpacker/BackpackerArticle.jsx"; 
+import PerfectPhotos from "./pages/Community/Articles/PhotosArticle/PerfectPhotosArticle.jsx";
 import { useAuth } from "./hooks/use-auth";
 
 function App() {
@@ -37,6 +40,9 @@ function App() {
       <Route path="/community/:countryId/:communityId" element={<Community />} />
       <Route path="/feed/:userId" element={<FeedPage />} />
       <Route path="/newpassword/:token" element={<AuthLayout><NewPassword /></AuthLayout>} />
+      <Route path="/backpacking-article" element={<BackpackingArticle />} />
+      <Route path="/backpacking-introduction" element={<BackpackingIntroduction />} />
+      <Route path="/perfect-photos" element={<PerfectPhotos />} />
     </Routes>
   );
 }

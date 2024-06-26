@@ -116,194 +116,8 @@ p {
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.9);
 }
 
-/* Estilos para o contêiner de usuários */
-.users-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin: 40px auto;
-  margin-bottom: 100px;
-  overflow-y: auto;
-  max-height: 400px;
-  width: 50%;
-}
 
-.users-container h2 {
-  display: flex;
-  align-items: center;
-}
 
-.user-item-user {
-  flex-direction: row;
-  display: flex;
-  align-items: center;
-  margin-right: 10px;
-  margin-bottom: 20px;
-  flex-grow: 1;
-}
-
-.user-item-user img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-.user-name-user {
-  color: rgb(0, 0, 0);
-  padding: 10px 10px;
-  font-weight: bold;
-}
-
-.user-item-user p {
-  font-size: 0.8em;
-  color: #666;
-}
-
-.noFollowers {
-  text-align: center;
-  color: #666;
-  font-weight: 500;
-  font-size: 14px;
-  margin-top: 10px;
-}
-
-.hr-top {
-  width: 33%;
-  margin: 15px auto;
-}
-
-.top-liked-title {
-  text-align: center;
-}
-
-.carousel {
-  display: flex;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-  width: 100%;
-}
-
-.carousel-container {
-  display: flex;
-  align-items: center; /* Alinha verticalmente os itens no centro */
-}
-
-.post-item-post {
-  min-width: 100%;
-  box-sizing: border-box;
-  border-radius: 10px;
-  overflow: hidden;
-  position: relative;
-  padding: 0 10px;
-}
-
-.post-image-likes {
-  margin: 20px auto; /* Define as margens automáticas para centralizar horizontalmente */
-  display: block; /* Garante que a imagem seja exibida como um bloco */
-  height: 70%; /* Limita a altura máxima da imagem */
-  border-radius: 5px; /* Adiciona bordas arredondadas */
-  width: 60%;
-  position: relative;
-}
-
-.post-wrapper {
-  width: 50%;
-  display: flex;
-  align-items: center;
-  position: relative;
-  background-color: var(--color-dark);
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.9);
-  border-radius: 20px;
-  margin-bottom: 20px;
-  height: 510px;
-  margin: 20px auto;
-}
-
-.post-name {
-  color: rgb(255, 255, 255);
-  font-weight: bold;
-  margin: auto; /* Define as margens automáticas para centralizar horizontalmente */
-  display: flex; /* Garante que a imagem seja exibida como um bloco */
-  width: 50%;
-  flex-direction: column;
-  font-size: 15px;
-}
-
-.post-user-like{
-  color: #ffffff;flex-direction: column;
-}
-
-.post-like-user{
-  color: #ffffff;
-  margin-bottom: 4px;
-}
-.profile-image {
-  width: 40px; /* Ajuste o tamanho conforme necessário */
-  height: 40px;
-  border-radius: 50%; /* Torna a imagem circular */
-  object-fit: cover; /* Garante que a imagem se ajuste ao contêiner */
-  margin-right: 10px; /* Espaço entre a imagem de perfil e o nome do usuário */
-  display: flex;
-}
-
-.post-button-post {
-  border: none;
-  border-radius: 20px;
-  color: var(--color-dark);
-  background: var(--color-primary-focus);
-  width: 40%;
-  height: 20px;
-  margin: auto;
-  font-family: "Raleway", sans-serif;
-  font-weight: bold;
-  display: block;
-}
-
-.post-button-post:hover {
-  background: white;
-  color: var(--color-primary-focus);
-}
-
-.noLikedPosts {
-  text-align: center;
-  color: #ffffff;
-  font-weight: 500;
-  font-size: 14px;
-  margin-top: 10px;
-}
-
-.carousel-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: var(--color-primary-focus);
-  border: none;
-  border-radius: 50%;
-  color: var(--color-dark);
-  width: 40px;
-  height: 40px;
-  font-size: 25px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-  font-weight: bold;
-}
-
-.carousel-button.prev {
-  left: 30px;
-}
-
-.carousel-button.next {
-  right: 30px;
-}
-
-.carousel-button:hover {
-  background: white;
-  color: var(--color-primary-focus);
-}
 /* Para telas menores que 768px (mobile) */
 @media only screen and (max-width: 600px) {
   .container-cards {
@@ -311,35 +125,12 @@ p {
     width: 420px;
     margin: 0 auto;
   }
-
-  .users-container{
-    max-height: 400px;
-    width: 100%;
-  }
-  .user-name-user {
-    font-size: 15px;
-  }
-
-  .user-item-user p{
-    font-size: 12px;
-    width: 25%;
-    margin: 0 auto;
-  }
+  
   .sign-button-sign {
     font-size: 12px;
     width: 100%;
   }
-  .hr-top {
-    width: 68%;
-  }
-  .top-liked-title{
-    font-size: 18px;
-  }
-
-  .post-image-likes {
-    height: 250px;
-    width: 280px;
-  }
+  
   .card-community {
     width: 340px;
     height: 200px;
@@ -358,44 +149,13 @@ p {
     margin: 0 auto;
     width: -20px;
   }
-  .post-name {
-    font-size: 16px;
-    top: 0;
-    left: 0;
-    transform: none;
-    width: 65%;
-  }
-  .post-button-post {
-    font-size: 12px;
-    top: 0;
-    left: 0;
-    transform: none;
-    width: 25%;
-  }
-  .carousel-button {
-    width: 30px;
-    height: 30px;
-    font-size: 18px;
-    line-height: 30px;
-  }
+ 
   .footer-world {
     margin-top: 200px;
   }
   .cards-contain {
     margin: 10px 0;
     margin-bottom: 70px;
-  }
-  .post-wrapper {
-    width: 95%;
-    height: 400px;
-    margin: 10px auto;
-  }
-  .carousel-button.prev {
-    left: 10px;
-  }
-
-  .carousel-button.next {
-    right: 10px;
   }
 }
 
@@ -412,24 +172,8 @@ p {
     width: 160px;
     height: 200px;
   }
-  .post-wrapper {
-    width: 55%;
-    margin: 0 auto;
-  }
-  .post-button-post {
-    width: 20%;
-  }
-  .post-name {
-    width: 60%;
-  }
-  .post-image-likes {
-    height: 310px;
-    width: 320px;
-  }
+ 
 }
-
-
-
 
 .user-communities-card {
   background: black;

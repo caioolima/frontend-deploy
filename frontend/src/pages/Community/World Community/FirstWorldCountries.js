@@ -1,47 +1,50 @@
-// FirstWorldCountries.js
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../../hooks/use-auth.js";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import SidebarMenu from "../../perfil/SidebarMenu/index.jsx";
 import Footer from "../../../components/Footer/footer.jsx";
-import Articles from "./ImageField.jsx";
-import CommunityCard from "./CommunityCard";
-import TopFollowedUsers from "./TopFollowedUsers";
-import TopLikedPosts from "./TopLikedPosts";
-import UserCommunitiesCard from "./UserCommunitiesCard";
+import Articles from "./Card Community/ImageField.jsx";
+import CommunityCard from "./Card Community/CommunityCard.jsx";
+import TopFollowedUsers from "./TopFollows/TopFollowedUsers.jsx";
+import TopLikedPosts from "./TopLikes/TopLikedPosts.jsx";
+import UserCommunitiesCard from "./Card Community/UserCommunitiesCard.jsx";
+import OtherCommunityCard from "./Card Community/OtherCommunityCard.jsx";
 import {
   fetchComunidades,
   fetchNumeroMembros,
   fetchTopFollowedUsers,
   fetchTopLikedPosts,
   fetchComunidadesDoUsuario,
-} from "./communityService.jsx";
+} from "./Card Community/communityService.jsx";
 import BrasilFlag from "../Community Services/flags/brasil.jpeg";
 import AlemanhaFlag from "../Community Services/flags/alemanha.png";
 import JapaoFlag from "../Community Services/flags/japao.png";
-import ItaliaFlag from "../Community Services/flags/itália.jpg"
-import ChinaFlag from "../Community Services/flags/china.jpg"
+import ItaliaFlag from "../Community Services/flags/itália.jpg";
+import ChinaFlag from "../Community Services/flags/china.jpg";
 import "./FirstWorldCountries.css";
-import OtherCommunityCard from "./OtherCommunityCard";
+import { defaultSliderSettings } from "./sliderConfig";
+import styles from "./FirstWorld.module.css"; // Importa o CSS Module
 
 const FirstWorldCountries = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
+  const [loading, setLoading] = useState(true);
+  const [loadingComplete, setLoadingComplete] = useState(false);
   const [userId, setUserId] = useState(null);
   const [comunidades, setComunidades] = useState([]);
   const [comunidadesUsuario, setComunidadesUsuario] = useState([]);
   const [topFollowedUsers, setTopFollowedUsers] = useState([]);
   const [topLikedPosts, setTopLikedPosts] = useState([]);
   const [numeroMembros, setNumeroMembros] = useState({});
-  const [otherCountriesCommunities, setOtherCountriesCommunities] = useState(
-    []
-  );
   const flagMappings = {
     brasil: BrasilFlag,
     alemanha: AlemanhaFlag,
     japão: JapaoFlag,
     itália: ItaliaFlag,
-    china: ChinaFlag
+    china: ChinaFlag,
   };
 
   useEffect(() => {
@@ -51,32 +54,70 @@ const FirstWorldCountries = () => {
   }, [user]);
 
   useEffect(() => {
+    setLoading(true); // Indica que o carregamento está em andamento
     if (user) {
       const fetchData = async () => {
         const fetchedComunidades = await fetchComunidades();
         setComunidades(fetchedComunidades);
         const fetchedComunidadesDoUsuario = await fetchComunidadesDoUsuario(
           user.id
-        ); // Passa user.id
+        );
         setComunidadesUsuario(fetchedComunidadesDoUsuario);
         const fetchedTopFollowedUsers = await fetchTopFollowedUsers();
         setTopFollowedUsers(fetchedTopFollowedUsers);
         const fetchedTopLikedPosts = await fetchTopLikedPosts();
         setTopLikedPosts(fetchedTopLikedPosts);
+        setLoading(false); // Indica que o carregamento está completo
+        setLoadingComplete(true); // Marca o carregamento como completo
       };
       fetchData();
     }
   }, [user]);
 
   useEffect(() => {
-    comunidades.forEach(async (comunidade) => {
-      const numMembros = await fetchNumeroMembros(comunidade._id);
-      setNumeroMembros((prevNumeroMembros) => ({
-        ...prevNumeroMembros,
-        [comunidade._id]: numMembros,
-      }));
-    });
+    const fetchNumeroMembrosForAllComunidades = async () => {
+      const promises = comunidades.map(async (comunidade) => {
+        const numMembros = await fetchNumeroMembros(comunidade._id);
+        return { id: comunidade._id, numMembros };
+      });
+      const results = await Promise.all(promises);
+      const numMembrosMap = results.reduce((acc, { id, numMembros }) => {
+        acc[id] = numMembros;
+        return acc;
+      }, {});
+      setNumeroMembros(numMembrosMap);
+    };
+
+    fetchNumeroMembrosForAllComunidades();
   }, [comunidades]);
+
+  // Filtrando as comunidades que não estão na lista fixa
+  const filteredComunidades = comunidades.filter(
+    (comunidade) =>
+      !["alemanha", "brasil", "japão", "itália", "china"].includes(
+        comunidade.country.toLowerCase()
+      )
+  );
+
+  // Componente para seta personalizada anterior
+  const CustomPrevArrow = ({ onClick }) => (
+    <div className={`${styles.customArrow} ${styles.prev}`} onClick={onClick}>
+      {"\u2190"}
+    </div>
+  );
+
+  // Componente para seta personalizada seguinte
+  const CustomNextArrow = ({ onClick }) => (
+    <div className={`${styles.customArrow} ${styles.next}`} onClick={onClick}>
+      {"\u2192"}
+    </div>
+  );
+  const sliderSettings = {
+    ...defaultSliderSettings,
+    infinite: false, // Exemplo de personalização local
+    prevArrow: <CustomPrevArrow />,
+    nextArrow: <CustomNextArrow />,
+  };
 
   return (
     <main>
@@ -91,10 +132,9 @@ const FirstWorldCountries = () => {
             <h2 className="title-comunidade">{t("Countries List")}</h2>
             <hr />
             <section className="cards">
-              {/* Renderiza CommunityCard para comunidades da Alemanha, Brasil ou Japão */}
               {comunidades
                 .filter((comunidade) =>
-                  ["alemanha", "brasil", "japão","itália","china"].includes(
+                  ["alemanha", "brasil", "japão", "itália", "china"].includes(
                     comunidade.country.toLowerCase()
                   )
                 )
@@ -105,32 +145,34 @@ const FirstWorldCountries = () => {
                     numeroMembros={numeroMembros}
                     flagMappings={flagMappings}
                     t={t}
-                    className="community-card" 
+                    className="community-card"
                   />
                 ))}
             </section>
           </section>
-
-          <section className="cards-contain">
-            <h2 className="title-comunidade">{t("communities_interests")}</h2>
-            <hr />
-            {comunidades
-              .filter(
-                (comunidade) =>
-                  !["alemanha", "brasil", "japão","itália","china"].includes(
-                    comunidade.country.toLowerCase()
-                  )
-              )
-              .map((comunidade) => (
-                <OtherCommunityCard
-                  key={comunidade._id}
-                  comunidade={comunidade}
-                  numeroMembros={numeroMembros}
-                  flagMappings={flagMappings}
-                  t={t}
-                  className="other-community-card" // Adiciona a classe CSS aqui
-                />
-              ))}
+          <section>
+            <h2 className={styles.CommunityTitle}>
+              {t("communities_interests")}
+            </h2>
+            <hr className={styles.hrTop} />
+            <div className={styles.customSlider}>
+              {loading && (
+                <p className={styles.loadingMessage}>{t("loading")}</p>
+              )}
+              {loadingComplete && !loading && (
+                <Slider {...sliderSettings}>
+                  {filteredComunidades.map((comunidade) => (
+                    <OtherCommunityCard
+                      key={comunidade._id}
+                      comunidade={comunidade}
+                      numeroMembros={numeroMembros}
+                      flagMappings={flagMappings}
+                      t={t}
+                    />
+                  ))}
+                </Slider>
+              )}
+            </div>
           </section>
 
           <UserCommunitiesCard
@@ -138,18 +180,9 @@ const FirstWorldCountries = () => {
             flagMappings={flagMappings}
             numeroMembros={numeroMembros}
             t={t}
-            className="user-communities-card" // Adiciona a classe CSS aqui
           />
-          <TopFollowedUsers
-            topFollowedUsers={topFollowedUsers}
-            t={t}
-            className="top-followed-users" // Adiciona a classe CSS aqui
-          />
-          <TopLikedPosts
-            topLikedPosts={topLikedPosts}
-            t={t}
-            className="top-liked-posts" // Adiciona a classe CSS aqui
-          />
+          <TopFollowedUsers topFollowedUsers={topFollowedUsers} t={t} />
+          <TopLikedPosts topLikedPosts={topLikedPosts} t={t} />
         </article>
 
         <div className="footer-world">

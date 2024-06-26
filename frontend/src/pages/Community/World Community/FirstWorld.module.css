@@ -1,0 +1,56 @@
+/* FirstWorldCountries.module.css */
+.customSlider {
+  width: 58%; /* Ajuste a largura conforme necessário */
+  margin: 0 auto; /* Centralize o slider */
+  margin-bottom: 50px;
+}
+
+.CommunityTitle {
+  color: rgb(0, 0, 0);
+  margin: auto 260px;
+}
+.hrTop {
+  border: none;
+  border-top: 2px solid var(--color-details);
+  width: 58%;
+  margin: 10px auto;
+}
+
+/* Estilos para as setas do Slider */
+.customArrow {
+  width: 40px; /* Largura das setas */
+  height: 40px; /* Altura das setas */
+  background-color: var(--color-dark); /* Cor de fundo */
+  color: white; /* Cor do ícone */
+  border-radius: 50%; /* Borda arredondada para forma circular */
+  font-size: 20px; /* Tamanho do ícone */
+  line-height: 55px; /* Alinhamento vertical do ícone */
+  z-index: 1; /* Z-index para manter sobre o conteúdo */
+  position: absolute; /* Posição absoluta para posicionamento */
+  top: 50%; /* Centraliza verticalmente */
+  transform: translateY(-50%); /* Ajusta para centralizar verticalmente */
+  cursor: pointer; /* Cursor ao passar */
+  display: flex; /* Torna o conteúdo flexível */
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+}
+
+.customArrow.prev {
+  left: -25px; /* Posição da seta "prev" */
+}
+
+.customArrow.next {
+  right: -25px; /* Posição da seta "next" */
+}
+
+.custom-arrow:hover {
+  background-color: #333; /* Cor de fundo ao passar o mouse */
+}
+
+.loadingMessage {
+  text-align: center;
+  font-size: 16px;
+  margin-top: 20px;
+  color: var(--color-dark);
+  font-weight: bold;
+}

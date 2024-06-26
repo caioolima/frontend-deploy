@@ -1,7 +1,8 @@
 import { t } from "i18next";
 import "./styles.css";
-
+import { useNavigate } from "react-router-dom";
 export default function Articles() {
+  const navigate = useNavigate();
   return (
     <section className="container-overflow">
       <div className="images-field-top">
@@ -13,7 +14,12 @@ export default function Articles() {
             </div>
             <div className="black-block">
               <p>{t("discover")}</p>
-              <button className="button-article">{t("seeNow")}</button>
+              <button
+                className="button-article"
+                onClick={() => navigate("/backpacking-article")}
+              >
+                {t("seeNow")}
+              </button>
             </div>
           </div>
         </div>
@@ -22,25 +28,26 @@ export default function Articles() {
             <div className="textContainer">
               <span className="text-top-intro">{t("introduction")}</span>
               <span>
-                {t("toTheLife")}{t("continuosLife")}
+                {t("toTheLife")}
+                {t("continuosLife")}
               </span>
 
               <span>{t("ofABackpacker")}</span>
             </div>
             <div className="black-block">
               <p>{t("comeAndDiscover")}</p>
-              <button className="button-article">{t("seeNow")}</button>
+              <button className="button-article" onClick={() => navigate("/backpacking-introduction")}>{t("seeNow")}</button>
             </div>
           </div>
         </div>
         <div className="cardContainerImageField">
           <div className="imagefieldContainer a3">
             <div className="textContainer">
-              <span>{t("bestPlacesToGoBackpacking")}</span>
+              <span>{t("discoverTheBest")}</span>
             </div>
             <div className="black-block">
               <p>{t("discoverTheBestWays")}</p>
-              <button className="button-article">{t("seeNow")}</button>
+              <button className="button-article" onClick={() => navigate("/perfect-photos")}>{t("seeNow")}</button>
             </div>
           </div>
         </div>
