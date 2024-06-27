@@ -5,7 +5,8 @@ import Footer from "../../../components/Footer/footer.jsx";
 
 const FeatureRequests = () => {
   const { t } = useTranslation(); // Use o hook useTranslation para obter a função t()
-
+  document.body.style.overflow = "hidden";
+  
   return (
     <div>
       <div className={styles.logo}>
@@ -32,7 +33,7 @@ const FeatureRequests = () => {
             {t("Submit")}
           </button>
         </form>
-        <div className="footer-world">
+        <div className="footer-reset">
           <Footer />
         </div>
       </div>

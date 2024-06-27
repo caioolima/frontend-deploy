@@ -37,6 +37,17 @@ const UserProfileContainer = () => {
     getDataUser();
   }, [getDataUser]);
 
+  
+  useEffect(() => {
+    // Aplica overflow: hidden ao elemento html para remover o scroll
+    document.documentElement.style.overflowX = "hidden";
+
+    // Cleanup: remove overflow: hidden ao desmontar o componente
+    return () => {
+      document.documentElement.style.overflowX = "auto";
+    };
+  }, []);
+
   useEffect(() => {
     if (!userId) return;
 

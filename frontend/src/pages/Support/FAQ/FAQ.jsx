@@ -11,6 +11,7 @@ const FAQ = () => {
   const toggleAnswer = (index) => {
     setExpandedItem(index === expandedItem ? null : index);
   };
+  document.body.style.overflow = "hidden";
 
   return (
     <div>
@@ -77,7 +78,7 @@ const FAQ = () => {
           </div>
         </div>
       </div>
-      <div className="footer-world">
+      <div className="footer-reset">
         <Footer />
       </div>
     </div>

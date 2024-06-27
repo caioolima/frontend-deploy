@@ -1,5 +1,6 @@
 /* TopLikedPosts.module.css */
 
+/* Estilo geral */
 .topLikedTitle {
   font-size: 1.5rem;
   color: var(--color-dark);
@@ -23,25 +24,28 @@
 
 .carousel {
   display: flex;
-  overflow-x: hidden;
+  overflow: hidden;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
   padding-bottom: 10px;
-  width: 80%; /* Define uma largura fixa para o carrossel */
-  max-width: 600px; /* Limite máximo de largura */
+  width: 80%; /* Ocupa toda a largura disponível */
+  max-width: 100%; /* Limita a largura máxima */
   background-color: white;
-  border-radius: 38px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
 .postItem {
   flex: 0 0 auto;
-  margin-right: 10px;
+  margin-right: 9px;
+  margin-left: 12px;
   scroll-snap-align: start;
-  border-radius: 8px;
   transition: transform 0.3s ease;
-
-  width: 100%; /* Ocupa toda a largura do contêiner */
+  width: calc(
+    (100% - 20px) / 3
+  ); /* Calcula a largura para três itens por linha */
+  max-width: 297px; /* Largura máxima dos itens */
 }
 
 .postItem:last-child {
@@ -55,38 +59,34 @@
 
 .postImage {
   width: 100%;
-  height: 300px;
-  border-radius: 8px;
+  height: 200px; /* Altura ajustável */
   object-fit: cover;
+  margin: auto;
 }
 
 .postDetails {
-  padding: 10px;
+  padding: 20px;
 }
 
 .profileImage {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  margin: auto 40px;
+  margin: auto;
 }
 
 .profileImagenone {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  margin: auto 40px;
+  margin: auto;
   background-color: rgb(0, 0, 0);
   color: gray;
 }
-
-.postUser {
-  font-weight: bold;
-  margin: auto 40px;
-}
-
+.postUser,
 .postLikes {
-  margin: auto 40px;
+  font-weight: bold;
+  margin: 10px 0;
 }
 
 .postButton {
@@ -96,34 +96,23 @@
   border-radius: 4px;
   padding: 8px 12px;
   cursor: pointer;
-  margin: 10px 40px;
+  margin: 10px auto;
   transition: background-color 0.3s ease;
   font-family: "Raleway", sans-serif;
   font-weight: bold;
 }
 
-.noPostsMessage {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100px; /* Ajuste a altura conforme necessário */
-  text-align: center;
-  color: var(--color-alert);
-  margin: 20px 0;
-  font-weight: bold;
+.postButton:hover {
+  background-color: var(--color-primary);
 }
 
+.noPostsMessage,
 .loadingMessage {
   text-align: center;
   font-size: 16px;
   margin-top: 20px;
   color: var(--color-dark);
   font-weight: bold;
-}
-
-.postButton:hover {
-  background-color: var(--color-dark);
-  color: var(--color-primary-focus);
 }
 
 .carouselButton {
@@ -134,7 +123,7 @@
   color: var(--color-dark);
   border: none;
   border-radius: 50%;
-  padding: 10px 15px;
+  padding: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
   font-size: 1.5rem;
@@ -142,6 +131,7 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  font-weight: bold;
 }
 
 .carouselButton:hover {
@@ -150,11 +140,32 @@
 }
 
 .prev {
-  font-weight: bold;
-  left: -40px; /* Ajusta a posição das setas para fora do carrossel */
+  left: 10px;
 }
 
 .next {
-  font-weight: bold;
-  right: -40px; /* Ajusta a posição das setas para fora do carrossel */
+  right: 10px;
+}
+
+@media screen and (max-width: 900px) {
+  .postItem {
+    width: calc((100% - 20px) / 2); /* Dois itens por linha em telas menores */
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .postItem {
+    width: 100%; /* Um item por linha em telas pequenas */
+    margin: auto;
+    padding: 10px;
+  }
+
+  .carousel {
+    width: 50%;
+  }
+
+  .carouselButton {
+    font-size: 1.5rem;
+    padding: 8px;
+  }
 }

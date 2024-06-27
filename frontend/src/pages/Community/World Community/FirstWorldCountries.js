@@ -98,13 +98,12 @@ const FirstWorldCountries = () => {
       )
   );
 
-    // Filtrando as comunidades que não estão na lista fixa
-    const filterComunidades = comunidades.filter(
-      (comunidade) =>
-        ["alemanha", "brasil", "japão", "itália", "china"].includes(
-          comunidade.country.toLowerCase()
-        )
-    );
+  // Filtrando as comunidades que não estão na lista fixa
+  const filterComunidades = comunidades.filter((comunidade) =>
+    ["alemanha", "brasil", "japão", "itália", "china"].includes(
+      comunidade.country.toLowerCase()
+    )
+  );
 
   // Componente para seta personalizada anterior
   const CustomPrevArrow = ({ onClick }) => (
@@ -135,7 +134,7 @@ const FirstWorldCountries = () => {
         </section>
 
         <article className="container-cards">
-          <section >
+          <section>
             <h2 className={styles.CommunityTitle}>{t("Countries List")}</h2>
             <hr className={styles.hrTop} />
             <div className={styles.customSlider}>
@@ -181,13 +180,17 @@ const FirstWorldCountries = () => {
               )}
             </div>
           </section>
+          {loadingComplete && !loading && (
+            
+            <UserCommunitiesCard
+              comunidadesUsuario={comunidadesUsuario}
+              flagMappings={flagMappings}
+              numeroMembros={numeroMembros}
+              t={t}
+            />
 
-          <UserCommunitiesCard
-            comunidadesUsuario={comunidadesUsuario}
-            flagMappings={flagMappings}
-            numeroMembros={numeroMembros}
-            t={t}
-          />
+          )}
+          
           <TopFollowedUsers topFollowedUsers={topFollowedUsers} t={t} />
           <TopLikedPosts topLikedPosts={topLikedPosts} t={t} />
         </article>

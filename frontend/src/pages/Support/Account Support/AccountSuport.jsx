@@ -11,7 +11,7 @@ const AccountSupport = () => {
       <div className={styles.logo}>
         <a href="/home">{t("connecterLife")}</a>
       </div>
-      <hr /> <h2>{t("Account Support")}</h2>
+      <hr /> <h2 className="TitleSupport">{t("Account Support")}</h2>
       <div className={styles.accountSupport}>
         <p>
           {t(
@@ -31,7 +31,7 @@ const AccountSupport = () => {
           </li>
         </ul>
       </div>
-      <div className="footer-world">
+      <div className="footer-reset">
         <Footer />
       </div>
     </div>

@@ -35,9 +35,11 @@ hr {
   margin-bottom: 20px;
   color: var(--color-primary);
   text-align: center;
+  margin: auto;
 }
 
 .featureRequests p {
+  margin: 20px auto;
   margin-bottom: 20px;
   text-align: center;
 }

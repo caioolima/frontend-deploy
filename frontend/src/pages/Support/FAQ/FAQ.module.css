@@ -39,9 +39,11 @@ hr {
 .faq h2 {
   font-size: 24px;
   margin-bottom: 50px;
+  margin: 20px auto;
 }
 
 .faqItem {
+  margin: 20px auto;
   margin-bottom: 20px;
 }
 

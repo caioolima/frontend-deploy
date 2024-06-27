@@ -3,9 +3,7 @@ import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import styles from "./OtherCommunityCard.module.css"; // Importar classes CSS do OtherCommunityCard
-import customStyles from "../FirstWorld.module.css"; // Importar classes CSS do FirstWorldCountries
-import { defaultSliderSettings } from "../sliderConfig"; // Importar configurações do slider
+import styles from "./UserCommunitiesCard.module.css"; // Arquivo CSS Modules para estilização
 
 const UserCommunitiesCard = ({
   comunidadesUsuario,
@@ -14,77 +12,81 @@ const UserCommunitiesCard = ({
   t,
 }) => {
   const [loading, setLoading] = useState(true);
+  const [sliderLoaded, setSliderLoaded] = useState(false); // Estado para controlar carregamento do Slider
 
   // Função para seta personalizada anterior
   const CustomPrevArrow = ({ onClick }) => (
-    <div className={`${customStyles.customArrow} ${customStyles.prev}`} onClick={onClick}>
+    <div className={`${styles.customPrevButton} ${styles.sliderArrow}`} onClick={onClick}>
       {"\u2190"}
     </div>
   );
 
   // Função para seta personalizada seguinte
   const CustomNextArrow = ({ onClick }) => (
-    <div className={`${customStyles.customArrow} ${customStyles.next}`} onClick={onClick}>
+    <div className={`${styles.customNextButton} ${styles.sliderArrow}`} onClick={onClick}>
       {"\u2192"}
     </div>
   );
 
-  const sliderSettings = {
-    ...defaultSliderSettings,
-    infinite: false,
-    prevArrow: <CustomPrevArrow />,
-    nextArrow: <CustomNextArrow />,
+  // Configurações do Slider com as setas personalizadas
+  const settings = {
+    dots: true,
+    infinite: false, 
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    prevArrow: sliderLoaded && <CustomPrevArrow />, // Renderiza seta anterior apenas quando sliderLoaded for true
+    nextArrow: sliderLoaded && <CustomNextArrow />, // Renderiza seta seguinte apenas quando sliderLoaded for true
   };
 
   useEffect(() => {
+    // Simulação de carregamento de dados
     setTimeout(() => {
       setLoading(false);
-    }, 2000); // Simula o tempo de carregamento dos dados
+    }, 2000); // Altere este valor para o tempo real de carregamento dos dados
   }, []);
 
+  useEffect(() => {
+    // Define sliderLoaded como true após o carregamento inicial
+    if (!loading) {
+      setSliderLoaded(true);
+    }
+  }, [loading]);
+
   return (
-    <div className={customStyles.customSlider}>
-      <h2 className={customStyles.CommunityTitle}>{t("Your Communities")}</h2>
-      <hr className={customStyles.hrTop} />
+    <div className={styles.userCommunitiesCard}>
+      <h2>{t("Your Communities")}</h2>
+      <hr className={styles.hrTop} />
       {loading ? (
         <p className={styles.loadingMessage}>{t("loading")}</p>
       ) : comunidadesUsuario.length > 0 ? (
-        <Slider {...sliderSettings}>
+        <Slider {...settings}>
           {comunidadesUsuario.map((comunidade) => (
-            <div key={comunidade._id} className={styles.card}>
+            <div key={comunidade._id} className={styles.cardCommunity}>
               <div
-                className={styles.carousel}
+                className={styles.imageCountry}
                 style={{
                   backgroundImage: `url(${
                     flagMappings[comunidade.country.toLowerCase()] ||
                     comunidade.image
                   })`,
                 }}
+              ></div>
+              <span>{comunidade.country}</span>
+              <p>
+                {numeroMembros[comunidade._id] !== undefined
+                  ? numeroMembros[comunidade._id] === 1
+                    ? t("member", { count: numeroMembros[comunidade._id] })
+                    : t("members", { count: numeroMembros[comunidade._id] })
+                  : t("loading")}
+              </p>{" "}
+              <Link
+                to={`/community/${encodeURIComponent(
+                  comunidade.country
+                )}/${comunidade._id}`}
               >
-                <div className={styles.overlay}>
-                  <span className={styles.countryName}>
-                    {t(`${comunidade.country}`)}
-                  </span>
-                </div>
-              </div>
-              <div className={styles.cardContent}>
-                {numeroMembros[comunidade._id] !== undefined ? (
-                  <p className={styles.memberCount}>
-                    {t("members", { count: numeroMembros[comunidade._id] })}
-                  </p>
-                ) : (
-                  <p className={styles.memberCount}>{t("noCommunitiesUser")}</p>
-                )}
-                <Link
-                  to={`/community/${encodeURIComponent(
-                    comunidade.country
-                  )}/${comunidade._id}`}
-                >
-                  <div className={styles.buttonContainer}>
-                    <button className={styles.joinButton}>{t("join")}</button>
-                  </div>
-                </Link>
-              </div>
+                <button className={styles.signButtonSign}>{t("join")}</button>
+              </Link>
             </div>
           ))}
         </Slider>

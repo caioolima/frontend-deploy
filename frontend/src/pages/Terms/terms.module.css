@@ -1,18 +1,16 @@
-
-
-.logo-term {
+.logoTerm {
   font-size: 20px;
   font-weight: bold;
   margin-left: 4em;
   margin-top: 30px;
 }
 
-.logo-term a {
+.logoTerm a {
   text-decoration: none;
   color: #000000;
 }
 
-.logo-term:hover {
+.logoTerm:hover {
   text-decoration: none;
   color: #000000;
 }
@@ -25,40 +23,39 @@ hr {
 
 .container {
   max-width: 90%;
-  margin: 0 auto;
+  margin: auto;
   padding: 20px;
 }
 
-.main-heading {
+.mainHeading {
   color: #333;
   font-size: 50px;
   margin-bottom: 20px;
   margin: 0 auto;
 }
 
-.main-paragraph {
+.mainParagraph {
   color: #555;
   font-weight: 800;
   font-size: 20px;
-  margin-left: 14%;
+
   margin-top: 80px;
   margin-bottom: 30px;
 }
 
-.section-heading {
+.sectionHeading {
   color: #333;
   font-size: 20px;
-  margin-left: 14%;
   margin-top: 20px;
 }
 
-.image-container {
+.imageContainer {
   display: flex;
   justify-content: center;
   margin-top: 30px;
 }
 
-.image-container .image-with-text {
+.imageContainer .imageWithText {
   width: 50%;
   margin: 10px;
   position: relative;
@@ -67,12 +64,12 @@ hr {
   transition: transform 0.3s, filter 0.3s;
 }
 
-.image-container .image-with-text:hover {
+.imageContainer .imageWithText:hover {
   filter: brightness(1);
   transform: scale(1.05);
 }
 
-.image-container img {
+.imageContainer img {
   max-width: 100%;
   height: auto;
   margin-bottom: 15px;
@@ -80,7 +77,7 @@ hr {
   border-radius: 10px;
 }
 
-.image-container img:hover {
+.imageContainer img:hover {
   transform: scale(1.03);
 }
 
@@ -93,42 +90,39 @@ hr {
   margin-top: 3%;
   font-size: 15px;
   color: #555;
-}
-
-.footer-reset-terms {
-  position: absolute;
-  margin: 64px auto;
+  margin-bottom: 20px;
 }
 
 
 @media only screen and (max-width: 600px) {
   .container {
     margin-right: 0;
+    margin: auto;
   }
 
-  .main-heading {
+  .mainHeading {
     font-size: 30px;
     margin-left: 5%;
     margin-bottom: 55px;
   }
 
-  .main-paragraph {
+  .mainParagraph {
     font-size: 16px;
     margin-left: 5%;
     margin-top: 15px;
   }
 
-  .section-heading {
+  .sectionHeading {
     font-size: 18px;
     margin-left: 5%;
     margin-bottom: 5px;
   }
 
-  .image-container {
+  .imageContainer {
     flex-direction: column; /* Alterando a direção do flex para coluna */
   }
 
-  .image-container .image-with-text {
+  .imageContainer .imageWithText {
     width: 80%; /* Largura total para ocupar a largura da tela */
     margin: 10px 0; /* Adicionando margem entre as imagens */
     margin-left: 10%;
@@ -136,64 +130,62 @@ hr {
   }
 }
 
-/* Adicionando regras de mídia para telas maiores que 600px até 900px */
 @media only screen and (min-width: 601px) and (max-width: 900px) {
-  .image-container .image-with-text {
+  .imageContainer .imageWithText {
     width: 40%; /* Reduzindo a largura para 40% em telas maiores, mantendo-as lado a lado */
     margin-left: 3%;
   }
-  .main-heading {
+  .mainHeading {
     font-size: 30px;
     margin-left: 5%;
     margin-bottom: 55px;
   }
 
-  .main-paragraph {
+  .mainParagraph {
     font-size: 16px;
     margin-left: 5%;
     margin-top: 15px;
   }
 
-  .section-heading {
+  .sectionHeading {
     font-size: 18px;
     margin-left: 5%;
     margin-bottom: 5px;
   }
-  .container{
+  .container {
     margin-bottom: 66px;
   }
 }
 
-/* Adicionando regras de mídia para telas maiores que 900px */
 @media only screen and (min-width: 901px) {
-  .image-container {
+  .imageContainer {
     flex-direction: row; /* Restaurando a direção do flex para linha em telas maiores */
   }
 
-  .image-container .image-with-text {
+  .imageContainer .imageWithText {
     width: 20%; /* Mantendo a largura como 20% para manter as imagens lado a lado */
     margin: 10px 0;
     margin-left: 2%;
   }
-  .main-heading {
+  .mainHeading {
     font-size: 30px;
     margin-left: 5%;
     margin-bottom: 55px;
   }
 
-  .main-paragraph {
+  .mainParagraph {
     font-size: 16px;
     margin-left: 5%;
     margin-top: 15px;
   }
 
-  .section-heading {
+  .sectionHeading {
     font-size: 18px;
     margin-left: 5%;
     margin-bottom: 5px;
   }
 
-  .container{
+  .container {
     margin-bottom: 85px;
   }
 }

@@ -1,7 +1,7 @@
 /* FirstWorldCountries.module.css */
 .customSlider {
   width: 58%; /* Ajuste a largura conforme necessário */
-  margin: 0 auto; /* Centralize o slider */
+  margin: 50px auto; /* Centralize o slider */
   margin-bottom: 50px;
 }
 
@@ -121,3 +121,4 @@
     display: none;
   }
 }
+

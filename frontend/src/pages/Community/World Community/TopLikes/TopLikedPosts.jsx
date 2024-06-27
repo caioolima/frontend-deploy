@@ -43,33 +43,36 @@ const TopLikedPosts = ({ topLikedPosts, t }) => {
           <div className={styles.carousel} ref={carouselRef}>
             {topLikedPosts.map((post, index) => (
               <div key={post.userId._id} className={styles.postItem}>
-                <a href={`/profile/${post.userId._id}`} className={styles.postLink}>
-                  <img
-                    src={post.url}
-                    alt="Top Liked Post"
-                    className={styles.postImage}
-                  />
-                  <div className={styles.postDetails}>
-                    {post.userId.profileImageUrl ? (
-                      <img
-                        src={post.userId.profileImageUrl}
-                        alt="Profile"
-                        className={styles.profileImage}
-                      />
-                    ) : (
-                      <a href={`/profile/${post.userId._id}`}>
-                        <AiOutlineUser className={styles.profileImagenone} />
-                      </a>
-                    )}
-                    <p className={styles.postUser}>{post.username}</p>
-                    <p className={styles.postLikes}>
-                      {t("numberOfLikes")}: {post.likeCount}
-                    </p>
+                <img
+                  src={post.url}
+                  alt="Top Liked Post"
+                  className={styles.postImage}
+                />
+                <div className={styles.postDetails}>
+                  {post.userId.profileImageUrl ? (
+                    <img
+                      src={post.userId.profileImageUrl}
+                      alt="Profile"
+                      className={styles.profileImage}
+                    />
+                  ) : (
+                    <a href={`/profile/${post.userId._id}`}>
+                      <AiOutlineUser className={styles.profileImagenone} />
+                    </a>
+                  )}
+                  <p className={styles.postUser}>{post.username}</p>
+                  <p className={styles.postLikes}>
+                    {t("numberOfLikes")}: {post.likeCount}
+                  </p>{" "}
+                  <a
+                    href={`/profile/${post.userId._id}`}
+                    className={styles.postLink}
+                  >
                     <button className={styles.postButton}>
                       {t("viewProfile")}
-                    </button>
-                  </div>
-                </a>
+                    </button>{" "}
+                  </a>
+                </div>
               </div>
             ))}
           </div>

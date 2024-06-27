@@ -28,11 +28,3 @@
   padding: 0 20px; /* Adiciona algum espaço nas laterais */
 }
 
-.cards {
-  display: flex;
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-

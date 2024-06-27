@@ -16,16 +16,16 @@
 
 .detailsTitle {
   font-size: 2.0em;
-  margin-bottom: 20px;
   color: var(--color-primary);
   text-align: center;
+  margin: auto;
 }
 
 .detailsText {
   font-size: 1.2em;
   color: var(--color-dark);
-  margin-bottom: 15px;
   line-height: 1.5;
+  margin: 20px auto;
 }
 
 .detailsText strong {

@@ -2,9 +2,31 @@ body {
   font-family: "Raleway", sans-serif;
 }
 
+.logoTerm {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 4em;
+  margin-top: 30px;
+}
+
+.logoTerm a {
+  text-decoration: none;
+  color: #000000;
+}
+
+.logoTerm:hover {
+  text-decoration: none;
+  color: #000000;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 20px 0;
+}
 
 /* Estilo do contêiner principal */
-.privacy-container {
+.privacyContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,7 +34,7 @@ body {
 }
 
 /* Estilo do contêiner da política de privacidade */
-.privacy-policy-container {
+.privacyPolicyContainer {
   max-width: 800px;
   width: 80%;
   background-color: #ffffff;
@@ -24,13 +46,13 @@ body {
 }
 
 /* Estilo do cabeçalho */
-.privacy-container h1 {
+.privacyPolicyContainer h1 {
   color: #333;
   font-size: 24px;
   margin-bottom: 50px;
 }
 
-.privacy-container p{
+.privacyPolicyContainer p {
   margin-bottom: 30px;
 }
 
@@ -41,13 +63,13 @@ body {
 }
 
 /* Estilo do botão de pergunta */
-.privacy-question {
+.privacyQuestion {
   font-family: "Raleway", sans-serif;
   font-size: 16px;
   font-weight: 600;
   background-color: var(--color-details);
   color: #ffffff;
-  padding: 15px; /* Ajuste a altura conforme necessário */
+  padding: 15px;
   margin: 15px 0;
   border: none;
   border-radius: 5px;
@@ -55,15 +77,16 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%; /* Adicione esta linha para definir a largura como 100% */
+  width: 100%;
 }
+
 /* Estilo da seta no botão */
 .arrow {
   transition: transform 0.3s ease;
 }
 
 /* Estilo da resposta visível */
-.privacy-answer {
+.privacyAnswer {
   background-color: #f9f9f9;
   padding: 10px;
   border-radius: 5px;
@@ -71,18 +94,18 @@ body {
 }
 
 /* Estilo das seções e conteúdo */
-.privacy-section {
+.privacySection {
   margin-top: 20px;
   color: #333;
   margin-bottom: 20px;
 }
 
-.privacy-content {
+.privacyContent {
   color: #666;
 }
 
 /* Estilo do link na resposta */
-.privacy-answer a {
+.privacyAnswer a {
   color: var(--color-details);
 }
 
@@ -96,17 +119,17 @@ body {
 }
 
 @media screen and (max-width: 600px) {
-  .privacy-policy-container {
+  .privacyPolicyContainer {
     width: 100%;
     padding: 15px;
   }
 
-  h1 {
+  .privacyPolicyContainer h1 {
     font-size: 20px;
     margin-bottom: 25px;
   }
 
-  .privacy-question {
+  .privacyQuestion {
     font-size: 14px;
     padding: 12px;
     margin: 12px 0;
@@ -117,17 +140,17 @@ body {
     margin-left: 8px;
   }
 
-  .privacy-answer {
+  .privacyAnswer {
     padding: 8px;
     margin-top: 10px;
   }
 
-  .privacy-section {
+  .privacySection {
     margin-top: 12px;
     margin-bottom: 25px;
   }
 
-  .privacy-content {
+  .privacyContent {
     font-size: 14px;
     margin-bottom: 50px;
   }

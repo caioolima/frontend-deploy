@@ -32,7 +32,7 @@ hr {
   max-width: 600px;
 }
 
-h2 {
+.TitleSupport {
   color: var(--color-dark);
   font-size: 28px;
   text-align: center;

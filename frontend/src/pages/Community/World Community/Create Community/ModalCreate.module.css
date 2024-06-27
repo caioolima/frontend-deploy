@@ -24,6 +24,8 @@
   margin-bottom: 20px;
   font-size: 24px;
   color: #333;
+  text-align: center;
+  margin: auto;
 }
 
 .modalContentCreate form label {
@@ -41,9 +43,39 @@
 }
 
 .modalContentCreate form input[type="file"] {
-  padding: 8px;
+  display: none; /* Esconde o input original */
 }
 
+.fileInputLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 20px;
+  border: 2px dashed #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.3s, background-color 0.3s;
+  width: 100%;
+  box-sizing: border-box;
+  color: #333;
+}
+
+.fileInputLabel:hover {
+  border-color: var(--color-primary);
+  background-color: #f1f1f1;
+}
+
+.fileInputLabel:active {
+  background-color: var(--color-details-hover);
+}
+
+.fileInputIcon {
+  font-size: 16px;
+  margin-right: 8px;
+  color: var(--color-dark);
+}
 .modalButtonsCreate {
   display: flex;
   justify-content: flex-end;
@@ -77,38 +109,4 @@
 .modalButtonsCreate button[type="submit"]:hover {
   background: var(--color-details-hover);
   color: #fff;
-}
-
-.fileInput {
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #f8f8f8;
-  transition: border-color 0.3s;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.fileInput:focus {
-  outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-}
-
-.fileInput::file-selector-button {
-  padding: 10px 16px;
-  background-color: var(--color-primary);
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.fileInput::file-selector-button:hover {
-  background-color: var(--color-primary-focus);
-}
-
-.fileInput::file-selector-button:active {
-  background-color: var(--color-primary-hover);
 }
