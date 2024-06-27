@@ -470,7 +470,7 @@ function LoginForm() {
       <div className="help">
         <p>
           {t("need_help")}
-          <a href="/#"> {t("click_here")}.</a>
+          <a href="/support-page"> {t("click_here")}.</a>
         </p>
       </div>
 

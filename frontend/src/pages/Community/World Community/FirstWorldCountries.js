@@ -7,7 +7,6 @@ import "slick-carousel/slick/slick-theme.css";
 import SidebarMenu from "../../perfil/SidebarMenu/index.jsx";
 import Footer from "../../../components/Footer/footer.jsx";
 import Articles from "./Card Community/ImageField.jsx";
-import CommunityCard from "./Card Community/CommunityCard.jsx";
 import TopFollowedUsers from "./TopFollows/TopFollowedUsers.jsx";
 import TopLikedPosts from "./TopLikes/TopLikedPosts.jsx";
 import UserCommunitiesCard from "./Card Community/UserCommunitiesCard.jsx";
@@ -99,6 +98,14 @@ const FirstWorldCountries = () => {
       )
   );
 
+    // Filtrando as comunidades que não estão na lista fixa
+    const filterComunidades = comunidades.filter(
+      (comunidade) =>
+        ["alemanha", "brasil", "japão", "itália", "china"].includes(
+          comunidade.country.toLowerCase()
+        )
+    );
+
   // Componente para seta personalizada anterior
   const CustomPrevArrow = ({ onClick }) => (
     <div className={`${styles.customArrow} ${styles.prev}`} onClick={onClick}>
@@ -128,27 +135,27 @@ const FirstWorldCountries = () => {
         </section>
 
         <article className="container-cards">
-          <section className="cards-contain">
-            <h2 className="title-comunidade">{t("Countries List")}</h2>
-            <hr />
-            <section className="cards">
-              {comunidades
-                .filter((comunidade) =>
-                  ["alemanha", "brasil", "japão", "itália", "china"].includes(
-                    comunidade.country.toLowerCase()
-                  )
-                )
-                .map((comunidade) => (
-                  <CommunityCard
-                    key={comunidade._id}
-                    comunidade={comunidade}
-                    numeroMembros={numeroMembros}
-                    flagMappings={flagMappings}
-                    t={t}
-                    className="community-card"
-                  />
-                ))}
-            </section>
+          <section >
+            <h2 className={styles.CommunityTitle}>{t("Countries List")}</h2>
+            <hr className={styles.hrTop} />
+            <div className={styles.customSlider}>
+              {loading && (
+                <p className={styles.loadingMessage}>{t("loading")}</p>
+              )}
+              {loadingComplete && !loading && (
+                <Slider {...sliderSettings}>
+                  {filterComunidades.map((comunidade) => (
+                    <OtherCommunityCard
+                      key={comunidade._id}
+                      comunidade={comunidade}
+                      numeroMembros={numeroMembros}
+                      flagMappings={flagMappings}
+                      t={t}
+                    />
+                  ))}
+                </Slider>
+              )}
+            </div>
           </section>
           <section>
             <h2 className={styles.CommunityTitle}>

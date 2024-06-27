@@ -10,39 +10,115 @@ import UserProfileContainer from "./pages/perfil/UserProfileContainer";
 import Introduction from "./pages/ConnecterHome/introduction";
 import SearchUser from "./pages/SearchUser/SearchUser";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
-import PrivateRoute from "./PrivateRoute.js";
-import FirstWorldCountries from "./pages/Community/World Community/FirstWorldCountries.js";
-import Community from "./pages/Community/Community Services/Community.js";
-import ChatScreen from "./pages/Community/Chat/ChatScreen.js";
-import FeedPage from "./pages/Feed/feed.js";
-import NewPassword from "./pages/ResetPassword/NewPassword.jsx";
-import BackpackingArticle from "./pages/Community/Articles/BestPlaces/BackpackingArticle.jsx"; 
-import BackpackingIntroduction from "./pages/Community/Articles/IntroductionBackpacker/BackpackerArticle.jsx"; 
-import PerfectPhotos from "./pages/Community/Articles/PhotosArticle/PerfectPhotosArticle.jsx";
-import { useAuth } from "./hooks/use-auth";
+import PrivateRoute from "./PrivateRoute";
+import PublicRoute from "./PublicRoute"; // Importa o novo componente PublicRoute
+import FirstWorldCountries from "./pages/Community/World Community/FirstWorldCountries";
+import Community from "./pages/Community/Community Services/Community";
+import ChatScreen from "./pages/Community/Chat/ChatScreen";
+import FeedPage from "./pages/Feed/feed";
+import NewPassword from "./pages/ResetPassword/NewPassword";
+import BackpackingArticle from "./pages/Community/Articles/BestPlaces/BackpackingArticle";
+import BackpackingIntroduction from "./pages/Community/Articles/IntroductionBackpacker/BackpackerArticle";
+import PerfectPhotos from "./pages/Community/Articles/PhotosArticle/PerfectPhotosArticle";
+import SupportPage from "./pages/Support/Support Page/SupportPage";
+import AccountSupport from "./pages/Support/Account Support/AccountSuport";
+import FAQ from "./pages/Support/FAQ/FAQ";
+import FeatureRequests from "./pages/Support/Feature Requests/FeatureRequests"; 
 
 function App() {
-  const { user } = useAuth();
-
   return (
     <Routes>
-      <Route path="/" element={<PrivateRoute><Introduction /></PrivateRoute>} />
-      <Route path="/home" element={<PrivateRoute><AuthLayout><HomeScreen /></AuthLayout></PrivateRoute>} />
-      <Route path="/reset" element={<AuthLayout><ResetPassword /></AuthLayout>} />
-      <Route path="/terms" element={<AuthLayout><Terms /></AuthLayout>} />
-      <Route path="/service" element={<AuthLayout><Service /></AuthLayout>} />
-      <Route path="/privacy" element={<AuthLayout><Privacy /></AuthLayout>} />
+      <Route
+        path="/"
+        element={
+          <PrivateRoute>
+            <PublicRoute>
+              <Introduction />
+            </PublicRoute>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/home"
+        element={
+          <PrivateRoute>
+            <AuthLayout>
+              <HomeScreen />
+            </AuthLayout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/reset"
+        element={
+          <AuthLayout>
+            <ResetPassword />
+          </AuthLayout>
+        }
+      />
+      <Route
+        path="/terms"
+        element={
+          <AuthLayout>
+            <Terms />
+          </AuthLayout>
+        }
+      />
+      <Route
+        path="/service"
+        element={
+          <AuthLayout>
+            <Service />
+          </AuthLayout>
+        }
+      />
+      <Route
+        path="/privacy"
+        element={
+          <AuthLayout>
+            <Privacy />
+          </AuthLayout>
+        }
+      />
       <Route path="/profile/:userId" element={<UserProfileContainer />} />
       <Route path="/search" element={<SearchUser />} />
-      <Route path="*" element={<NotFoundPage />} />
+      <Route
+        path="*"
+        element={
+          <PublicRoute>
+            <NotFoundPage />
+          </PublicRoute>
+        }
+      />
       <Route path="/worldcommunity" element={<FirstWorldCountries />} />
-      <Route path="/comunidade/:countryId/:communityId/chat" element={<ChatScreen />} />
-      <Route path="/community/:countryId/:communityId" element={<Community />} />
+      <Route
+        path="/comunidade/:countryId/:communityId/chat"
+        element={<ChatScreen />}
+      />
+      <Route
+        path="/community/:countryId/:communityId"
+        element={<Community />}
+      />
       <Route path="/feed/:userId" element={<FeedPage />} />
-      <Route path="/newpassword/:token" element={<AuthLayout><NewPassword /></AuthLayout>} />
+      <Route
+        path="/newpassword/:token"
+        element={
+          <AuthLayout>
+            <NewPassword />
+          </AuthLayout>
+        }
+      />
       <Route path="/backpacking-article" element={<BackpackingArticle />} />
-      <Route path="/backpacking-introduction" element={<BackpackingIntroduction />} />
+      <Route
+        path="/backpacking-introduction"
+        element={<BackpackingIntroduction />}
+      />
       <Route path="/perfect-photos" element={<PerfectPhotos />} />
+      <Route path="/support-page" element={<SupportPage />}></Route>
+      <Route path="/support-page" element={<SupportPage />} />
+      <Route path="/support/account" element={<AccountSupport />} />
+      <Route path="/support/faq" element={<FAQ />} />
+      <Route path="/support/feature-requests" element={<FeatureRequests />} />
     </Routes>
   );
 }

@@ -66,7 +66,7 @@ function Footer({ userId }) {
     <footer className="footer">
       <div className="footer-terms">
         <Link to="/terms">{t("terms_of_service")}</Link>
-        <a href="/#">{t("help")}</a>
+        <a href="/support-page">{t("help")}</a>
         <a href="/#">{t("about")}</a>
       </div>
       <div className="language-buttons">

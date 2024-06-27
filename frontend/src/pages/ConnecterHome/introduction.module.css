@@ -1,5 +1,5 @@
- /* introduction.css */
- .abc {
+/* introduction.css */
+.abc {
   position: relative;
   text-align: center;
   color: #fff;
@@ -12,7 +12,6 @@
   margin-bottom: 30px;
   color: black;
 }
-
 
 .backgroundImage {
   max-width: 100%;
@@ -27,37 +26,53 @@
   text-align: left;
 }
 
-
 .introContent {
   margin-left: 35px;
   padding: 5px;
   width: 60%;
 }
 
-@media (max-width:800px) {
-    .backgroundImage{
-      text-align: center;
-      justify-content: center;
+@media (max-width: 800px) {
+  .backgroundImage {
+    text-align: center;
+    justify-content: center;
+  }
 
-    }
-
-    .introContent{
-      width: 100%;
-      margin: 0px;
-    }
- 
+  .introContent {
+    width: 100%;
+    margin: 0px;
+  }
 }
 
 .introInfo .introH2 {
   font-size: 2.2rem;
-  margin-bottom: 20px; /* Reduz a margem inferior */
+  width: 100%;
+  text-align: left;
+  color: #fff;
+  margin: auto;
 }
 
 .introP {
   font-size: 1.2rem;
+  margin: 10px auto;
   margin-bottom: 30px; /* Reduz a margem inferior */
   color: #fff;
 }
+
+@media (max-width: 800px) {
+  .introInfo .introH2 {
+    font-size: 1.8rem;
+    text-align: left; /* Centralizar texto em telas menores */
+    width: 90%;
+  }
+
+  .introP {
+    font-size: 1rem;
+    text-align: left; /* Centralizar texto em telas menores */
+    width: 90%;
+  }
+}
+
 .vamosNessaButton {
   background-color: #fff;
   color: var(--color-primary-focus);
@@ -72,7 +87,6 @@
   font-family: "Raleway", sans-serif;
 }
 
-
 .vamosNessaButton:hover {
   background-color: var(--color-primary-focus);
   color: #fff;
@@ -82,7 +96,6 @@
 .vamosNessaButton:active {
   transform: scale(0.95);
 }
-
 
 .exploreInfo .mainTitle {
   color: #000000; /* Cor do texto */
@@ -128,11 +141,11 @@
   clip-path: polygon(100% 0%, 0% 50%, 100% 100%);
 }
 
-@media (max-width:850px) {
+@media (max-width: 850px) {
   .exploreInfo .subTitle::before {
     left: 90%; /* Posicionamento da seta à esquerda */
   }
-  
+
   .exploreInfo .subTitle::after {
     right: 90%; /* Posicionamento da seta à direita */
   }
@@ -147,21 +160,21 @@
   position: relative;
 }
 
-@media (max-width:650px) {
-    .lines{
-      display: none;
-    }
+@media (max-width: 650px) {
+  .lines {
+    display: none;
+  }
 
-    .line{
-      display: none;
-    }
+  .line {
+    display: none;
+  }
 }
 
-@media (max-width:586px) {
-    .stepsContainer{
-      flex-wrap: wrap;
-      gap: 20px;
-    }
+@media (max-width: 586px) {
+  .stepsContainer {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
 }
 
 .lines {
@@ -187,8 +200,6 @@
   margin: 5px;
 }
 
- 
-
 .stepNumber {
   width: 50px;
   height: 50px;
@@ -199,26 +210,27 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative; 
-  top: 0; 
+  position: relative;
+  top: 0;
 }
-
 
 .stepText {
   margin-top: 20px;
   text-align: center;
-  font-size: 1.0rem;
+  font-size: 1rem;
   color: #000000;
   width: 80%;
 }
 
 .connectWithTravelers {
+  position: relative;
+  width: 100%;
+  height: auto; /* Altura automática para ajustar ao conteúdo */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-
 .connectWithTravelers {
   position: relative;
   width: 100%;
@@ -228,12 +240,12 @@
 .backgroundImage2 {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 100vh; /* Usar viewport height para cobrir toda a tela */
   background-image: url("../../assets/backpacker-community.jpeg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  filter: blur(2px); /* Aplica o efeito de desfoque à imagem de fundo */
+  filter: blur(2px); /* Efeito de desfoque */
 }
 
 .connectTextH2 {
@@ -241,7 +253,7 @@
   font-size: 2rem;
   margin-bottom: 20px; /* Aumenta a margem inferior do h2 */
   position: absolute;
-  top: 40%;
+  top: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
@@ -263,46 +275,79 @@
   z-index: 2; /* Garante que o parágrafo esteja acima do fundo */
 }
 
-@media (min-width:601px) and (max-width:1200px) {
-  .connectTextH2{
+@media (min-width: 601px) and (max-width: 1200px) {
+  .connectTextH2 {
     top: 35%;
     width: 90%;
   }
 
-  .connectTextP{
+  .connectTextP {
     top: 60%;
+  }
+}
+
+@media (max-width: 768px) {
+  .connectTextH2 {
+    font-size: 2.8rem; /* Reduza o tamanho do título */
+    margin-top: 30px; /* Espaçamento superior */
+  }
+
+  .connectTextP {
+    font-size: 1.0rem; /* Reduza ainda mais o tamanho do parágrafo */
+    top: 60%; /* Ajuste adicional na posição do parágrafo */
+    width: 80%;
+  }
+  .stepText{
+    width: 160%;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .connectTextH2 {
+    font-size: 1.8rem; /* Reduza ainda mais o tamanho do título */
+    top: 40%; /* Ajuste adicional na posição do título */
+    width: 100%;
+  }
+
+  .connectTextP {
+    font-size: 1.0rem; /* Reduza ainda mais o tamanho do parágrafo */
+    top: 60%; /* Ajuste adicional na posição do parágrafo */
+    width: 80%;
+  }
+  .backgroundImage2 {
+    height: 60vh; /* Reduzir altura em dispositivos menores para evitar cortes */
   }
 }
 
 .ctaSection {
   display: flex;
   align-items: center;
-  justify-content: center; /* Centraliza horizontalmente */
-  background-color: var(--color-primary-focus); /* Cor de fundo rosa */
+  justify-content: center;
+  background-color: var(--color-primary-focus);
   padding: 20px;
 }
 
 .ctaContent p {
-  color: #000000; /* Cor do texto */
-  font-size: 2.1rem;
-  margin-right: 70px; /* Espaçamento entre o texto e o botão */
-  margin-top: 30px;
+  color: #000;
+  font-size: 1.8rem;
+  text-align: center; /* Centralizar o texto */
+  margin: auto 20px; /* Espaçamento ao redor do texto */
   font-weight: bold;
 }
 
 .vamoComigoButton {
   background-color: var(--color-details); /* Cor de fundo do botão */
   color: #fff; /* Cor do texto */
-  font-size: 1.5rem; /* Tamanho da fonte */
-  padding: 10px 20px; /* Espaçamento interno */
+  font-size: 1.2rem; /* Diminuir tamanho da fonte */
+  padding: 8px 16px; /* Diminuir padding */
   border: none; /* Remove a borda */
-  border-radius: 5px; /* Borda arredondada */
+  border-radius: 20px; /* Borda arredondada */
   cursor: pointer; /* Cursor ao passar por cima */
   outline: none; /* Remove o contorno ao clicar */
   transition: background-color 0.3s, transform 0.3s; /* Transição de cor de fundo e escala */
-  border-radius: 20px;
   font-family: "Raleway", sans-serif; /* Fonte */
-  margin-top: 15px;
+  margin: auto;
 }
 
 .vamoComigoButton:hover {
@@ -311,4 +356,18 @@
 
 .vamoComigoButton:active {
   transform: scale(0.95); /* Efeito de escala ao clicar */
+}
+
+@media (max-width: 600px) {
+  .vamoComigoButton {
+    font-size: 1rem; /* Reduzir ainda mais o tamanho da fonte em telas menores */
+    width: 100%;
+  }
+  .ctaContent p{
+    font-size: 1.1rem;
+  }
+  .exploreInfo .mainTitle {
+    width: 90%;
+    font-size: 1.6rem;
+  }
 }

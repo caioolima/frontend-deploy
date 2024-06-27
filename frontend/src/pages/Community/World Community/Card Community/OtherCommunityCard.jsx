@@ -42,9 +42,13 @@ const OtherCommunityCard = ({ comunidade, numeroMembros, flagMappings, t }) => {
               <p className={styles.memberCount}>{t("noCommunitiesUser")}</p>
             )}
             <Link
-              to={`/community/${encodeURIComponent(comunidade.country)}/${comunidade._id}`}
+              to={`/community/${encodeURIComponent(comunidade.country)}/${
+                comunidade._id
+              }`}
             >
-              <button className={styles.joinButton}>{t("join")}</button>
+              <div className={styles.buttonContainer}>
+                <button className={styles.joinButton}>{t("join")}</button>
+              </div>
             </Link>
           </div>
         </div>

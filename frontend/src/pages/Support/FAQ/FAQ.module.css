@@ -1,0 +1,88 @@
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 4em;
+  margin-top: 30px;
+}
+
+.logo a {
+  text-decoration: none;
+  color: #000000;
+}
+
+.logo a:hover {
+  text-decoration: none;
+  color: #000000;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 20px 0;
+}
+
+.faqContainer {
+  max-width: 800px;
+  margin: 150px auto;
+  padding: 20px;
+}
+
+.faq {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: "Raleway", sans-serif;
+  text-align: center;
+}
+
+.faq h2 {
+  font-size: 24px;
+  margin-bottom: 50px;
+}
+
+.faqItem {
+  margin-bottom: 20px;
+}
+
+.faqItem button {
+  font-family: "Raleway", sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  background-color: #fff;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.faqItem button h3 {
+  font-size: 18px;
+  margin: 0;
+  color: var(--color-primary-focus);
+}
+
+.faqItem button span {
+  font-size: 24px;
+  transition: transform 0.3s ease;
+}
+
+.faqItem p {
+  margin-top: 10px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.faqItem button:hover {
+  background-color: #f0f0f0;
+}
+
+.faqItem button:focus {
+  background-color: #e0e0e0;
+}
+
+.faqItem button[aria-expanded="true"] span {
+  transform: rotate(90deg);
+}

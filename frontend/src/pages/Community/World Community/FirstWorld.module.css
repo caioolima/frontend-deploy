@@ -6,8 +6,12 @@
 }
 
 .CommunityTitle {
-  color: rgb(0, 0, 0);
-  margin: auto 260px;
+  font-size: 1.5rem;
+  color: var(--color-dark);
+  text-align: center;
+  margin-bottom: 20px;
+  margin: auto;
+  margin-top: 50px;
 }
 .hrTop {
   border: none;
@@ -43,8 +47,9 @@
   right: -25px; /* Posição da seta "next" */
 }
 
-.custom-arrow:hover {
-  background-color: #333; /* Cor de fundo ao passar o mouse */
+.customArrow.prev:hover,
+.customArrow.next:hover {
+  background-color: var(--color-primary-focus); /* Cor de fundo ao passar */
 }
 
 .loadingMessage {
@@ -53,4 +58,66 @@
   margin-top: 20px;
   color: var(--color-dark);
   font-weight: bold;
+}
+
+/* Telas grandes */
+@media (min-width: 1200px) {
+  .customSlider {
+    width: 60%; /* Ajuste a largura conforme necessário */
+  }
+
+  .hrTop {
+    width: 50%;
+  }
+}
+
+/* Telas médias */
+@media (max-width: 1000px) and (min-width: 768px) {
+  .customSlider {
+    width: 80%; /* Ajuste a largura conforme necessário */
+  }
+
+  .hrTop {
+    width: 70%;
+  }
+}
+
+/* Telas pequenas */
+@media (max-width: 767px) {
+  .customSlider {
+    width: 100%; /* Ajuste a largura conforme necessário */
+  }
+
+  .hrTop {
+    width: 90%;
+  }
+
+  .CommunityTitle {
+    font-size: 1.2rem; /* Ajuste o tamanho da fonte */
+    margin-top: 30px; /* Ajuste a margem superior */
+  }
+
+  .customArrow {
+    display: none;
+  }
+}
+
+/* Telas muito pequenas */
+@media (max-width: 480px) {
+  .customSlider {
+    width: 100%; /* Ajuste a largura conforme necessário */
+  }
+
+  .hrTop {
+    width: 100%;
+  }
+
+  .CommunityTitle {
+    font-size: 1rem; /* Ajuste o tamanho da fonte */
+    margin-top: 20px; /* Ajuste a margem superior */
+  }
+
+  .customArrow {
+    display: none;
+  }
 }
