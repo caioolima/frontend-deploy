@@ -1,8 +1,8 @@
 
 /* Estilos para o contêiner */
 .country-details-container {
-    max-width: 900px;
-    margin: 20vh auto 0; /* Centraliza horizontalmente e adiciona margem superior */
+    max-width: 650px;
+    margin: 20vh auto; /* Centraliza horizontalmente e adiciona margem superior */
     display: flex;
     flex-direction: column;
     align-items: center; /* Centraliza verticalmente */
@@ -17,14 +17,15 @@
 }
 
 .flag {
-    position: fixed; /* Fixa a bandeira para cobrir toda a tela */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover; /* Garante que a imagem de fundo cubra toda a tela */
-    background-position: center; /* Centraliza a imagem de fundo */
+  position: absolute; /* Mantém o fluxo normal do documento */
+  top: 0;
+  left: 0;
+  width: 100vw; /* 100% da largura da viewport */
+  height: 100vh; /* 100% da altura da viewport */
+  background-size: cover; /* Garante que a imagem de fundo cubra toda a tela */
+  background-position: center; /* Centraliza a imagem de fundo */
 }
+
 
   /* Estilos para o título */
   .country-details-title {

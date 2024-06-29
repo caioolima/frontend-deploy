@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./style.module.css";
 import TextField from "@mui/material/TextField";
 import PhoneInput from "react-phone-number-input";
@@ -19,6 +19,7 @@ const EditModal = () => {
     setModalFullName,
     modalDateOfBirth,
     phoneNumber,
+    setPhoneNumber,
     countryCode,
     phoneError,
     setEditMode,
@@ -29,9 +30,18 @@ const EditModal = () => {
     handleChangePhoneNumber,
     handleCloseModal,
     handleDeleteBiography,
+    handleDeleteAccount,
   } = useModalEdit();
 
+  const [initialState, setInitialState] = useState({
+    initialUsername: newUsername,
+    initialBiography: newBiography,
+    initialPhoneNumber: phoneNumber,
+  });
+
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
+  const [showConfirmDeleteAccountModal, setShowConfirmDeleteAccountModal] =
+    useState(false);
 
   const openConfirmDeleteModal = () => {
     setShowConfirmDeleteModal(true);
@@ -39,6 +49,14 @@ const EditModal = () => {
 
   const closeConfirmDeleteModal = () => {
     setShowConfirmDeleteModal(false);
+  };
+
+  const openConfirmDeleteAccountModal = () => {
+    setShowConfirmDeleteAccountModal(true);
+  };
+
+  const closeConfirmDeleteAccountModal = () => {
+    setShowConfirmDeleteAccountModal(false);
   };
 
   const handleSaveEdits = () => {
@@ -51,9 +69,26 @@ const EditModal = () => {
 
   const handleChange = (e) => {
     setNewBiography(e.target.value);
-    e.target.style.height = "auto"; // Reseta a altura para calcular a altura necessária
-    e.target.style.height = `${e.target.scrollHeight}px`; // Define a altura com base no conteúdo
+    e.target.style.height = "auto";
+    e.target.style.height = `${e.target.scrollHeight}px`;
   };
+
+  const handleInputChange = (value) => {
+    setPhoneNumber(value);
+  };
+
+  useEffect(() => {
+    const hasChanges =
+      newUsername !== initialState.initialUsername ||
+      newBiography !== initialState.initialBiography ||
+      phoneNumber !== initialState.initialPhoneNumber;
+    
+    // Habilita ou desabilita o botão de salvar com base nas alterações nos campos
+    const saveButton = document.getElementById("save-button");
+    if (saveButton) {
+      saveButton.disabled = !hasChanges;
+    }
+  }, [newUsername, newBiography, phoneNumber]);
 
   document.body.style.overflow = "hidden";
 
@@ -115,7 +150,7 @@ const EditModal = () => {
           <PhoneInput
             placeholder="Número de Telefone"
             value={phoneNumber}
-            onChange={handleChangePhoneNumber}
+            onChange={handleInputChange}
             inputClassName={`${styles["phone-input"]} ${
               phoneError ? styles["error_message"] : ""
             }`}
@@ -125,13 +160,31 @@ const EditModal = () => {
           )}
         </div>
 
+        <div className={styles["delete-account"]}>
+          <button
+            className={styles["delete-account-button"]}
+            onClick={openConfirmDeleteAccountModal}
+          >
+            Excluir Conta
+          </button>
+        </div>
+
         <div className={styles["save-button-container"]}>
           <button
+            id="save-button"
             className={`${styles["save-button"]} ${
-              !newUsername ? styles["disabled"] : ""
+              !newUsername || (
+                newUsername === initialState.initialUsername &&
+                newBiography === initialState.initialBiography &&
+                phoneNumber === initialState.initialPhoneNumber
+              ) ? styles["disabled"] : ""
             }`}
             onClick={handleSaveEdits}
-            disabled={!newUsername}
+            disabled={!newUsername || (
+              newUsername === initialState.initialUsername &&
+              newBiography === initialState.initialBiography &&
+              phoneNumber === initialState.initialPhoneNumber
+            )}
           >
             Salvar
           </button>
@@ -141,9 +194,34 @@ const EditModal = () => {
         {showConfirmDeleteModal && (
           <div className={styles["confirm-delete-modal"]}>
             <p>Você realmente deseja excluir sua biografia?</p>
-            <button onClick={handleDeleteBiography}>Sim</button>
+            <button
+              className={styles["confirm-delete-button"]}
+              onClick={handleDeleteBiography}
+            >
+              Sim
+            </button>
             <button
               onClick={closeConfirmDeleteModal}
+              className={styles["cancel-button-bio"]}
+            >
+              Cancelar
+            </button>
+          </div>
+        )}
+        {showConfirmDeleteAccountModal && (
+          <div className={styles["confirm-delete-modal"]}>
+            <p className={styles["text-delete-modal"]}>
+              Você realmente deseja excluir sua conta? A conta será desativada
+              após 30 dias.
+            </p>
+            <button
+              onClick={handleDeleteAccount}
+              className={styles["confirm-delete-button"]}
+            >
+              Sim
+            </button>
+            <button
+              onClick={closeConfirmDeleteAccountModal}
               className={styles["cancel-button-bio"]}
             >
               Cancelar

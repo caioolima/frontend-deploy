@@ -5,7 +5,6 @@
   font-size: 1.5rem;
   color: var(--color-dark);
   text-align: center;
-  margin-bottom: 20px;
 }
 
 .hrTop {
@@ -34,6 +33,7 @@
   background-color: white;
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  margin-bottom: 50px;
 }
 
 .postItem {
@@ -151,6 +151,7 @@
   .postItem {
     width: calc((100% - 20px) / 2); /* Dois itens por linha em telas menores */
   }
+  
 }
 
 @media screen and (max-width: 600px) {
@@ -161,11 +162,20 @@
   }
 
   .carousel {
-    width: 50%;
+    width: 65%;
+    height: 420px;
   }
 
   .carouselButton {
     font-size: 1.5rem;
     padding: 8px;
+  }
+
+  .topLikedTitle {
+    font-size: 1rem;
+    margin-top: 50px;
+  }
+  .hrTop {
+    width: 100%;
   }
 }

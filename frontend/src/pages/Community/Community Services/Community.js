@@ -73,9 +73,11 @@ const CountryDetails = () => {
     <div>
       {!loading && (
         <Flag countryFlag={countryFlag}>
+          <SidebarMenu /> {/* Menu */}
           <div className="country-details-container">
-            <SidebarMenu />
-            <h2 className="country-details-title">{t("details-community-title")}</h2>
+            <h2 className="country-details-title">
+              {t("details-community-title")}
+            </h2>
             <p className="country-id">{countryId}</p>
             <CommunityRules />
             <JoinButton
@@ -87,9 +89,9 @@ const CountryDetails = () => {
           </div>
         </Flag>
       )}
-      <div className="footer-world">
-        <Footer />
-      </div>
+      <div className="footer-reset">
+            <Footer userId={userId} />
+          </div>
     </div>
   );
 };

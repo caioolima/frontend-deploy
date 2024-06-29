@@ -8,6 +8,7 @@
 .userCommunitiesCard h2 {
   color: rgb(0, 0, 0);
   margin: auto 20px;
+  text-align: center;
 }
 
 .hrTop {
@@ -27,6 +28,7 @@
   max-width: 75%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .cardCommunity:last-child {
@@ -127,20 +129,19 @@
   background-color: var(--color-primary); /* Cor de fundo ao passar */
 }
 
-/* Estilos específicos para media query */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
+  .userCommunitiesCard {
+    width: 600px;
+    margin-bottom: 50px;
+    font-size: 0.7rem;
+    text-align: center;
+  }
+  .cardCommunity {
+    margin: auto;
+    height: auto;
+  }
   .customPrevButton,
   .customNextButton {
     display: none; /* Esconde as setas */
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .userCommunitiesCard {
-    width: 520px;
-    margin: auto;
-  }
-  .cardCommunity {
-    height: auto;
   }
 }

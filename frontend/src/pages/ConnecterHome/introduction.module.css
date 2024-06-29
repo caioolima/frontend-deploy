@@ -1,4 +1,3 @@
-/* introduction.css */
 .abc {
   position: relative;
   text-align: center;
@@ -15,11 +14,11 @@
 
 .backgroundImage {
   max-width: 100%;
-  height: 87.2vh;
+  height: 88.5vh;
   background-image: url("../../assets/backpackercommunity.jpeg");
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; /* Adiciona a animação de rolagem */
+  background-attachment: fixed;
   margin-top: 50px;
   display: flex;
   align-items: center;
@@ -36,6 +35,7 @@
   .backgroundImage {
     text-align: center;
     justify-content: center;
+    height: 700px;
   }
 
   .introContent {
@@ -49,34 +49,48 @@
   width: 100%;
   text-align: left;
   color: #fff;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.8);
   margin: auto;
+  border-radius: 5px;
 }
 
 .introP {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   margin: 10px auto;
-  margin-bottom: 30px; /* Reduz a margem inferior */
+  margin-bottom: 30px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
+  border-radius: 5px;
 }
 
 @media (max-width: 800px) {
   .introInfo .introH2 {
     font-size: 1.8rem;
-    text-align: left; /* Centralizar texto em telas menores */
+    text-align: left;
     width: 90%;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    border-radius: 5px;
   }
 
   .introP {
     font-size: 1rem;
-    text-align: left; /* Centralizar texto em telas menores */
+    text-align: left;
     width: 90%;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    border-radius: 5px;
   }
 }
 
 .vamosNessaButton {
   background-color: #fff;
   color: var(--color-primary-focus);
-  border: 2px solid var(--color-primary-focus); /* Adiciona uma borda de 2px sólida branca */
+  border: 2px solid var(--color-primary-focus);
   border-radius: 20px;
   padding: 10px 30px;
   font-size: 1.1rem;
@@ -96,28 +110,27 @@
 .vamosNessaButton:active {
   transform: scale(0.95);
 }
-
 .exploreInfo .mainTitle {
-  color: #000000; /* Cor do texto */
-  text-align: center; /* Alinhamento centralizado */
-  margin-top: 60px; /* Espaçamento superior */
-  font-size: 1.6rem; /* Tamanho da fonte */
-  font-family: "Raleway", sans-serif; /* Fonte */
-  width: 70%; /* Largura do elemento */
-  margin-left: auto; /* Margem à esquerda automática */
-  margin-right: auto; /* Margem à direita automática */
+  color: #000;
+  text-align: center;
+  margin-top: 60px;
+  font-size: 2rem;
+  font-family: "Raleway", sans-serif;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .exploreInfo .subTitle {
-  color: #000; /* Cor do texto */
-  text-align: center; /* Alinhamento centralizado */
-  margin-top: 60px; /* Espaçamento superior */
-  font-size: 1.6rem; /* Tamanho da fonte */
-  font-family: "Raleway", sans-serif; /* Fonte */
-  width: 70%; /* Largura do elemento */
-  margin-left: auto; /* Margem à esquerda automática */
-  margin-right: auto; /* Margem à direita automática */
-  position: relative; /* Para posicionamento dos pseudo-elementos */
+  color: #000;
+  text-align: center;
+  margin-top: 60px;
+  font-size: 2rem;
+  font-family: "Raleway", sans-serif;
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
 }
 
 .exploreInfo .subTitle::before,
@@ -126,30 +139,22 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 20px; /* Largura da seta */
-  height: 20px; /* Altura da seta */
-  background-color: var(--color-details); /* Cor da seta */
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-details);
 }
 
 .exploreInfo .subTitle::before {
-  left: 100vh; /* Posicionamento da seta à esquerda */
+  left: -30px;
   clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
 }
 
 .exploreInfo .subTitle::after {
-  right: 100vh; /* Posicionamento da seta à direita */
+  right: -30px;
   clip-path: polygon(100% 0%, 0% 50%, 100% 100%);
 }
 
-@media (max-width: 850px) {
-  .exploreInfo .subTitle::before {
-    left: 90%; /* Posicionamento da seta à esquerda */
-  }
 
-  .exploreInfo .subTitle::after {
-    right: 90%; /* Posicionamento da seta à direita */
-  }
-}
 
 .stepsContainer {
   display: flex;
@@ -182,16 +187,17 @@
   top: 20%;
   left: 50%;
   transform: translateX(-50%);
-  width: 65%; /* Aumenta a largura para dar espaço aos lados */
+  width: 65%;
   display: flex;
   justify-content: space-between;
 }
 
 .line {
-  width: 20%; /* Reduz a largura das linhas para que haja mais espaço entre elas */
+  width: 20%;
   height: 2px;
   background-color: var(--color-dark);
 }
+
 .step {
   display: flex;
   flex-direction: column;
@@ -217,20 +223,21 @@
 .stepText {
   margin-top: 20px;
   text-align: center;
-  font-size: 1rem;
-  color: #000000;
+  font-size: 1.3rem;
+  color: #000;
   width: 80%;
 }
 
 .connectWithTravelers {
   position: relative;
   width: 100%;
-  height: auto; /* Altura automática para ajustar ao conteúdo */
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+
 .connectWithTravelers {
   position: relative;
   width: 100%;
@@ -240,39 +247,42 @@
 .backgroundImage2 {
   position: relative;
   width: 100%;
-  height: 100vh; /* Usar viewport height para cobrir toda a tela */
+  height: 100vh;
   background-image: url("../../assets/backpacker-community.jpeg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  filter: blur(2px); /* Efeito de desfoque */
+  filter: blur(2px);
 }
 
 .connectTextH2 {
-  color: #fff; /* Cor do texto */
+  color: #fff;
   font-size: 2rem;
-  margin-bottom: 20px; /* Aumenta a margem inferior do h2 */
+  margin-bottom: 20px;
   position: absolute;
-  top: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1;
+  z-index: 2;
   text-align: center;
-  z-index: 2; /* Garante que o h2 esteja acima do parágrafo */
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 5px;
 }
 
 .connectTextP {
-  color: #fff; /* Cor do texto */
-  font-size: 1.2rem;
-  margin: 0; /* Remove a margem padrão do parágrafo */
-  margin-top: 20px; /* Ajusta a margem superior do parágrafo */
+  color: #fff;
+  font-size: 1.3rem;
+  margin: 0;
+  margin-top: 20px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1;
+  z-index: 2;
   text-align: center;
-  z-index: 2; /* Garante que o parágrafo esteja acima do fundo */
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 5px;
 }
 
 @media (min-width: 601px) and (max-width: 1200px) {
@@ -282,41 +292,49 @@
   }
 
   .connectTextP {
-    top: 60%;
+    top: 40%;
   }
 }
 
 @media (max-width: 768px) {
   .connectTextH2 {
-    font-size: 2.8rem; /* Reduza o tamanho do título */
-    margin-top: 30px; /* Espaçamento superior */
+    font-size: 2rem;
+    margin-top: 50px;
   }
 
   .connectTextP {
-    font-size: 1.0rem; /* Reduza ainda mais o tamanho do parágrafo */
-    top: 60%; /* Ajuste adicional na posição do parágrafo */
+    font-size: 1rem;
+    top: 55%;
     width: 80%;
   }
-  .stepText{
-    width: 160%;
+
+  .stepText {
+    width: 100%;
     font-size: 0.9rem;
+  }
+  .exploreInfo .mainTitle {
+    font-size: 1.6rem;
+  }
+  .exploreInfo .subTitle {
+    font-size: 1.5rem;
   }
 }
 
 @media (max-width: 600px) {
   .connectTextH2 {
-    font-size: 1.8rem; /* Reduza ainda mais o tamanho do título */
-    top: 40%; /* Ajuste adicional na posição do título */
+    font-size: 1.8rem;
+    top: 50%;
     width: 100%;
   }
 
   .connectTextP {
-    font-size: 1.0rem; /* Reduza ainda mais o tamanho do parágrafo */
-    top: 60%; /* Ajuste adicional na posição do parágrafo */
+    font-size: 1rem;
+    top: 60%;
     width: 80%;
   }
+
   .backgroundImage2 {
-    height: 60vh; /* Reduzir altura em dispositivos menores para evitar cortes */
+    height: 60vh;
   }
 }
 
@@ -331,43 +349,29 @@
 .ctaContent p {
   color: #000;
   font-size: 1.8rem;
-  text-align: center; /* Centralizar o texto */
-  margin: auto 20px; /* Espaçamento ao redor do texto */
+  text-align: center;
+  margin: auto 20px;
   font-weight: bold;
 }
 
 .vamoComigoButton {
-  background-color: var(--color-details); /* Cor de fundo do botão */
-  color: #fff; /* Cor do texto */
-  font-size: 1.2rem; /* Diminuir tamanho da fonte */
-  padding: 8px 16px; /* Diminuir padding */
-  border: none; /* Remove a borda */
-  border-radius: 20px; /* Borda arredondada */
-  cursor: pointer; /* Cursor ao passar por cima */
-  outline: none; /* Remove o contorno ao clicar */
-  transition: background-color 0.3s, transform 0.3s; /* Transição de cor de fundo e escala */
-  font-family: "Raleway", sans-serif; /* Fonte */
-  margin: auto;
+  background-color: var(--color-details);
+  color: #fff;
+  font-size: 1.2rem;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  outline: none;
+  font-weight: bold;
+  font-family: "Raleway", sans-serif;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .vamoComigoButton:hover {
-  background-color: var(--color-details-hover); /* Cor de fundo do botão ao passar o mouse */
+  background-color: var(--color-details-hover);
 }
 
 .vamoComigoButton:active {
-  transform: scale(0.95); /* Efeito de escala ao clicar */
-}
-
-@media (max-width: 600px) {
-  .vamoComigoButton {
-    font-size: 1rem; /* Reduzir ainda mais o tamanho da fonte em telas menores */
-    width: 100%;
-  }
-  .ctaContent p{
-    font-size: 1.1rem;
-  }
-  .exploreInfo .mainTitle {
-    width: 90%;
-    font-size: 1.6rem;
-  }
+  transform: scale(0.95);
 }

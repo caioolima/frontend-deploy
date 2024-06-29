@@ -13,7 +13,8 @@
 
 .chat-name {
   margin: 100px auto;
-  color: #ea4f97; /* Cor primária para o nome do chat */
+  color: var(--color-details); /* Cor primária para o nome do chat */
+  font-size: 30px;
 }
 
 .message-list {
@@ -27,6 +28,7 @@
 
 .message {
   max-width: 80%;
+  color: var(--color-dark);
   margin-bottom: 10px;
   padding: 15px;
   border-radius: 8px;
@@ -85,7 +87,6 @@
   background-color: #4bc5f5; /* Azul - cor link */
 }
 
-
 /* Adicione mais classes .user-color-random-X conforme necessário para mais cores */
 
 .message-content.left {
@@ -108,7 +109,7 @@
 }
 /* Adicionando a cauda do balão de fala para mensagens do lado esquerdo */
 .message-content.left::after {
-  content: '';
+  content: "";
   width: 20px; /* Comprimento do "rabinho" */
   height: 10px; /* Altura do "rabinho" */
   position: absolute;
@@ -119,7 +120,6 @@
   transform: rotate(-30deg); /* Rotaciona a cauda */
   z-index: 10; /* Coloca a cauda atrás do balão de fala */
 }
-
 
 /* Removendo a cauda do balão de fala para mensagens do lado direito */
 .message-content.right::before {

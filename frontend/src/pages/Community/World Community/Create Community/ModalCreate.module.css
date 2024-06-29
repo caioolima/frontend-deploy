@@ -110,3 +110,10 @@
   background: var(--color-details-hover);
   color: #fff;
 }
+
+.errorMessage {
+  color: var(--color-alert);
+  font-size: 14px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}

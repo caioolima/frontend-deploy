@@ -4,7 +4,7 @@
   font-size: 1.5rem;
   color: var(--color-black);
   text-align: center;
-  margin-bottom: 20px;
+  margin-top: 50px;
 }
 
 .hrTop {
@@ -27,6 +27,7 @@
   max-width: 1100px;
   margin: 0 auto; /* Centraliza a lista de usuários */
   justify-content: center; /* Garante que os itens dentro da lista estejam centralizados */
+  margin-bottom: 50px;
 }
 
 .userItem {
@@ -112,7 +113,7 @@
 
 /* TopFollowedUsers.module.css */
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .usersList {
     display: flex;
     overflow-x: auto;
@@ -131,5 +132,12 @@
   .usersContainer {
     padding: 10px;
     overflow: hidden;
+  }
+  .topLikedTitle {
+    font-size: 1rem;
+    margin-top: 50px;
+  }
+  .hrTop {
+    width: 100%;
   }
 }
