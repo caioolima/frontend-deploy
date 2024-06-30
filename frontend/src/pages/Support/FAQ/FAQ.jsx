@@ -11,6 +11,7 @@ const FAQ = () => {
     setExpandedItem(index === expandedItem ? null : index);
   };
 
+  
   return (
     <div className={styles.container}>
       <div className={styles.logo}>

@@ -4,7 +4,7 @@ import Modal from "react-modal";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { useNavigate } from "react-router-dom";
-import "../Form/form.css";
+import styles from "./form.module.css";
 import axios from "axios";
 import { useAuth } from "../../hooks/use-auth";
 
@@ -310,17 +310,20 @@ function LoginForm() {
         }
       }
 
-      const response = await axios.post("https://connecter-server-033a278d1512.herokuapp.com/auth/register", {
-        username: formFields.username,
-        firstName: formFields.firstName,
-        lastName: formFields.lastName,
-        phone: formFields.phone,
-        email: registrationFormEmail,
-        password: registrationFormPassword,
-        confirmPassword: formFields.confirmPassword,
-        dob: formFields.dob,
-        gender: formFields.gender,
-      });
+      const response = await axios.post(
+        "https://connecter-server-033a278d1512.herokuapp.com/auth/register",
+        {
+          username: formFields.username,
+          firstName: formFields.firstName,
+          lastName: formFields.lastName,
+          phone: formFields.phone,
+          email: registrationFormEmail,
+          password: registrationFormPassword,
+          confirmPassword: formFields.confirmPassword,
+          dob: formFields.dob,
+          gender: formFields.gender,
+        }
+      );
 
       if (response.data.success) {
         console.log("Cadastro bem-sucedido!");
@@ -397,17 +400,20 @@ function LoginForm() {
       return { available: false }; // Em caso de erro, considerar como não disponível
     }
   };
+
   return (
-    <section className="form-side">
+    <section className={styles["form-side"]}>
       <div
-        className={`form ${
-          loginMessage || registrationMessage ? "error-visible" : ""
+        className={`${styles.form} ${
+          loginMessage || registrationMessage ? styles["error-visible"] : ""
         }`}
       >
         <input
           id="email-login"
           type="text"
-          className={`entrada ${formErrors.email && "input-error"}`}
+          className={`${styles.entrada} ${
+            formErrors.email && styles["input-error"]
+          }`}
           placeholder={t("enter_email")}
           value={loginFormEmail}
           onChange={(e) => {
@@ -417,10 +423,12 @@ function LoginForm() {
           required
         />
 
-        <div class="password-input-container">
+        <div className={styles["password-input-container"]}>
           <input
-            type={passwordInputType}
-            className={`entrada ${formErrors.password && "input-error"}`}
+            type={showPassword ? "text" : "password"}
+            className={`${styles.entrada} ${
+              formErrors.password && styles["input-error"]
+            }`}
             id="password-login"
             placeholder={t("enter_password")}
             value={loginFormPassword}
@@ -431,8 +439,8 @@ function LoginForm() {
             required
           />
           <button
-            className={`toggle-password-button ${
-              formErrors.password && "error-visible"
+            className={`${styles["toggle-password-button"]} ${
+              formErrors.password && styles["error-visible"]
             }`}
             onClick={togglePasswordVisibility}
           >
@@ -442,32 +450,32 @@ function LoginForm() {
         <button
           id="loginButton"
           value="Sign In"
-          className="entrada pink"
+          className={`${styles.entrada} ${styles.pink}`}
           onClick={handleLoginButtonClick}
         >
           {t("login")}
         </button>
         {loginErrorMessage && (
-          <p className="login-message">{loginErrorMessage}</p>
+          <p className={styles["login-message"]}>{loginErrorMessage}</p>
         )}
 
         <span
           onClick={handleForgotPasswordClick}
-          className="forgot-password-link"
+          className={styles["forgot-password-link"]}
         >
           {t("forgot_password")}
         </span>
-        <div className="line"></div>
+        <div className={styles.line}></div>
         <button
           id="create-account-button"
           type="button"
-          className="white-btn"
+          className={styles["white-btn"]}
           onClick={handleOpenModal}
         >
           {t("create_account")}
         </button>
       </div>
-      <div className="help">
+      <div className={styles.help}>
         <p>
           {t("need_help")}
           <a href="/support-page"> {t("click_here")}.</a>
@@ -477,17 +485,29 @@ function LoginForm() {
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={handleCloseModal}
-        style={{ content: modalStyle }}
+        style={{  content: {
+          top: '50%',
+          left: '50%',
+          right: 'auto',
+          bottom: 'auto',
+          marginRight: '-50%',
+          transform: 'translate(-50%, -50%)',
+          padding: '20px',
+          borderRadius: '12px',
+          maxWidth: '90%',  // Define a largura máxima como uma porcentagem
+          maxHeight: '90%', // Define a altura máxima como uma porcentagem
+          overflow: 'auto'  // Permite rolagem se o conteúdo exceder o tamanho do modal
+        }, }} // Ensure modalStyle is defined
       >
-        <div className="popup">
+        <div className={styles.popup}>
           <div
-            className={`popup-content ${
+            className={`${styles["popup-content"]} ${
               Object.values(formErrors).some((error) => error)
-                ? "error-visible"
+                ? styles["error-visible"]
                 : ""
             }`}
           >
-            <div className="close-button" onClick={handleCloseModal}>
+            <div className={styles["close-button"]} onClick={handleCloseModal}>
               x
             </div>
             <h2>{t("register_now")}</h2>
@@ -495,7 +515,9 @@ function LoginForm() {
             <form>
               <input
                 type="text"
-                className={`entrada ${formErrors.username && "input-error"}`}
+                className={`${styles.entrada} ${
+                  formErrors.username && styles["input-error"]
+                }`}
                 id="username"
                 placeholder={t("username")}
                 value={formFields.username}
@@ -503,15 +525,15 @@ function LoginForm() {
                 required
               />
               {formErrors.username && (
-                <p className="error-message">{formErrors.username}</p>
+                <p className={styles["error-message"]}>{formErrors.username}</p>
               )}
 
-              <div className="flex-container">
-                <div className="flex-item">
+              <div className={styles["flex-container"]}>
+                <div className={styles["flex-item"]}>
                   <input
                     type="text"
-                    className={`entrada ${
-                      formErrors.firstName && "input-error"
+                    className={`${styles.entrada} ${
+                      formErrors.firstName && styles["input-error"]
                     }`}
                     id="firstName"
                     placeholder={t("first_name")}
@@ -522,14 +544,16 @@ function LoginForm() {
                     required
                   />
                   {formErrors.firstName && (
-                    <p className="error-message">{formErrors.firstName}</p>
+                    <p className={styles["error-message"]}>
+                      {formErrors.firstName}
+                    </p>
                   )}
                 </div>
-                <div className="flex-item">
+                <div className={styles["flex-item"]}>
                   <input
                     type="text"
-                    className={`entrada ${
-                      formErrors.lastName && "input-error"
+                    className={`${styles.entrada} ${
+                      formErrors.lastName && styles["input-error"]
                     }`}
                     id="lastName"
                     placeholder={t("last_name")}
@@ -540,7 +564,9 @@ function LoginForm() {
                     required
                   />
                   {formErrors.lastName && (
-                    <p className="error-message">{formErrors.lastName}</p>
+                    <p className={styles["error-message"]}>
+                      {formErrors.lastName}
+                    </p>
                   )}
                 </div>
               </div>
@@ -551,61 +577,67 @@ function LoginForm() {
                 onChange={(value) => handleInputChange("phone", value)}
               />
               {formErrors.phone && (
-                <p className="error-message">{formErrors.phone}</p>
+                <p className={styles["error-message"]}>{formErrors.phone}</p>
               )}
 
               <input
                 type="email"
-                className={`entrada ${formErrors.email && "input-error"}`}
+                className={`${styles.entrada} ${
+                  formErrors.email && styles["input-error"]
+                }`}
                 id="email"
                 placeholder={t("email")}
-                value={registrationFormEmail}
+                value={formFields.email}
                 onChange={(e) => {
-                  handleRegistrationEmailChange(e);
-                  setFormErrors({ ...formErrors, email: "" }); // Limpar a mensagem de erro ao digitar no campo de e-mail
+                  handleInputChange("email", e.target.value);
+                  setFormErrors({ ...formErrors, email: "" }); // Clear error message on email change
                 }}
                 required
               />
               {formErrors.email && (
                 <p
-                  className={`error-message ${
-                    formErrors.email && "input-error"
+                  className={`${styles["error-message"]} ${
+                    formErrors.email && styles["input-error"]
                   }`}
                 >
                   {formErrors.email}
                 </p>
               )}
 
-              <div className="password-input-container">
+              <div className={styles["password-input-container"]}>
                 <input
                   type={showPassword2 ? "text" : "password"}
-                  className={`entrada ${formErrors.password && "input-error"}`}
+                  className={`${styles.entrada} ${
+                    formErrors.password && styles["input-error"]
+                  }`}
                   id="password"
                   placeholder={t("password")}
-                  value={registrationFormPassword}
+                  value={formFields.password}
                   onChange={(e) => {
-                    handleRegistrationPasswordChange(e);
-                    setFormErrors({ ...formErrors, password: "" }); // Limpar a mensagem de erro ao digitar no campo de senha
+                    handleInputChange("password", e.target.value);
+                    setFormErrors({ ...formErrors, password: "" }); // Clear error message on password change
                   }}
                   required
                 />
 
                 {formErrors.password && (
-                  <p className="error-message">{formErrors.password}</p>
+                  <p className={styles["error-message"]}>
+                    {formErrors.password}
+                  </p>
                 )}
                 <button
-                  className="toggle-password-button-two"
+                  className={styles["toggle-password-button-two"]}
                   onClick={togglePasswordVisibility2}
                 >
                   {showPassword2 ? eyeClosedIcon : eyeOpenIcon}
                 </button>
               </div>
 
-              <div className="password-input-container">
+              <div className={styles["password-input-container"]}>
                 <input
                   type={showConfirmPassword ? "text" : "password"}
-                  className={`entrada ${
-                    formErrors.confirmPassword && "input-error"
+                  className={`${styles.entrada} ${
+                    formErrors.confirmPassword && styles["input-error"]
                   }`}
                   id="confirmPassword"
                   placeholder={t("confirm_password")}
@@ -616,7 +648,7 @@ function LoginForm() {
                   required
                 />
                 <button
-                  className="toggle-password-button-three"
+                  className={styles["toggle-password-button-three"]}
                   onClick={toggleConfirmPasswordVisibility}
                 >
                   {showConfirmPassword ? eyeClosedIcon : eyeOpenIcon}
@@ -624,10 +656,12 @@ function LoginForm() {
               </div>
 
               {formErrors.confirmPassword && (
-                <p className="error-message">{formErrors.confirmPassword}</p>
+                <p className={styles["error-message"]}>
+                  {formErrors.confirmPassword}
+                </p>
               )}
 
-              <label htmlFor="dob" className="with-placeholder">
+              <label htmlFor="dob" className={styles["with-placeholder"]}>
                 {t("dob_label")}
               </label>
               <input
@@ -639,10 +673,10 @@ function LoginForm() {
               />
 
               {formErrors.dob && (
-                <p className="error-message">{formErrors.dob}</p>
+                <p className={styles["error-message"]}>{formErrors.dob}</p>
               )}
 
-              <label htmlFor="gender" className="with-placeholder">
+              <label htmlFor="gender" className={styles["with-placeholder"]}>
                 {t("select_gender_label")}
               </label>
               <select
@@ -658,14 +692,16 @@ function LoginForm() {
               </select>
 
               <button
-                className="signuping"
+                className={styles.signuping}
                 type="button"
                 onClick={handleRegisterButtonClick}
               >
                 {t("register_button")}
               </button>
               {registrationMessage && (
-                <p className="registration-message">{registrationMessage}</p>
+                <p className={styles["registration-message"]}>
+                  {registrationMessage}
+                </p>
               )}
             </form>
           </div>
@@ -674,5 +710,4 @@ function LoginForm() {
     </section>
   );
 }
-
 export default LoginForm;

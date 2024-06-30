@@ -25,6 +25,7 @@ html, body {
     .face-infos {
         text-align: center;
         padding: 30px;
+        margin: 20px auto;
     }
     
     .face-infos p {
@@ -35,5 +36,6 @@ html, body {
     
     .face-infos h1 {
         font-size: 40px;
+        margin-bottom: 20px;
     }
 }
