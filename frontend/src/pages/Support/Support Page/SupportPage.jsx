@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import SupportInfo from "../Support Info/SupportInfo";
 import { useTranslation } from "react-i18next";
 import styles from "./SupportPage.module.css";
@@ -7,18 +7,8 @@ import Footer from "../../../components/Footer/footer.jsx";
 const SupportPage = () => {
   const { t } = useTranslation();
 
-  useEffect(() => {
-    // Aplica overflow: hidden ao elemento html para remover o scroll
-    document.documentElement.style.overflow = "hidden";
-
-    // Cleanup: remove overflow: hidden ao desmontar o componente
-    return () => {
-      document.documentElement.style.overflow = "auto";
-    };
-  }, []);
-
   return (
-    <div>
+    <div className={styles.container}>
       <div className={styles.logo}>
         <a href="/home">{t("connecterLife")}</a>
       </div>
@@ -31,9 +21,7 @@ const SupportPage = () => {
           <SupportInfo />
         </main>
       </div>
-      <div className="footer-reset">
-        <Footer />
-      </div>
+      <Footer className={styles.footer} />
     </div>
   );
 };

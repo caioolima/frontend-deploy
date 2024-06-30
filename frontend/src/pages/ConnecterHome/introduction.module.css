@@ -6,7 +6,7 @@
 }
 
 .abcd {
-  font-size: 3.5rem;
+  font-size: clamp(2.2rem, 3.5cqi, 3.5rem);
   margin-top: 30px;
   margin-bottom: 30px;
   color: black;
@@ -110,6 +110,7 @@
 .vamosNessaButton:active {
   transform: scale(0.95);
 }
+
 .exploreInfo .mainTitle {
   color: #000;
   text-align: center;
@@ -153,8 +154,6 @@
   right: -30px;
   clip-path: polygon(100% 0%, 0% 50%, 100% 100%);
 }
-
-
 
 .stepsContainer {
   display: flex;
@@ -321,15 +320,37 @@
 }
 
 @media (max-width: 600px) {
+  .abcd {
+
+    margin-top: 30px;
+    margin-bottom: 30px;
+    color: black;
+    
+  }
+
+  .exploreInfo .mainTitle {
+    width: 95%;
+    font-size: 1.3rem;
+  }
+
+  .exploreInfo .subTitle {
+    font-size: 1.3rem;
+    width: 70%;
+  }
+
+  .stepText {
+    width: 100%;
+    font-size: 0.86rem;
+  }
+
   .connectTextH2 {
     font-size: 1.8rem;
-    top: 50%;
     width: 100%;
+    margin-bottom: 80px;
   }
 
   .connectTextP {
     font-size: 1rem;
-    top: 60%;
     width: 80%;
   }
 

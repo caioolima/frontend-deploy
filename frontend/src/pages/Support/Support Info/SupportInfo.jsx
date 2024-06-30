@@ -12,8 +12,7 @@ const SupportInfo = () => {
   const handleNavigate = (path) => {
     navigate(path);
   };
-
-  document.body.style.overflow = "hidden";
+  
   return (
     <div className={styles.supportInfo}>
       <div className={styles.header}>

@@ -1,4 +1,9 @@
-/* AccountSupport.module.css */
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
+}
 
 .logo {
   font-size: 20px;
@@ -23,6 +28,13 @@ hr {
   margin: 20px 0;
 }
 
+.TitleSupport {
+  color: var(--color-dark);
+  font-size: 28px;
+  text-align: center;
+  margin: 80px 0;
+}
+
 .accountSupport {
   padding: 20px;
   border-radius: 8px;
@@ -30,13 +42,7 @@ hr {
   margin: 20px auto;
   background-color: white;
   max-width: 600px;
-}
-
-.TitleSupport {
-  color: var(--color-dark);
-  font-size: 28px;
   text-align: center;
-  margin: 120px auto;
 }
 
 .accountSupport p {
@@ -85,4 +91,11 @@ hr {
 
 .accountSupport a:hover::after {
   transform: scaleX(1);
+}
+
+.footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #333;
+  color: white;
 }

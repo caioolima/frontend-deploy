@@ -7,33 +7,34 @@ const AccountSupport = () => {
   const { t } = useTranslation();
 
   return (
-    <div>
-      <div className={styles.logo}>
-        <a href="/home">{t("connecterLife")}</a>
+    <div className={styles.container}>
+      <div>
+        <div className={styles.logo}>
+          <a href="/home">{t("connecterLife")}</a>
+        </div>
+        <hr />
+        <h2 className={styles.TitleSupport}>{t("Account Support")}</h2>
+        <div className={styles.accountSupport}>
+          <p>
+            {t(
+              "If you have issues with your account, please refer to the following resources:"
+            )}
+          </p>
+          <ul>
+            <li>
+              <a href="/reset">{t("Reset your password")}</a>
+            </li>
+            <li>
+              <a href="/support/faq">
+                {t(
+                  "Visit our FAQs to get answers to your questions, if you still have questions, don't hesitate to get in touch."
+                )}
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
-      <hr /> <h2 className="TitleSupport">{t("Account Support")}</h2>
-      <div className={styles.accountSupport}>
-        <p>
-          {t(
-            "If you have issues with your account, please refer to the following resources:"
-          )}
-        </p>
-        <ul>
-          <li>
-            <a href="/reset">{t("Reset your password")}</a>
-          </li>
-          <li>
-            <a href="/support/faq">
-              {t(
-                "Visit our FAQs to get answers to your questions, if you still have questions, don't hesitate to get in touch."
-              )}
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div className="footer-reset">
-        <Footer />
-      </div>
+      <Footer className={styles.footer} />
     </div>
   );
 };

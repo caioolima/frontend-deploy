@@ -5,16 +5,14 @@ import Footer from "../../../components/Footer/footer.jsx";
 
 const FAQ = () => {
   const { t } = useTranslation();
-
   const [expandedItem, setExpandedItem] = useState(null);
 
   const toggleAnswer = (index) => {
     setExpandedItem(index === expandedItem ? null : index);
   };
-  document.body.style.overflow = "hidden";
 
   return (
-    <div>
+    <div className={styles.container}>
       <div className={styles.logo}>
         <a href="/home">{t("connecterLife")}</a>
       </div>
@@ -28,9 +26,7 @@ const FAQ = () => {
               onClick={() => toggleAnswer(0)}
             >
               <h3>{t("How do I create an account?")}</h3>
-              <span className={expandedItem === 0 ? styles.rotated : ""}>
-                ➔
-              </span>
+              <span className={expandedItem === 0 ? styles.rotated : ""}>➔</span>
             </button>
             {expandedItem === 0 && (
               <p>
@@ -46,9 +42,7 @@ const FAQ = () => {
               onClick={() => toggleAnswer(1)}
             >
               <h3>{t("How can I change my password?")}</h3>
-              <span className={expandedItem === 1 ? styles.rotated : ""}>
-                ➔
-              </span>
+              <span className={expandedItem === 1 ? styles.rotated : ""}>➔</span>
             </button>
             {expandedItem === 1 && (
               <p>
@@ -64,9 +58,7 @@ const FAQ = () => {
               onClick={() => toggleAnswer(2)}
             >
               <h3>{t("Where can I find the privacy policy?")}</h3>
-              <span className={expandedItem === 2 ? styles.rotated : ""}>
-                ➔
-              </span>
+              <span className={expandedItem === 2 ? styles.rotated : ""}>➔</span>
             </button>
             {expandedItem === 2 && (
               <p>
@@ -78,9 +70,7 @@ const FAQ = () => {
           </div>
         </div>
       </div>
-      <div className="footer-reset">
-        <Footer />
-      </div>
+      <Footer className={styles.footer} />
     </div>
   );
 };

@@ -1,3 +1,13 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.contentWrap {
+  flex: 1;
+}
+
 .logo {
   font-size: 20px;
   font-weight: bold;
@@ -20,7 +30,6 @@ hr {
   border-top: 1px solid #ccc;
   margin: 20px 0;
 }
-
 
 .featureRequests {
   background-color: white;
@@ -87,4 +96,13 @@ hr {
 
 .submitButton:hover {
   background-color: var(--color-details-hover);
+}
+
+.footer {
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  background-color: #333;
+  color: white;
+  position: relative;
 }
