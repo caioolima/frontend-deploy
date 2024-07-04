@@ -26,13 +26,14 @@ import ChinaFlag from "../Community Services/flags/china.jpg";
 import "./FirstWorldCountries.css";
 import { defaultSliderSettings } from "./sliderConfig";
 import styles from "./FirstWorld.module.css"; // Importa o CSS Module
+import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
 
 const FirstWorldCountries = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [loadingComplete, setLoadingComplete] = useState(false);
-  const [userId, setUserId] = useState(null);
+  const [_user, setUserId] = useState(null);
   const [comunidades, setComunidades] = useState([]);
   const [comunidadesUsuario, setComunidadesUsuario] = useState([]);
   const [topFollowedUsers, setTopFollowedUsers] = useState([]);
@@ -108,16 +109,19 @@ const FirstWorldCountries = () => {
   // Componente para seta personalizada anterior
   const CustomPrevArrow = ({ onClick }) => (
     <div className={`${styles.customArrow} ${styles.prev}`} onClick={onClick}>
-      {"\u2190"}
+      <FaLongArrowAltLeft />
     </div>
   );
 
   // Componente para seta personalizada seguinte
-  const CustomNextArrow = ({ onClick }) => (
-    <div className={`${styles.customArrow} ${styles.next}`} onClick={onClick}>
-      {"\u2192"}
-    </div>
-  );
+  const CustomNextArrow = ({ onClick }) => {
+    return (
+      <div className={`${styles.customArrow} ${styles.next}`} onClick={onClick}>
+        <FaLongArrowAltRight />
+      </div>
+
+    )
+  };
   const sliderSettings = {
     ...defaultSliderSettings,
     infinite: false, // Exemplo de personalização local
@@ -181,7 +185,7 @@ const FirstWorldCountries = () => {
             </div>
           </section>
           {loadingComplete && !loading && (
-            
+
             <UserCommunitiesCard
               comunidadesUsuario={comunidadesUsuario}
               flagMappings={flagMappings}
@@ -190,7 +194,7 @@ const FirstWorldCountries = () => {
             />
 
           )}
-          
+
           <TopFollowedUsers topFollowedUsers={topFollowedUsers} t={t} />
           <TopLikedPosts topLikedPosts={topLikedPosts} t={t} />
         </article>

@@ -310,20 +310,17 @@ function LoginForm() {
         }
       }
 
-      const response = await axios.post(
-        "https://connecter-server-033a278d1512.herokuapp.com/auth/register",
-        {
-          username: formFields.username,
-          firstName: formFields.firstName,
-          lastName: formFields.lastName,
-          phone: formFields.phone,
-          email: registrationFormEmail,
-          password: registrationFormPassword,
-          confirmPassword: formFields.confirmPassword,
-          dob: formFields.dob,
-          gender: formFields.gender,
-        }
-      );
+      const response = await axios.post("https://connecter-server-033a278d1512.herokuapp.com/auth/register", {
+        username: formFields.username,
+        firstName: formFields.firstName,
+        lastName: formFields.lastName,
+        phone: formFields.phone,
+        email: registrationFormEmail,
+        password: registrationFormPassword,
+        confirmPassword: formFields.confirmPassword,
+        dob: formFields.dob,
+        gender: formFields.gender,
+      });
 
       if (response.data.success) {
         console.log("Cadastro bem-sucedido!");
@@ -383,7 +380,7 @@ function LoginForm() {
     }
   };
 
-  // Função para verificar a disponibilidade de um campo
+  // Função para verificar a disponibilidade de um campo específico
   const checkFieldAvailability = async (fieldName, value, t) => {
     try {
       const response = await axios.post(
@@ -400,7 +397,6 @@ function LoginForm() {
       return { available: false }; // Em caso de erro, considerar como não disponível
     }
   };
-
   return (
     <section className={styles["form-side"]}>
       <div

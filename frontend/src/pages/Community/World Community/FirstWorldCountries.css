@@ -21,10 +21,13 @@
 .container-cards {
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
-  max-width: 1200px;
-  width: 100%;
+  margin-left: 180px;
+  padding: 0 40px;
   flex-grow: 1;
-  padding: 0 20px; /* Adiciona algum espaço nas laterais */
 }
 
+@media (width <= 1000px) {
+  .container-cards {
+    margin-left: 0;
+  }
+} 

@@ -171,6 +171,10 @@ body {
   .popup p {
     font-size: 1rem;
   }
+
+  .registration-message{
+    margin-top:20px;
+  }
   
   .popup-content input,
   .popup-content select {

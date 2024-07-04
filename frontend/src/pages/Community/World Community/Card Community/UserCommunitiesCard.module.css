@@ -1,7 +1,7 @@
 /* UserCommunitiesCard.module.css */
 
 .userCommunitiesCard {
-  width: 680px;
+  max-width: 600px;
   margin: 50px auto;
 }
 
@@ -24,8 +24,9 @@
   border-radius: 20px;
   color: white;
   margin: auto 26px;
-  height: 230px;
+  height: 250px;
   max-width: 75%;
+  width: 180px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
   margin-bottom: 20px;
   margin-top: 20px;
@@ -101,7 +102,7 @@
 .customNextButton {
   width: 40px; /* Largura das setas */
   height: 40px; /* Altura das setas */
-  background-color: var(--color-primary-focus); /* Cor de fundo */
+  background-color: var(--color-dark); /* Cor de fundo */
   color: white; /* Cor do ícone */
   border-radius: 50%; /* Borda arredondada para forma circular */
   font-size: 20px; /* Tamanho do ícone */
@@ -117,27 +118,24 @@
 }
 
 .customPrevButton {
-  left: -25px; /* Posição mais para a esquerda */
+  left: -50px; /* Posição mais para a esquerda */
 }
 
 .customNextButton {
-  right: -25px; /* Posição mais para a direita */
+  right: -50px; /* Posição mais para a direita */
 }
 
 .customPrevButton:hover,
 .customNextButton:hover {
-  background-color: var(--color-primary); /* Cor de fundo ao passar */
+  background-color: var(--color-primary-focus); /* Cor de fundo ao passar */
 }
 
 @media screen and (max-width: 768px) {
   .userCommunitiesCard {
-    width: 600px;
-    margin-bottom: 50px;
     font-size: 0.7rem;
     text-align: center;
   }
   .cardCommunity {
-    margin: auto;
     height: auto;
   }
   .customPrevButton,

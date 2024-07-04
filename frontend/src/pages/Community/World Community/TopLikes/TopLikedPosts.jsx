@@ -42,7 +42,7 @@ const TopLikedPosts = ({ topLikedPosts, t }) => {
         <div className={styles.postWrapper}>
           <div className={styles.carousel} ref={carouselRef}>
             {topLikedPosts.map((post, index) => (
-              <div key={post.userId._id} className={styles.postItem}>
+              <div key={post.userId._id + index} className={styles.postItem}>
                 <img
                   src={post.url}
                   alt="Top Liked Post"

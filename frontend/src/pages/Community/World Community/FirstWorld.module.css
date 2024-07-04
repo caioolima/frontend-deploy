@@ -1,8 +1,9 @@
 /* FirstWorldCountries.module.css */
 .customSlider {
-  width: 58%; /* Ajuste a largura conforme necessário */
+  width: 100%; /* Ajuste a largura conforme necessário */
   margin: 50px auto; /* Centralize o slider */
   margin-bottom: 50px;
+  max-width: 600px;
 }
 
 .CommunityTitle {
@@ -40,11 +41,11 @@
 }
 
 .customArrow.prev {
-  left: -25px; /* Posição da seta "prev" */
+  left: -50px; /* Posição da seta "prev" */
 }
 
 .customArrow.next {
-  right: -25px; /* Posição da seta "next" */
+  right: -50px; /* Posição da seta "next" */
 }
 
 .customArrow.prev:hover,
@@ -61,24 +62,10 @@
 }
 
 /* Telas grandes */
-@media (min-width: 1200px) {
-  .customSlider {
-    width: 60%; /* Ajuste a largura conforme necessário */
-  }
+@media (min-width: 1200px) { 
 
   .hrTop {
     width: 50%;
-  }
-}
-
-/* Telas médias */
-@media (max-width: 1000px) and (min-width: 768px) {
-  .customSlider {
-    width: 80%; /* Ajuste a largura conforme necessário */
-  }
-
-  .hrTop {
-    width: 70%;
   }
 }
 
