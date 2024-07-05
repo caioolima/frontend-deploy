@@ -367,3 +367,44 @@
 .send-button:hover {
   background-color: #0d7813; /* Cor do botão Enviar ao passar o mouse */
 }
+
+@media (max-width: 768px) {
+  .message-list {
+    width: 90%; /* Ajusta a largura da lista de mensagens para telas menores */
+  }
+
+  .message-input input[type="text"] {
+    width: 60%; /* Ajusta a largura do input para telas menores */
+  }
+
+  .media-modal-content {
+    width: 80%; /* Ajusta a largura do modal para telas menores */
+  }
+
+  .message-input{
+    width: 100%;
+  }
+
+  .name-info-chat{
+    margin: -10px auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .message-input input[type="text"] {
+    width: 80%; /* Ajusta a largura do input para telas muito pequenas */
+  }
+
+  .message-input{
+    margin: 30px auto;
+    width: 100%;
+  }
+
+  .message {
+    font-size: 12px; /* Reduz o tamanho da fonte das mensagens para telas muito pequenas */
+  }
+
+  .media-modal-content {
+    width: 90%; /* Ajusta a largura do modal para telas muito pequenas */
+  }
+}
