@@ -1,12 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { useAuth } from "../../hooks/use-auth";
-
 import FormSide from "./components/formSide";
 import Function from "./function/function";
-
 
 function LoginForm() {
   const {
