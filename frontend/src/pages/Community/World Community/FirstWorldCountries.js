@@ -196,12 +196,12 @@ const FirstWorldCountries = () => {
           )}
 
           <TopFollowedUsers topFollowedUsers={topFollowedUsers} t={t} />
-          <TopLikedPosts topLikedPosts={topLikedPosts} t={t} />
-        </article>
-
-        <div className="footer-world">
+          <TopLikedPosts topLikedPosts={topLikedPosts} t={t} />  <div className="footer-world">
           <Footer />
         </div>
+        </article>
+
+      
       </div>
     </main>
   );

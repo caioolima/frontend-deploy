@@ -28,7 +28,7 @@
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
   padding-bottom: 10px;
-  width: 80%; /* Ocupa toda a largura disponível */
+  width:76%; /* Ocupa toda a largura disponível */
   max-width: 100%; /* Limita a largura máxima */
   background-color: white;
   border-radius: 20px;

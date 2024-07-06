@@ -42,30 +42,30 @@ const TopLikedPosts = ({ topLikedPosts, t }) => {
         <div className={styles.postWrapper}>
           <div className={styles.carousel} ref={carouselRef}>
             {topLikedPosts.map((post, index) => (
-              <div key={post.userId._id + index} className={styles.postItem}>
+              <div key={post.url + index} className={styles.postItem}>
                 <img
                   src={post.url}
                   alt="Top Liked Post"
                   className={styles.postImage}
                 />
                 <div className={styles.postDetails}>
-                  {post.userId.profileImageUrl ? (
+                  {post.user && post.user.profileImageUrl ? (
                     <img
-                      src={post.userId.profileImageUrl}
+                      src={post.user.profileImageUrl}
                       alt="Profile"
                       className={styles.profileImage}
                     />
                   ) : (
-                    <a href={`/profile/${post.userId._id}`}>
+                    <a href={`/profile/${post.userId}`}>
                       <AiOutlineUser className={styles.profileImagenone} />
                     </a>
                   )}
-                  <p className={styles.postUser}>{post.username}</p>
+                  <p className={styles.postUser}>{post.user ? post.user.username : "Unknown"}</p>
                   <p className={styles.postLikes}>
                     {t("numberOfLikes")}: {post.likeCount}
                   </p>{" "}
                   <a
-                    href={`/profile/${post.userId._id}`}
+                    href={`/profile/${post.userId}`}
                     className={styles.postLink}
                   >
                     <button className={styles.postButton}>

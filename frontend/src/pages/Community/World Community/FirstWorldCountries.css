@@ -7,7 +7,7 @@
   position: absolute;
   bottom: 0;
   margin: -108px auto;
-  left: 0;
+  left: 80px;
 }
 
 .main-content {
@@ -29,5 +29,16 @@
 @media (width <= 1000px) {
   .container-cards {
     margin-left: 0;
+  }
+  .footer-world {
+    width: 100%;
+    background: var(--color-dark);
+    color: var(--color-primary-focus);
+    text-align: center;
+    padding: 20px 0;
+    position: absolute;
+    bottom: 0;
+    margin: -108px auto;
+    left:0;
   }
 } 
