@@ -216,7 +216,6 @@ const FeedPage = () => {
       [postId]: true,
     }));
   };
-  
 
   const handleSave = async (postId, postOwnerId, post) => {
     try {
@@ -250,17 +249,20 @@ const FeedPage = () => {
 
   const handleSaved = async (post, postOwnerId, imageUrl, postId) => {
     try {
-      const response = await fetch(`https://connecter-server-033a278d1512.herokuapp.com/feedRoutes/saved`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: user.id,
-          postOwnerId: postOwnerId,
-          imageUrl: imageUrl,
-        }),
-      });
+      const response = await fetch(
+        `https://connecter-server-033a278d1512.herokuapp.com/feedRoutes/saved`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: user.id,
+            postOwnerId: postOwnerId,
+            imageUrl: imageUrl,
+          }),
+        }
+      );
       if (!response.ok) {
         throw new Error("Erro ao remover o salvamento da postagem");
       }
@@ -304,7 +306,12 @@ const FeedPage = () => {
                       src={post.userId.profileImageUrl}
                       alt={`${post.userId.firstName} ${post.userId.lastName}`}
                       className="profile-image-feed"
-                      onLoad={() => setImageLoadStatus((prev) => ({ ...prev, [post._id]: true }))}
+                      onLoad={() =>
+                        setImageLoadStatus((prev) => ({
+                          ...prev,
+                          [post._id]: true,
+                        }))
+                      }
                     />
                   </a>
                 ) : (
@@ -313,79 +320,92 @@ const FeedPage = () => {
                   </a>
                 )}
                 <a href={`/profile/${post.userId._id}`}>
-                  <p className="username-feed">
-                    {`${post.userId.username}`}
-                  </p>
+                  <p className="username-feed">{`${post.userId.username}`}</p>
                 </a>
               </div>
-              <img
-                src={post.url}
-                alt="Imagem da galeria"
-                className="post-image"
-                onLoad={() => handleImageLoad(post._id)} // Atualiza o estado de carregamento da imagem
-              />
-              {imageLoadStatus[post._id] && ( // Verifica se a imagem do post está carregada
-                <div className="post-info">
-                  <div className="contain-like-feed">
-                    <button
-                      onClick={() => {
-                        if (post.isLiked) {
-                          unlikePost(
-                            post._id,
-                            post.userId._id,
-                            post.url,
-                            user.id
-                          );
-                        } else {
-                          likePost(
-                            post._id,
-                            post.userId._id,
-                            post.url,
-                            user.id
-                          );
-                        }
-                      }}
-                    >
-                      {post.isLiked ? (
-                        <AiFillFire className="like filled" />
-                      ) : (
-                        <AiOutlineFire className="like-feed" />
-                      )}
-                    </button>
-                    <div className="post-actions">
-                      <button
-                        onClick={() => openCommentModal(post.url)}
-                      >
-                        <MdComment className="comment-icon" />
-                      </button>
+
+              {/* Renderiza a imagem do post e oculta a legenda até que a imagem seja carregada */}
+              {imageLoadStatus[post._id] ? (
+                <>
+                  <img
+                    src={post.url}
+                    alt="Imagem da galeria"
+                    className="post-image"
+                    onLoad={() => handleImageLoad(post._id)} // Atualiza o estado de carregamento da imagem
+                  />
+                  <div
+                    className={`post-background-caption ${
+                      post.caption ? "post-background-color-caption" : ""
+                    }`}
+                  >
+                    <div className="post-caption-container">
+                      <p className="post-caption-highlight">{post.caption}</p>
                     </div>
                   </div>
-                  <button
-                    className="view-likes-button"
-                    onClick={() => handleViewLikes(post.url)}
-                  >
-                    Ver quem curtiu
-                  </button>
-                  {post.isSaved ? (
-                    <FaBookmark
-                      className="save-icon saved"
-                      onClick={() =>
-                        handleSaved(post, post.userId._id, post.url, post._id)
-                      }
-                    />
-                  ) : (
-                    <FaRegBookmark
-                      className="save-icon"
-                      onClick={() =>
-                        handleSave(post._id, post.userId._id, post.url)
-                      }
-                    />
-                  )}
-                  <p className="post-date-feed">
-                    Publicado em: {new Date(post.postedAt).toLocaleString()}
-                  </p>
-                </div>
+
+                  <div className="post-info">
+                    <div className="contain-like-feed">
+                      <button
+                        onClick={() => {
+                          if (post.isLiked) {
+                            unlikePost(
+                              post._id,
+                              post.userId._id,
+                              post.url,
+                              user.id
+                            );
+                          } else {
+                            likePost(
+                              post._id,
+                              post.userId._id,
+                              post.url,
+                              user.id
+                            );
+                          }
+                        }}
+                      >
+                        {post.isLiked ? (
+                          <AiFillFire className="like filled" />
+                        ) : (
+                          <AiOutlineFire className="like-feed" />
+                        )}
+                      </button>
+                      <div className="post-actions">
+                        <button onClick={() => openCommentModal(post.url)}>
+                          <MdComment className="comment-icon" />
+                        </button>
+                      </div>
+                    </div>
+                    <button
+                      className="view-likes-button"
+                      onClick={() => handleViewLikes(post.url)}
+                    >
+                      Ver quem curtiu
+                    </button>
+                    {post.isSaved ? (
+                      <FaBookmark
+                        className="save-icon saved"
+                        onClick={() =>
+                          handleSaved(post, post.userId._id, post.url, post._id)
+                        }
+                      />
+                    ) : (
+                      <FaRegBookmark
+                        className="save-icon"
+                        onClick={() =>
+                          handleSave(post._id, post.userId._id, post.url)
+                        }
+                      />
+                    )}
+                    <p className="post-date-feed">
+                      Publicado em: {new Date(post.postedAt).toLocaleString()}
+                    </p>
+                  </div>
+                </>
+              ) : (
+                <div className="shimmer post-image"></div> // Placeholder para a imagem
               )}
+
               {modalOpen && (
                 <div className="feed-modal">
                   <div className="modal-content-feed">
@@ -439,7 +459,6 @@ const FeedPage = () => {
       </div>
     </main>
   );
-  
 };
 
 export default FeedPage;

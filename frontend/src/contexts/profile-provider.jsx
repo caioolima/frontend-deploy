@@ -54,7 +54,7 @@ const MyContextProvider = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  
+  const [caption, setCaption] = useState("");
   const myProfileLink = `/profile/${user && user.id}`;
   const feedLink = `/feed/${user && user.id}`;
   const isMyProfilePage = location.pathname === myProfileLink;
@@ -157,6 +157,8 @@ const MyContextProvider = ({ children }) => {
         myProfileLink,
         feedLink,
         isMyProfilePage,
+        caption, 
+        setCaption
       }}
     >
       {children}

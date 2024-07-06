@@ -1,12 +1,12 @@
 import useEventsModals from "../hooks/useEventsModals";
-
+import styles from "./styles/UploadPhotoModal.module.css"
 const ButtonClosed = () => {
     const { handleClosePhotoModal } = useEventsModals();
 
     return (
         <>
             <button
-                className="close-button-publish"
+                className={styles.closeButtonPublish}
                 onClick={handleClosePhotoModal}>
                 &times;
             </button>
