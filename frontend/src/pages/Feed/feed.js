@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../../hooks/use-auth";
 import "./feedPage.css"; // Importando o arquivo de estilos
 import { AiFillFire, AiOutlineFire } from "react-icons/ai"; // Importe o ícone de fogo
@@ -15,13 +15,13 @@ const FeedPage = () => {
   const [feed, setFeed] = useState([]);
   const [error, setError] = useState(null);
   const [selectedUserId, setSelectedUserId] = useState(null); // Estado para armazenar o ID do dono do post selecionado
-  const [isLiked, setIsLiked] = useState(); // Estado para indicar se a imagem foi curtida pelo usuário
-  const [likedUsers, setLikedUsers] = useState([]); // Estado para armazenar os usuários que curtiram o post
   const [modalOpen, setModalOpen] = useState(false); // Estado para controlar se o modal está aberto
   const [modalUsers, setModalUsers] = useState([]); // Estado para armazenar os usuários para exibir no modal
   const [loading, setLoading] = useState(true);
-
   const [scrollPosition, setScrollPosition] = useState(0); // Estado para armazenar a posição de rolagem
+  const [commentModalOpen, setCommentModalOpen] = useState(false);
+  const [selectedPostImageUrl, setSelectedPostImageUrl] = useState("");
+  const [imageLoadStatus, setImageLoadStatus] = useState({});
 
   useEffect(() => {
     if (user) {
@@ -30,11 +30,12 @@ const FeedPage = () => {
   }, [user]);
 
   useEffect(() => {
-    const fetchFeedAndCheckSaved = async () => {
-      setLoading(true); // Define loading como true antes de carregar o feed
-
+    const fetchFeedAndCheckStatuses = async () => {
       if (userId) {
         try {
+          setLoading(true); // Define loading como true antes de carregar o feed
+
+          // Buscar o feed
           const response = await fetch(
             `https://connecter-server-033a278d1512.herokuapp.com/feedRoutes/feed/${userId}`
           );
@@ -46,15 +47,59 @@ const FeedPage = () => {
           const updatedFeed = data.map((post) => ({
             ...post,
             isLoading: true,
+            isSaved: false, // Inicializar como não salvo
+            isLiked: false, // Inicializar como não curtido
           }));
           setFeed(updatedFeed);
 
-          // Verificar e atualizar o estado de salvamento de cada post
-          await Promise.all(
+          // Verificar o status de curtida e salvamento
+          const updatedFeedWithStatuses = await Promise.all(
             updatedFeed.map(async (post) => {
-              await checkSaved(post, post.userId._id); // Corrigido para passar o postOwnerId
+              // Verificar se a postagem foi salva
+              const savedResponse = await fetch(
+                "https://connecter-server-033a278d1512.herokuapp.com/feedRoutes/SavedPost",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    userId: user.id,
+                    postOwnerId: post.userId._id,
+                    imageUrl: post.url,
+                  }),
+                }
+              );
+              if (!savedResponse.ok) {
+                throw new Error("Erro ao verificar se a postagem foi salva");
+              }
+              const savedData = await savedResponse.json();
+
+              // Verificar se a postagem foi curtida
+              const likedResponse = await fetch(
+                `https://connecter-server-033a278d1512.herokuapp.com/feedRoutes/feed/${user.id}/checkLikes`,
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({ imageUrl: post.url }),
+                }
+              );
+              if (!likedResponse.ok) {
+                throw new Error("Erro ao verificar status de curtida");
+              }
+              const likedData = await likedResponse.json();
+
+              return {
+                ...post,
+                isSaved: savedData.isSaved,
+                isLiked: likedData.isLikedByUser,
+                isLoading: false, // Define isLoading como false após a verificação
+              };
             })
           );
+          setFeed(updatedFeedWithStatuses);
 
           setLoading(false); // Define loading como false após carregar o feed com sucesso
         } catch (err) {
@@ -63,12 +108,12 @@ const FeedPage = () => {
         }
       }
     };
-    fetchFeedAndCheckSaved();
+
+    fetchFeedAndCheckStatuses();
   }, [userId]);
- 
+
   const likePost = async (postId, ownerUserId, imageUrl, likerId) => {
     try {
-      checkLike();
       const response = await fetch(
         `https://connecter-server-033a278d1512.herokuapp.com/feedRoutes/feed/${ownerUserId}/like`,
         {
@@ -83,14 +128,11 @@ const FeedPage = () => {
         throw new Error("Erro ao curtir a postagem");
       }
       // Atualize o feed após curtir
-      const updatedFeed = feed.map((post) => {
-        if (post._id === postId) {
-          return { ...post, isLiked: true }; // Marque a postagem como curtida
-        }
-        return post;
-      });
-      setFeed(updatedFeed);
-      setIsLiked(true); // Atualize o estado isLiked para true
+      setFeed((prevFeed) =>
+        prevFeed.map((post) =>
+          post._id === postId ? { ...post, isLiked: true } : post
+        )
+      );
     } catch (err) {
       console.error(err);
     }
@@ -98,7 +140,6 @@ const FeedPage = () => {
 
   const unlikePost = async (postId, ownerUserId, imageUrl, likerId) => {
     try {
-      checkLike();
       const response = await fetch(
         `https://connecter-server-033a278d1512.herokuapp.com/feedRoutes/feed/${ownerUserId}/unlike`,
         {
@@ -113,49 +154,11 @@ const FeedPage = () => {
         throw new Error("Erro ao descurtir a postagem");
       }
       // Atualize o feed após descurtir
-      const updatedFeed = feed.map((post) => {
-        if (post._id === postId) {
-          return { ...post, isLiked: false }; // Marque a postagem como não curtida
-        }
-        return post;
-      });
-      setFeed(updatedFeed);
-      setIsLiked(false); // Atualize o estado isLiked para false
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const [checkedLike, setCheckedLike] = useState(false);
-  useEffect(() => {
-    if (!checkedLike && feed.length > 0) {
-      checkLike();
-      setCheckedLike(true);
-    }
-  }, [checkedLike, feed]);
-
-  const checkLike = async () => {
-    try {
-      const updatedFeed = await Promise.all(
-        feed.map(async (post) => {
-          const response = await fetch(
-            `https://connecter-server-033a278d1512.herokuapp.com/feedRoutes/feed/${user.id}/checkLikes`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ imageUrl: post.url }),
-            }
-          );
-          if (!response.ok) {
-            throw new Error("Erro ao verificar status de curtida");
-          }
-          const data = await response.json();
-          return { ...post, isLiked: data.isLikedByUser };
-        })
+      setFeed((prevFeed) =>
+        prevFeed.map((post) =>
+          post._id === postId ? { ...post, isLiked: false } : post
+        )
       );
-      setFeed(updatedFeed);
     } catch (err) {
       console.error(err);
     }
@@ -179,28 +182,20 @@ const FeedPage = () => {
       const data = await response.json();
       setModalUsers(data.likedUsersNames); // Atualiza o estado com a lista de usuários
       openModal();
-      // Armazenar a posição de rolagem atual
-      setScrollPosition(window.pageYOffset);
     } catch (err) {
       console.error(err);
     }
   };
 
   const openModal = () => {
-    setModalOpen(true);
-    setScrollPosition(window.pageYOffset);
-    document.documentElement.style.overflowY = 'hidden';
+    setModalOpen(true); // Abre o modal
+    document.body.style.position = "fixed";
   };
-  
+
   const closeModal = () => {
-    setModalOpen(false);
-    document.documentElement.style.overflowY = 'auto';
-    window.scrollTo(0, scrollPosition);
+    setModalOpen(false); // Fecha o modal
+    document.body.style.position = "static";
   };
-  
-  
-  const [commentModalOpen, setCommentModalOpen] = useState(false);
-  const [selectedPostImageUrl, setSelectedPostImageUrl] = useState("");
 
   const openCommentModal = (imageUrl) => {
     setScrollPosition(window.pageYOffset); // Armazena a posição de rolagem atual
@@ -214,6 +209,14 @@ const FeedPage = () => {
     document.body.style.position = "static";
     window.scrollTo(0, scrollPosition); // Restaura a posição de rolagem
   };
+
+  const handleImageLoad = (postId) => {
+    setImageLoadStatus((prevStatus) => ({
+      ...prevStatus,
+      [postId]: true,
+    }));
+  };
+  
 
   const handleSave = async (postId, postOwnerId, post) => {
     try {
@@ -234,16 +237,12 @@ const FeedPage = () => {
       if (!response.ok) {
         throw new Error("Erro ao salvar a postagem");
       }
-
       // Atualize o estado local do post salvo
       setFeed((prevFeed) =>
         prevFeed.map((prevPost) =>
           prevPost._id === postId ? { ...prevPost, isSaved: true } : prevPost
         )
       );
-
-      // Pode ser útil retornar algo daqui, se necessário
-      return response.json();
     } catch (error) {
       console.error(error);
     }
@@ -251,120 +250,28 @@ const FeedPage = () => {
 
   const handleSaved = async (post, postOwnerId, imageUrl, postId) => {
     try {
-      const response = await fetch(
-        `https://connecter-server-033a278d1512.herokuapp.com/feedRoutes/saved`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userId: user.id,
-            postOwnerId: postOwnerId,
-            imageUrl: post.url,
-          }),
-        }
-      );
+      const response = await fetch(`https://connecter-server-033a278d1512.herokuapp.com/feedRoutes/saved`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: user.id,
+          postOwnerId: postOwnerId,
+          imageUrl: imageUrl,
+        }),
+      });
       if (!response.ok) {
-        throw new Error("Erro ao excluir a postagem dos salvos");
+        throw new Error("Erro ao remover o salvamento da postagem");
       }
-
-      // Atualize o estado local apenas para a postagem que foi removida dos salvos
+      // Atualize o estado local após remover o salvamento
       setFeed((prevFeed) =>
         prevFeed.map((prevPost) =>
-          prevPost.url === imageUrl ? { ...prevPost, isSaved: false } : prevPost
+          prevPost._id === postId ? { ...prevPost, isSaved: false } : prevPost
         )
       );
-
-      // Pode ser útil retornar algo daqui, se necessário
-      return response.json();
     } catch (error) {
       console.error(error);
-    }
-  };
-
-  // Função para embaralhar os posts de forma aleatória
-  const shuffle = (array) => {
-    let currentIndex = array.length;
-    let temporaryValue, randomIndex;
-
-    // Enquanto houver elementos para embaralhar
-    while (currentIndex !== 0) {
-      // Escolhe um elemento restante
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-
-      // Troca o elemento escolhido com o atual
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-    }
-
-    return array;
-  };
-
-  useEffect(() => {
-    const fetchFeedAndCheckSaved = async () => {
-      if (userId) {
-        try {
-          const response = await fetch(
-            `https://connecter-server-033a278d1512.herokuapp.com/feedRoutes/feed/${userId}`
-          );
-          if (!response.ok) {
-            throw new Error("Erro ao carregar o feed");
-          }
-          const data = await response.json();
-          const updatedFeed = data.map((post) => ({
-            ...post,
-            isLoading: true,
-          }));
-
-          const shuffledFeed = shuffle(updatedFeed); // Embaralha os posts
-          setFeed(shuffledFeed); // Define os posts embaralhados no estado do feed
-
-          await Promise.all(
-            shuffledFeed.map(async (post) => {
-              await checkSaved(post, post.userId._id);
-            })
-          );
-        } catch (err) {
-          setError("Erro ao carregar o feed");
-        }
-      }
-    };
-    fetchFeedAndCheckSaved();
-  }, [userId]);
-
-  // Função para verificar se a postagem foi salva e atualizar o estado local
-  const checkSaved = async (post, postOwnerId) => {
-    try {
-      const response = await fetch(
-        "https://connecter-server-033a278d1512.herokuapp.com/feedRoutes/SavedPost",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userId: user.id,
-            postOwnerId: postOwnerId,
-            imageUrl: post.url,
-          }),
-        }
-      );
-      if (!response.ok) {
-        throw new Error("Erro ao verificar se a postagem foi salva");
-      }
-      const data = await response.json();
-      setFeed((prevFeed) =>
-        prevFeed.map((prevPost) =>
-          prevPost._id === post._id
-            ? { ...prevPost, isSaved: data.isSaved }
-            : prevPost
-        )
-      );
-    } catch (err) {
-      console.error(err);
     }
   };
 
@@ -374,7 +281,6 @@ const FeedPage = () => {
         <h1 className="welcome-explore">Bem-vindo ao Explorar.</h1>
         <SidebarMenu /> {/* Menu */}
         {loading ? (
-          // Renderizar esqueleto de carregamento enquanto os dados estão sendo buscados
           <>
             {[...Array(10)].map((_, index) => (
               <div key={index} className="post shimmer">
@@ -389,8 +295,8 @@ const FeedPage = () => {
             ))}
           </>
         ) : (
-          feed.map((post, index) => (
-            <div key={`${post._id}-${index}`} className="post">
+          feed.map((post) => (
+            <div key={post._id} className="post">
               <div className="post-header">
                 {post.userId.profileImageUrl ? (
                   <a href={`/profile/${post.userId._id}`}>
@@ -398,7 +304,7 @@ const FeedPage = () => {
                       src={post.userId.profileImageUrl}
                       alt={`${post.userId.firstName} ${post.userId.lastName}`}
                       className="profile-image-feed"
-                      onLoad={() => setLoading(false)}
+                      onLoad={() => setImageLoadStatus((prev) => ({ ...prev, [post._id]: true }))}
                     />
                   </a>
                 ) : (
@@ -407,10 +313,7 @@ const FeedPage = () => {
                   </a>
                 )}
                 <a href={`/profile/${post.userId._id}`}>
-                  <p
-                    className="username-feed"
-                    onClick={() => setSelectedUserId(post.userId._id)}
-                  >
+                  <p className="username-feed">
                     {`${post.userId.username}`}
                   </p>
                 </a>
@@ -419,83 +322,85 @@ const FeedPage = () => {
                 src={post.url}
                 alt="Imagem da galeria"
                 className="post-image"
-                onLoad={() => setLoading(false)} // Define loading como false após a imagem ser carregada
+                onLoad={() => handleImageLoad(post._id)} // Atualiza o estado de carregamento da imagem
               />
-              <div className="post-info">
-                <div className="contain-like-feed">
-                  <button
-                    onClick={() => {
-                      if (post.isLiked) {
-                        unlikePost(
-                          post._id,
-                          post.userId._id,
-                          post.url,
-                          user.id
-                        );
-                      } else {
-                        likePost(post._id, post.userId._id, post.url, user.id);
-                      }
-                    }}
-                  >
-                    {post.isLiked ? (
-                      <>
+              {imageLoadStatus[post._id] && ( // Verifica se a imagem do post está carregada
+                <div className="post-info">
+                  <div className="contain-like-feed">
+                    <button
+                      onClick={() => {
+                        if (post.isLiked) {
+                          unlikePost(
+                            post._id,
+                            post.userId._id,
+                            post.url,
+                            user.id
+                          );
+                        } else {
+                          likePost(
+                            post._id,
+                            post.userId._id,
+                            post.url,
+                            user.id
+                          );
+                        }
+                      }}
+                    >
+                      {post.isLiked ? (
                         <AiFillFire className="like filled" />
-                      </>
-                    ) : (
-                      <>
+                      ) : (
                         <AiOutlineFire className="like-feed" />
-                      </>
-                    )}
-                  </button>
-                  <div className="post-actions">
-                    <button onClick={() => openCommentModal(post.url, user.id)}>
-                      <MdComment className="comment-icon" />
+                      )}
                     </button>
+                    <div className="post-actions">
+                      <button
+                        onClick={() => openCommentModal(post.url)}
+                      >
+                        <MdComment className="comment-icon" />
+                      </button>
+                    </div>
                   </div>
+                  <button
+                    className="view-likes-button"
+                    onClick={() => handleViewLikes(post.url)}
+                  >
+                    Ver quem curtiu
+                  </button>
+                  {post.isSaved ? (
+                    <FaBookmark
+                      className="save-icon saved"
+                      onClick={() =>
+                        handleSaved(post, post.userId._id, post.url, post._id)
+                      }
+                    />
+                  ) : (
+                    <FaRegBookmark
+                      className="save-icon"
+                      onClick={() =>
+                        handleSave(post._id, post.userId._id, post.url)
+                      }
+                    />
+                  )}
+                  <p className="post-date-feed">
+                    Publicado em: {new Date(post.postedAt).toLocaleString()}
+                  </p>
                 </div>
-
-                <button
-                  className="view-likes-button"
-                  onClick={() => handleViewLikes(post.url)}
-                >
-                  Ver quem curtiu
-                </button>
-                {post.isSaved ? (
-                  <FaBookmark
-                    className="save-icon saved"
-                    onClick={() =>
-                      handleSaved(post, post.userId._id, post.url, post._id)
-                    }
-                  />
-                ) : (
-                  <FaRegBookmark
-                    className="save-icon"
-                    onClick={() =>
-                      handleSave(post._id, post.userId._id, post.url)
-                    }
-                  />
-                )}
-                <p className="post-date-feed">
-                  Publicado em: {new Date(post.postedAt).toLocaleString()}
-                </p>
-              </div>
+              )}
               {modalOpen && (
                 <div className="feed-modal">
                   <div className="modal-content-feed">
                     <span className="close-feed-modal" onClick={closeModal}>
                       &times;
                     </span>
-
                     {modalUsers.length > 0 ? (
                       <ul className="feed-modal-list">
-                        {" "}
                         <h2 className="feed-modal-title">
                           Usuários que curtiram o post:
                         </h2>
                         {modalUsers.map((user) => (
                           <li className="feed-modal-item" key={user.userId}>
                             {user.profileImageUrl ? (
-                              <a href={`/profile/${user._id}`}>
+                              <a href={`/profile/${user.userId._id}`}>
                                 <img
                                   src={user.profileImageUrl}
                                   alt="Imagem da galeria"
@@ -503,11 +408,13 @@ const FeedPage = () => {
                                 />
                               </a>
                             ) : (
-                              <a href={`/profile/${user._id}`}>
-                                <AiOutlineUser className="rounded-image-message-feed" />
+                              <a href={`/profile/${user.userId._id}`}>
+                                <AiOutlineUser className="profile-icon-profile" />
                               </a>
                             )}
-                            <a href={`/profile/${user._id}`}>{user.username}</a>
+                            <a href={`/profile/${user.userId._id}`}>
+                              {user.username}
+                            </a>
                           </li>
                         ))}
                       </ul>
@@ -518,7 +425,7 @@ const FeedPage = () => {
                     )}
                   </div>
                 </div>
-              )}{" "}
+              )}
               {commentModalOpen && (
                 <CommentModal
                   imageUrl={selectedPostImageUrl}
@@ -530,9 +437,9 @@ const FeedPage = () => {
           ))
         )}
       </div>
-      <h1 className="end-explore">Você chegou no fim.</h1>
     </main>
   );
+  
 };
 
 export default FeedPage;

@@ -32,7 +32,9 @@ function App() {
         element={
           <PrivateRoute>
             <PublicRoute>
-              <Introduction />
+              <AuthLayout>
+                <Introduction />
+              </AuthLayout>
             </PublicRoute>
           </PrivateRoute>
         }

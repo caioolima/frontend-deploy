@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { MdComment } from 'react-icons/md'; // Importe o ícone de comentário
-import "./comments.css";
+import styles from "./CommentModal.module.css";
 
 const CommentModal = ({ imageUrl, onClose, user }) => {
   const [commentText, setCommentText] = useState("");
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const fetchComments = async () => {
     try {
@@ -45,6 +45,10 @@ const CommentModal = ({ imageUrl, onClose, user }) => {
     }
   }, [imageUrl]);
 
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
+
   const handleCommentChange = (e) => {
     setCommentText(e.target.value);
   };
@@ -73,76 +77,80 @@ const CommentModal = ({ imageUrl, onClose, user }) => {
   };
 
   return (
-    <div className="comment-modal">
-      <div className="comment-modal-content">
-        <span className="close-comment-modal" onClick={onClose}>
+    <div className={styles.commentModal}>
+      <div className={styles.commentModalContent}>
+        <span className={styles.closeCommentModal} onClick={onClose}>
           &times;
         </span>
-        <div className="comment-image-container">
-          {loading ? (
-            <div className="loading-shimmer" style={{ height: "62rem" }}></div>
-          ) : (
-            <img
-              src={imageUrl}
-              alt="Imagem da postagem"
-              className="comment-image"
-            />
+        <div className={styles.commentImageContainer}>
+          <img
+            src={imageUrl}
+            alt="Imagem da postagem"
+            className={styles.commentImage}
+            onLoad={handleImageLoad} // Aciona o estado quando a imagem é carregada
+            style={{ display: imageLoaded ? 'block' : 'none' }} // Oculta a imagem até que seja carregada
+          />
+          {!imageLoaded && (
+            <div className={styles.loadingShimmer} style={{ height: "62rem" }}></div>
           )}
         </div>
-        <div className="comment-input-container">
-          <h2 className="comment-title">Comentários</h2>
-          <div className="comment-list">
+        <div className={styles.commentInputContainer}>
+          <h2 className={styles.commentTitle}>Comentários</h2>
+          <div className={styles.commentList}>
             <ul>
-              {loading ? (
-                <li className="loading-shimmer" style={{ height: "600px", marginBottom: "20px" }}></li>
-              ) : comments.length === 0 ? ( // Verifique se não há nenhum comentário
-                <li className="no-comments-message">
-                  <span>Deixe um comentário.</span>
-                </li>
-              ) : (
-                comments.map((comment, index) => (
-                  <li key={index}>
-                    <div className="comment-user-info">
+              {imageLoaded && ( // Só renderiza comentários se a imagem estiver carregada
+                loading ? (
+                  <li className={styles.loadingShimmer} style={{ height: "600px", marginBottom: "20px" }}></li>
+                ) : comments.length === 0 ? (
+                  <li className={styles.noCommentsMessage}>
+                    <span>Deixe um comentário.</span>
+                  </li>
+                ) : (
+                  comments.map((comment, index) => (
+                    <li
+                      key={index}
+                      className={`${styles.commentUserInfo} ${comment.userId.id === user.id ? styles.currentUser : ""}`}
+                    >
                       <img
                         src={comment.userId.profileImageUrl}
                         alt="Profile"
-                        className="profile-image-feed"
+                        className={styles.profileImageFeed}
                       />
-                      <div className="comment-content">
-                        <div className="username-comment">
-                          <span className="username-feed-publication">
+                      <div className={styles.commentContent}>
+                        <div className={styles.usernameComment}>
+                          <span className={styles.usernameFeedPublication}>
                             {comment.userId.username}
                           </span>
-                          <span className="comment-text">
-                            {comment.text}
-                          </span>
                         </div>
-                        <span className="comment-time">
+                        <span className={styles.commentText}>
+                          {comment.text}
+                        </span>
+                        <span className={styles.commentTime}>
                           {formatDistanceToNow(new Date(comment.postedAt), {
                             addSuffix: true,
                             locale: ptBR,
                           })}
                         </span>
                       </div>
-                    </div>
-                  </li>
-                ))
+                    </li>
+                  ))
+                )
               )}
             </ul>
           </div>
-          {loading ? (
-            <div className="loading-shimmer" style={{ height: "62rem", marginTop: "20px" }}></div>
-          ) : (
-            <div className="comment-input-wrapper">
+          {imageLoaded && ( // Só mostra o campo de input e o botão se a imagem estiver carregada
+            <div className={styles.commentInputWrapper}>
               <input
+                type="text"
+                placeholder="Digite um comentário..."
                 value={commentText}
                 onChange={handleCommentChange}
-                placeholder="Digite seu comentário..."
-                className="comment-textarea"
+                className={styles.commentTextarea}
               />
               <button
+                className={styles.submitCommentButton}
                 onClick={handleSubmitComment}
-                className="submit-comment-button"
+                disabled={commentText.trim() === ""}
               >
                 Publicar
               </button>
