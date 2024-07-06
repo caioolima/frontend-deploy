@@ -16,14 +16,13 @@ import FirstWorldCountries from "./pages/Community/World Community/FirstWorldCou
 import Community from "./pages/Community/Community Services/Community";
 import ChatScreen from "./pages/Community/Chat/ChatScreen";
 import FeedPage from "./pages/Feed/feed";
-import NewPassword from "./pages/ResetPassword/NewPassword";
 import BackpackingArticle from "./pages/Community/Articles/BestPlaces/BackpackingArticle";
 import BackpackingIntroduction from "./pages/Community/Articles/IntroductionBackpacker/BackpackerArticle";
 import PerfectPhotos from "./pages/Community/Articles/PhotosArticle/PerfectPhotosArticle";
 import SupportPage from "./pages/Support/Support Page/SupportPage";
 import AccountSupport from "./pages/Support/Account Support/AccountSuport";
 import FAQ from "./pages/Support/FAQ/FAQ";
-import FeatureRequests from "./pages/Support/Feature Requests/FeatureRequests"; 
+import FeatureRequests from "./pages/Support/Feature Requests/FeatureRequests";
 
 function App() {
   return (
@@ -100,14 +99,7 @@ function App() {
         element={<Community />}
       />
       <Route path="/feed/:userId" element={<FeedPage />} />
-      <Route
-        path="/newpassword/:token"
-        element={
-          <AuthLayout>
-            <NewPassword />
-          </AuthLayout>
-        }
-      />
+
       <Route path="/backpacking-article" element={<BackpackingArticle />} />
       <Route
         path="/backpacking-introduction"

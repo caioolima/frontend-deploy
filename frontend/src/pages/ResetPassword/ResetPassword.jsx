@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import "./resets_password.css";
+import styles from "./resets_password.module.css";
 import Footer from "../../components/Footer/footer.jsx";
 
 const ResetPassword = ({ onClose }) => {
@@ -17,7 +17,8 @@ const ResetPassword = ({ onClose }) => {
   const [verifyingCode, setVerifyingCode] = useState(false);
   const [resettingPassword, setResettingPassword] = useState(false);
   const [showPasswordFields, setShowPasswordFields] = useState(false);
-  const [passwordsMatch, setPasswordsMatch] = useState(true); // Estado para verificar se as senhas coincidem
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const [confirmPasswordTouched, setConfirmPasswordTouched] = useState(false);
 
   useEffect(() => {
     setMessage("");
@@ -61,13 +62,16 @@ const ResetPassword = ({ onClose }) => {
     setVerifyingCode(true);
 
     try {
-      const response = await fetch(`https://connecter-server-033a278d1512.herokuapp.com/auth/verifyCode`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, code: code.join("") }),
-      });
+      const response = await fetch(
+        `https://connecter-server-033a278d1512.herokuapp.com/auth/verifyCode`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, code: code.join("") }),
+        }
+      );
 
       const data = await handleErrors(response);
       if (data.success) {
@@ -89,7 +93,9 @@ const ResetPassword = ({ onClose }) => {
 
     try {
       const response = await fetch(
-        `https://connecter-server-033a278d1512.herokuapp.com/auth/resetPassword/${code.join("")}`,
+        `https://connecter-server-033a278d1512.herokuapp.com/auth/resetPassword/${code.join(
+          ""
+        )}`,
         {
           method: "POST",
           headers: {
@@ -117,128 +123,161 @@ const ResetPassword = ({ onClose }) => {
   };
 
   const handleCodeChange = (index, value) => {
-    const newCode = [...code];
-    newCode[index] = value;
-    setCode(newCode);
-  };
+    if (value.match(/[0-9]/) || value === "") {
+      const newCode = [...code];
+      newCode[index] = value;
 
-  const handleKeyDown = (index, e) => {
-    if (e.key === "Backspace" && code[index] === "") {
-      if (index > 0) {
-        document.getElementById(`code-input-${index - 1}`).focus();
-      }
-    } else if (e.key.length === 1 && e.key.match(/[0-9]/)) {
-      handleCodeChange(index, e.key);
-      if (index < 5) {
-        document.getElementById(`code-input-${index + 1}`).focus();
+      if (code[index] !== value) {
+        setCode(newCode);
+
+        if (value !== "" && index < 5) {
+          setTimeout(() => {
+            document.getElementById(`code-input-${index + 1}`).focus();
+          }, 0);
+        }
       }
     }
   };
 
-  // Função para verificar se as senhas coincidem
-  const checkPasswordsMatch = () => {
-    setPasswordsMatch(password === confirmPassword);
+  const handleKeyDown = (index, e) => {
+    if (e.key === "Backspace") {
+      if (code[index] === "") {
+        if (index > 0) {
+          document.getElementById(`code-input-${index - 1}`).focus();
+        }
+      }
+    } else if (e.key.length === 1 && e.key.match(/[0-9]/)) {
+      handleCodeChange(index, e.key);
+    }
   };
-  // Efeito para verificar se as senhas coincidem sempre que houver mudança nos campos de senha
+
+  const checkPasswordsMatch = () => {
+    // Verifica se ambas as senhas coincidem e se o campo de confirmação foi tocado
+    if (confirmPasswordTouched) {
+      setPasswordsMatch(password === confirmPassword);
+    }
+  };
+
   useEffect(() => {
     checkPasswordsMatch();
   }, [password, confirmPassword]);
+
   return (
     <div>
-      <div className="logo_term">
-        <Link to="/home">Connecter Life</Link>
-      </div>
-      <hr />
-      <div className="container-form">
-        {!validCode && (
-          <>
-            <h1 className="title">{t("reset_password_title")}</h1>
-            <p className="description">{t("reset_password_description")}</p>
-          </>
-        )}
+      <div className={styles.wrapper}>
+        <div className={styles.logoTerm}>
+          <Link to="/home">Connecter Life</Link>
+        </div>
+        <hr />
+        <div className={styles.containerForm}>
+          {!validCode && (
+            <>
+              <h1 className={styles.title}>{t("reset_password_title")}</h1>
+              <p className={styles.description}>
+                {t("reset_password_description")}
+              </p>
+            </>
+          )}
 
-        {!validCode && (
-          <form onSubmit={resetPassword}>
-            <input
-              className="email-input"
-              type="email"
-              placeholder={t("email_placeholder")}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <button id="submit-button" type="submit" disabled={sendingEmail}>
-              {sendingEmail ? t("sending_email") : t("send_recovery_email")}
-            </button>
-            {message && <p className="message">{message}</p>}
-          </form>
-        )}
+          {!validCode && (
+            <form onSubmit={resetPassword}>
+              <input
+                className={styles.emailInput}
+                type="email"
+                placeholder={t("email_placeholder")}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <button
+                className={styles.submitButton}
+                type="submit"
+                disabled={sendingEmail}
+              >
+                {sendingEmail ? t("sending_email") : t("send_recovery_email")}
+              </button>
+              {message && <p className={styles.message}>{message}</p>}
+            </form>
+          )}
 
-        {validCode && !showPasswordFields && (
-          <form onSubmit={handleResetPassword} className="code-form">
-            <p className="code-instruction">{t("enter_received_code")}</p>
-            <div className="code-inputs">
-              {code.map((value, index) => (
-                <input
-                  key={index}
-                  id={`code-input-${index}`}
-                  className="code-input"
-                  type="text"
-                  maxLength={1}
-                  value={value}
-                  onChange={(e) => handleCodeChange(index, e.target.value)}
-                  onKeyDown={(e) => handleKeyDown(index, e)}
-                  required
-                />
-              ))}
-            </div>
-            <button
-              className="verify-button"
-              type="button"
-              onClick={verifyCode}
-              disabled={verifyingCode}
+          {validCode && !showPasswordFields && (
+            <form onSubmit={handleResetPassword} className={styles.codeForm}>
+              <p className={styles.codeInstruction}>
+                {t("enter_received_code")}
+              </p>
+              <div className={styles.codeInputs}>
+                {code.map((value, index) => (
+                  <input
+                    key={index}
+                    id={`code-input-${index}`}
+                    className={styles.codeInput}
+                    type="text"
+                    maxLength={1}
+                    value={value}
+                    onChange={(e) => handleCodeChange(index, e.target.value)}
+                    onKeyDown={(e) => handleKeyDown(index, e)}
+                    required
+                  />
+                ))}
+              </div>
+
+              <button
+                className={styles.verifyButton}
+                type="button"
+                onClick={verifyCode}
+                disabled={verifyingCode}
+              >
+                {verifyingCode ? t("verifying_code") : t("verify_code")}
+              </button>
+              {message && <p className={styles.message}>{message}</p>}
+            </form>
+          )}
+
+          {showPasswordFields && (
+            <form
+              onSubmit={handleResetPassword}
+              className={styles.passwordForm}
             >
-              {verifyingCode ? t("verifying_code") : t("verify_code")}
-            </button>
-            {message && <p className="message">{message}</p>}
-          </form>
-        )}
-
-        {showPasswordFields && (
-          <form onSubmit={handleResetPassword} className="password-form">
-            <p className="password-instruction">{t("enter_new_password")}</p>
-            <input
-              className="password-input"
-              type="password"
-              placeholder={t("new_password_placeholder")}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <input
-              className="password-input"
-              type="password"
-              placeholder={t("confirm_password_placeholder")}
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-            <button
-              className="verify-button"
-              type="submit"
-              disabled={resettingPassword || !passwordsMatch} // Desabilitar o botão se as senhas não coincidirem ou se estiver redefinindo a senha
-            >
-              {resettingPassword
-                ? t("resetting_password")
-                : t("reset_password")}
-            </button>{" "}
-            {!passwordsMatch && (
-              <p className="message">{t("passwords_do_not_match")}</p>
-            )}
-          </form>
-        )}
+              <p className={styles.passwordInstruction}>
+                {t("enter_new_password")}
+              </p>
+              <input
+                className={styles.passwordInput}
+                type="password"
+                placeholder={t("new_password_placeholder")}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <input
+                className={styles.passwordInput}
+                type="password"
+                placeholder={t("confirm_password_placeholder")}
+                value={confirmPassword}
+                onChange={(e) => {
+                  setConfirmPassword(e.target.value);
+                  setConfirmPasswordTouched(true); // Marcar o campo como tocado
+                }}
+                onBlur={() => setConfirmPasswordTouched(true)} // Marcar o campo como tocado se perder o foco
+                required
+              />
+              <button
+                className={styles.verifyButton}
+                type="submit"
+                disabled={resettingPassword || !passwordsMatch}
+              >
+                {resettingPassword
+                  ? t("resetting_password")
+                  : t("reset_password")}
+              </button>
+              {!passwordsMatch && confirmPasswordTouched && (
+                <p className={styles.message}>{t("passwords_do_not_match")}</p>
+              )}
+            </form>
+          )}
+        </div>
       </div>
-      <div className="footer-reset">
+      <div className={styles.footer}>
         <Footer />
       </div>
     </div>
