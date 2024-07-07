@@ -3,7 +3,6 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import styles from "./BackpackerArticle.module.css";
 import SidebarMenu from "../../../perfil/SidebarMenu/index";
-import Footer from "../../../../components/Footer/footer.jsx";
 
 const BackpackerArticle = () => {
   const { t } = useTranslation();
@@ -66,7 +65,6 @@ const BackpackerArticle = () => {
           <p className={styles.paragraph}>{t("backpacker_tip_4")}</p>
         </section>
       </article>
-      <Footer />
     </div>
   );
 };

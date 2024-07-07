@@ -5,7 +5,7 @@ import "./FindUserPage.css"; // Importar o arquivo de estilos CSS
 import SidebarMenu from "../../pages/perfil/SidebarMenu/index";
 import { useTranslation } from "react-i18next"; // Importar o hook useTranslation para tradução
 import { AiOutlineUser } from "react-icons/ai"; // Importando o ícone de usuário padrão
-import Footer from "../../components/Footer/footer.jsx";
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const FindUserPage = () => {
   const { t } = useTranslation(); // Usar o hook useTranslation para tradução
@@ -13,7 +13,7 @@ const FindUserPage = () => {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
   const [typingTimeout, setTypingTimeout] = useState(null);
-
+  const { userLanguage } = useLanguage(); // Usando o contexto
 
   useEffect(() => {
     const cleanedUsername = username.trim().replace(/\s+/g, " ");
@@ -101,9 +101,6 @@ const FindUserPage = () => {
             {t("error")}: {error}
           </p>
         )}
-      </div>
-      <div className="footer-reset">
-        <Footer />
       </div>
     </div>
   );

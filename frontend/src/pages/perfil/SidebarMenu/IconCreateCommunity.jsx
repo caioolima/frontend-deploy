@@ -18,7 +18,7 @@ const IconCreateCommunity = () => {
     <SidebarLink
       title={t("create_community_title")}
       icon={<FaUsers />} // Use o ícone FaUsers
-      label={t("create_community_label")}
+      label={t("create_community_title")}
       onClick={handleClick}
     />
   );

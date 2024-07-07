@@ -5,7 +5,6 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import SidebarMenu from "../../perfil/SidebarMenu/index.jsx";
-import Footer from "../../../components/Footer/footer.jsx";
 import Articles from "./Card Community/ImageField.jsx";
 import TopFollowedUsers from "./TopFollows/TopFollowedUsers.jsx";
 import TopLikedPosts from "./TopLikes/TopLikedPosts.jsx";
@@ -197,7 +196,7 @@ const FirstWorldCountries = () => {
 
           <TopFollowedUsers topFollowedUsers={topFollowedUsers} t={t} />
           <TopLikedPosts topLikedPosts={topLikedPosts} t={t} />  <div className="footer-world">
-          <Footer />
+         
         </div>
         </article>
 

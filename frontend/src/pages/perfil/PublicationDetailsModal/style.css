@@ -4,7 +4,7 @@
   position: fixed;
   display: flex;
   background: rgba(0, 0, 0, 0.8); /* Fundo semi-transparente mais escuro */
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   z-index: 999;
 }
@@ -342,4 +342,13 @@
 .modal-buttons-modal button:last-child {
   background-color: #66cc66;
   color: white;
+}
+
+.photo-modal-profile-icon {
+  background-color: black;
+  color: gray;
+  width: 50px; /* Ajuste a largura da imagem redonda conforme necessário */
+  height: 50px; /* Ajuste a altura da imagem redonda conforme necessário */
+  object-fit: cover;
+  border-radius: 50%;
 }

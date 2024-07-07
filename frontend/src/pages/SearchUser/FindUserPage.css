@@ -34,7 +34,7 @@
   align-items: start;
   gap: 20px;
   margin: 0 -100px;
-  max-height: 500px; /* Defina uma altura máxima para a lista */
+  max-height: 650px; /* Defina uma altura máxima para a lista */
   overflow-y: auto; /* Adicione overflow-y para permitir rolagem vertical quando necessário */
 }
 
@@ -62,8 +62,10 @@
 
 .user-avatar {
   width: 50px;
+  height: 50px;
   border-radius: 50%;
-  margin-bottom: 10px;
+  object-fit: cover; /* Garantir que a imagem mantenha a proporção correta */
+  margin-right: 10px;
 }
 
 .profile-icon-profile {

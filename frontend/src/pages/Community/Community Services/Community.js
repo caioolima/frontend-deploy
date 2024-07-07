@@ -13,7 +13,6 @@ import BrasilFlag from "./flags/brasil.jpeg";
 import AlemanhaFlag from "./flags/alemanha.png";
 import JapaoFlag from "./flags/japao.png";
 import "./community.css";
-import Footer from "../../../components/Footer/footer.jsx";
 import { useTranslation } from "react-i18next";
 
 const CountryDetails = () => {
@@ -89,9 +88,6 @@ const CountryDetails = () => {
           </div>
         </Flag>
       )}
-      <div className="footer-reset">
-            <Footer userId={userId} />
-          </div>
     </div>
   );
 };

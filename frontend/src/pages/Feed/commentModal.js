@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import styles from "./CommentModal.module.css";
+import { useTranslation } from 'react-i18next';
 
 const CommentModal = ({ imageUrl, onClose, user }) => {
   const [commentText, setCommentText] = useState("");
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const { t } = useTranslation();
 
   const fetchComments = async () => {
     try {
@@ -27,7 +29,10 @@ const CommentModal = ({ imageUrl, onClose, user }) => {
       const data = await response.json();
       setComments(data.comments);
       setLoading(false);
-      localStorage.setItem(`comments-${imageUrl}`, JSON.stringify(data.comments));
+      localStorage.setItem(
+        `comments-${imageUrl}`,
+        JSON.stringify(data.comments)
+      );
       localStorage.setItem(`commentsLoaded-${imageUrl}`, "true");
     } catch (error) {
       console.error(error);
@@ -55,17 +60,20 @@ const CommentModal = ({ imageUrl, onClose, user }) => {
 
   const handleSubmitComment = async () => {
     try {
-      const response = await fetch("https://connecter-server-033a278d1512.herokuapp.com/feedRoutes/comment", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: user.id,
-          imageUrl,
-          text: commentText,
-        }),
-      });
+      const response = await fetch(
+        "https://connecter-server-033a278d1512.herokuapp.com/feedRoutes/comment",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: user.id,
+            imageUrl,
+            text: commentText,
+          }),
+        }
+      );
       if (!response.ok) {
         throw new Error("Erro ao adicionar comentário");
       }
@@ -85,35 +93,45 @@ const CommentModal = ({ imageUrl, onClose, user }) => {
         <div className={styles.commentImageContainer}>
           <img
             src={imageUrl}
-            alt="Imagem da postagem"
+            alt={t("comment_image_alt", { defaultValue: "Imagem da postagem" })} // Adicionando suporte para tradução do texto alternativo da imagem
             className={styles.commentImage}
             onLoad={handleImageLoad} // Aciona o estado quando a imagem é carregada
-            style={{ display: imageLoaded ? 'block' : 'none' }} // Oculta a imagem até que seja carregada
+            style={{ display: imageLoaded ? "block" : "none" }} // Oculta a imagem até que seja carregada
           />
           {!imageLoaded && (
-            <div className={styles.loadingShimmer} style={{ height: "62rem" }}></div>
+            <div
+              className={styles.loadingShimmer}
+              style={{ height: t("loading_shimmer_height") }} // Altura do shimmer
+            ></div>
           )}
         </div>
         <div className={styles.commentInputContainer}>
-          <h2 className={styles.commentTitle}>Comentários</h2>
+          <h2 className={styles.commentTitle}>{t("comments")}</h2>
           <div className={styles.commentList}>
             <ul>
-              {imageLoaded && ( // Só renderiza comentários se a imagem estiver carregada
-                loading ? (
-                  <li className={styles.loadingShimmer} style={{ height: "600px", marginBottom: "20px" }}></li>
+              {imageLoaded && // Só renderiza comentários se a imagem estiver carregada
+                (loading ? (
+                  <li
+                    className={styles.loadingShimmer}
+                    style={{ height: "600px", marginBottom: "20px" }}
+                  ></li>
                 ) : comments.length === 0 ? (
                   <li className={styles.noCommentsMessage}>
-                    <span>Deixe um comentário.</span>
+                    <span>{t("leave_a_comment")}</span>
                   </li>
                 ) : (
                   comments.map((comment, index) => (
                     <li
                       key={index}
-                      className={`${styles.commentUserInfo} ${comment.userId.id === user.id ? styles.currentUser : ""}`}
+                      className={`${styles.commentUserInfo} ${
+                        comment.userId.id === user.id ? styles.currentUser : ""
+                      }`}
                     >
                       <img
                         src={comment.userId.profileImageUrl}
-                        alt="Profile"
+                        alt={t("profile_image_alt", {
+                          defaultValue: "Profile",
+                        })} // Adicionando suporte para tradução do texto alternativo da imagem de perfil
                         className={styles.profileImageFeed}
                       />
                       <div className={styles.commentContent}>
@@ -134,15 +152,14 @@ const CommentModal = ({ imageUrl, onClose, user }) => {
                       </div>
                     </li>
                   ))
-                )
-              )}
+                ))}
             </ul>
           </div>
           {imageLoaded && ( // Só mostra o campo de input e o botão se a imagem estiver carregada
             <div className={styles.commentInputWrapper}>
               <input
                 type="text"
-                placeholder="Digite um comentário..."
+                placeholder={t("comment_input_placeholder")}
                 value={commentText}
                 onChange={handleCommentChange}
                 className={styles.commentTextarea}
@@ -152,7 +169,7 @@ const CommentModal = ({ imageUrl, onClose, user }) => {
                 onClick={handleSubmitComment}
                 disabled={commentText.trim() === ""}
               >
-                Publicar
+                {t("publish")}
               </button>
             </div>
           )}

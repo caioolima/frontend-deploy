@@ -2,7 +2,6 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import styles from "./PerfectPhotosArticle.module.css";
 import SidebarMenu from "../../../perfil/SidebarMenu/index";
-import Footer from "../../../../components/Footer/footer.jsx";
 
 const PerfectPhotosArticle = () => {
   const { t } = useTranslation();
@@ -118,7 +117,6 @@ const PerfectPhotosArticle = () => {
           <span className={styles.quoteAuthor}>{t("conclusion.author")}</span>
         </p>
       </article>
-      <Footer />
     </div>
   );
 };

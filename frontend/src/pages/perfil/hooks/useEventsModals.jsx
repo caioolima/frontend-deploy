@@ -61,24 +61,24 @@ const useEventsModals = () => {
       setCurrentImageIndex((prevIndex) =>
         prevIndex === 0 ? userPhotos.length - 1 : prevIndex - 1
       );
-      setFadeState("fade-in"); 
+      setFadeState("fade-in");
       checkLikeStatus();
     }, 50);
-   
   };
 
   const goToNextImage = () => {
     setFadeState("fade-out");
     setTimeout(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % userPhotos.length);
-      setFadeState("fade-in");  
+      setFadeState("fade-in");
       checkLikeStatus();
     }, 50);
-  
   };
 
   const openModal = () => {
     setShowModal(true);
+
+    document.documentElement.style.overflowX = "hidden";
   };
 
   const openModalTwo = () => {
@@ -149,7 +149,6 @@ const useEventsModals = () => {
     fetchFollowersCount();
   }, [userId, setNumberOfFollowers]);
 
-  
   // const checkLikeStatus = async () => {
   //   try {
   //     const token = localStorage.getItem("token");
@@ -175,32 +174,38 @@ const useEventsModals = () => {
   //     console.error("Erro ao verificar status do like:", error);
   //   }
   // };
-  
+
   const checkLikeStatus = async (index = currentImageIndex) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`https://connecter-server-033a278d1512.herokuapp.com/gallery/check-likes`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          imageUrl: userPhotos[index].url,
-          targetUserId: user.id,
-        }),
-      });
+      const response = await fetch(
+        `https://connecter-server-033a278d1512.herokuapp.com/gallery/check-likes`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            imageUrl: userPhotos[index].url,
+            targetUserId: user.id,
+          }),
+        }
+      );
       if (response.ok) {
         const data = await response.json();
         setIsLiked(data.isLikedByUser);
       } else {
-        console.error("Erro ao verificar status de curtida:", response.statusText);
+        console.error(
+          "Erro ao verificar status de curtida:",
+          response.statusText
+        );
       }
     } catch (error) {
       console.error("Erro ao verificar status de curtida:", error);
     }
   };
-  
+
   return {
     handleClosePhotoModal,
     handlePublicationClick,
@@ -211,7 +216,7 @@ const useEventsModals = () => {
     openModalTwo,
     handleSignOut,
     handlePublishClick,
-    checkLikeStatus
+    checkLikeStatus,
   };
 };
 

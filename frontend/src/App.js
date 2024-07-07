@@ -23,6 +23,7 @@ import SupportPage from "./pages/Support/Support Page/SupportPage";
 import AccountSupport from "./pages/Support/Account Support/AccountSuport";
 import FAQ from "./pages/Support/FAQ/FAQ";
 import FeatureRequests from "./pages/Support/Feature Requests/FeatureRequests";
+import { LanguageProvider } from "./contexts/LanguageContext";
 
 function App() {
   return (
@@ -81,14 +82,23 @@ function App() {
           </AuthLayout>
         }
       />
-      <Route path="/profile/:userId" element={<UserProfileContainer />} />
+      <Route
+        path="/profile/:userId"
+        element={
+          <LanguageProvider>
+            <UserProfileContainer />
+          </LanguageProvider>
+        }
+      />
       <Route path="/search" element={<SearchUser />} />
       <Route
         path="*"
         element={
-          <PublicRoute>
-            <NotFoundPage />
-          </PublicRoute>
+          <LanguageProvider>
+            <PublicRoute>
+              <NotFoundPage />
+            </PublicRoute>{" "}
+          </LanguageProvider>
         }
       />
       <Route path="/worldcommunity" element={<FirstWorldCountries />} />

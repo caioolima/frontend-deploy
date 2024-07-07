@@ -19,7 +19,15 @@ const Galeria = () => {
   const [activeTab, setActiveTab] = useState("galeria");
   const { user } = useAuth();
   const { userId } = useParams();
+  useEffect(() => {
+    // Aplica overflow: hidden ao elemento html para remover o scroll
+    document.documentElement.style.overflowX = "hidden";
 
+    // Cleanup: remove overflow: hidden ao desmontar o componente
+    return () => {
+      document.documentElement.style.overflowX = "auto";
+    };
+  }, []);
   useEffect(() => {
     const preloadImages = () => {
       userPhotos.forEach((photoData, index) => {

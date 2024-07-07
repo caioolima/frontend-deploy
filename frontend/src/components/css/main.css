@@ -54,7 +54,7 @@ html {
 
 /* Estilo do polegar */
 *::-webkit-scrollbar-thumb {
-    background: var(--color-details); /* Gradiente para efeito de transição */
+    background: var(--color-primary-focus); /* Gradiente para efeito de transição */
     border-radius: 10px; /* Borda arredondada */
     border-top-width: 0; /* Largura da borda superior (triângulo) */
     border-bottom-width: 10px; /* Largura da borda inferior */

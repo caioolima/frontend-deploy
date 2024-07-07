@@ -12,7 +12,7 @@ import Galeria from "./Galeria/index";
 import InfoProfile from "./InfoProfile/index";
 import PublicationDetailsModal from "./PublicationDetailsModal/index";
 import { useAuth } from "../../hooks/use-auth";
-import Footer from "../../components/Footer/footer.jsx";
+import { useLanguage } from '../../contexts/LanguageContext';
 
 /* Functions */
 import useGetdata from "./hooks/useGetdata";
@@ -26,7 +26,7 @@ const UserProfileContainer = () => {
     selectedPublicationModalOpen,
     userDataLoaded,
   } = useMyContext();
-
+  const { userLanguage } = useLanguage(); // Usando o contexto
   /* Função que obtem todos os dados do servidor */
   const { getDataUser } = useGetdata();
   const [userId, setUserId] = useState(useParams().userId);
@@ -112,11 +112,7 @@ const UserProfileContainer = () => {
             {/* Modal de publicar foto na galeria */}
           </section>
         )}
-        {userDataLoaded && (
-          <div className="footer-reset">
-            <Footer userId={userId} />
-          </div>
-        )}
+      
       </main>
     </>
   );

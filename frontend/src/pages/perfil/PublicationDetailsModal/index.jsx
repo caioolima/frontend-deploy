@@ -10,7 +10,7 @@ import {
   FaEllipsisH,
 } from "react-icons/fa";
 
-import { AiFillFire, AiOutlineFire } from "react-icons/ai"; // Importe o ícone de fogo
+import { AiFillFire, AiOutlineFire, AiOutlineUser } from "react-icons/ai";
 import { useTranslation } from "react-i18next"; // Importa o hook useTranslation
 
 const PublicationDetailsModal = () => {
@@ -50,40 +50,61 @@ const PublicationDetailsModal = () => {
     const currentTime = new Date().getTime();
     const difference = currentTime - postedAt;
     const seconds = Math.floor(difference / 1000);
-    
+
     if (seconds < 60) {
-      setPostTime(`${seconds} ${t(seconds === 1 ? "second" : "seconds", { count: seconds })} ${t("ago")}`);
+      setPostTime(
+        `${seconds} ${t(seconds === 1 ? "second" : "seconds", {
+          count: seconds,
+        })} ${t("ago")}`
+      );
       return;
     }
-  
+
     const minutes = Math.floor(seconds / 60);
     if (minutes < 60) {
-      setPostTime(`${minutes} ${t(minutes === 1 ? "minute" : "minutes", { count: minutes })} ${t("ago")}`);
+      setPostTime(
+        `${minutes} ${t(minutes === 1 ? "minute" : "minutes", {
+          count: minutes,
+        })} ${t("ago")}`
+      );
       return;
     }
-  
+
     const hours = Math.floor(minutes / 60);
     if (hours < 24) {
-      setPostTime(`${hours} ${t(hours === 1 ? "hour" : "hours", { count: hours })} ${t("ago")}`);
+      setPostTime(
+        `${hours} ${t(hours === 1 ? "hour" : "hours", { count: hours })} ${t(
+          "ago"
+        )}`
+      );
       return;
     }
-  
+
     const days = Math.floor(hours / 24);
     if (days < 30) {
-      setPostTime(`${days} ${t(days === 1 ? "day" : "days", { count: days })} ${t("ago")}`);
+      setPostTime(
+        `${days} ${t(days === 1 ? "day" : "days", { count: days })} ${t("ago")}`
+      );
       return;
     }
-  
+
     const months = Math.floor(days / 30);
     if (months < 12) {
-      setPostTime(`${months} ${t(months === 1 ? "month" : "months", { count: months })} ${t("ago")}`);
+      setPostTime(
+        `${months} ${t(months === 1 ? "month" : "months", {
+          count: months,
+        })} ${t("ago")}`
+      );
       return;
     }
-  
+
     const years = Math.floor(months / 12);
-    setPostTime(`${years} ${t(years === 1 ? "year" : "years", { count: years })} ${t("ago")}`);
+    setPostTime(
+      `${years} ${t(years === 1 ? "year" : "years", { count: years })} ${t(
+        "ago"
+      )}`
+    );
   };
-  
 
   const touchStartX = useRef(null);
   const touchEndX = useRef(null);
@@ -264,7 +285,18 @@ const PublicationDetailsModal = () => {
       console.error("Erro ao verificar status de curtida:", error);
     }
   };
-  document.body.style.overflow = "hidden";
+
+  useEffect(() => {
+    // Aplica overflow-x: hidden ao elemento html para remover o scroll horizontal
+    document.documentElement.style.overflow = "hidden";
+
+    // Cleanup: remove overflow-x: hidden ao desmontar o componente
+    return () => {
+      document.documentElement.style.overflow = "auto";
+      document.documentElement.style.overflowY = "hidden";
+    };
+  }, []);
+
   return (
     <>
       <div className="overlay" onClick={handleOverlayClick}></div>
@@ -313,11 +345,15 @@ const PublicationDetailsModal = () => {
               </div>
               <div className="user-details">
                 <Link to={`/profile/${userId}`}>
-                  <img
-                    className="rounded-image"
-                    src={profileImage}
-                    alt="Profile"
-                  />
+                  {profileImage ? (
+                    <img
+                      src={profileImage}
+                      alt="Imagem de perfil"
+                      className="photo-modal-profile-img"
+                    />
+                  ) : (
+                    <AiOutlineUser className="photo-modal-profile-icon" /> // Ícone de usuário padrão
+                  )}
                 </Link>
                 <div className="text-content">
                   <p className="details-user">

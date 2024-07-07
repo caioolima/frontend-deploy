@@ -7,6 +7,7 @@ import { useAuth } from "../../../hooks/use-auth";
 import usePhotoModal from "../hooks/usePhotoModal";
 import useGetdata from "../hooks/useGetdata";
 import { AiOutlineUser } from "react-icons/ai"; // Importando o ícone de usuário padrão
+import { useTranslation } from "react-i18next";
 
 const InfoProfile = () => {
   const {
@@ -34,7 +35,7 @@ const InfoProfile = () => {
   const [isUpdatingFollowers, setIsUpdatingFollowers] = useState(false);
   const { user } = useAuth();
   const isOwner = user && user.id === userId;
-
+  const { t } = useTranslation();
   const modalRef = useRef(null);
 
   useEffect(() => {
@@ -132,8 +133,10 @@ const InfoProfile = () => {
           {profileImage !== null && profileImage !== "" ? (
             <img
               src={profileImage}
-              alt="User"
-              className={`profile-photo ${!profileImage && "loading-animation"}`}
+              alt={t("User")}
+              className={`profile-photo ${
+                !profileImage && "loading-animation"
+              }`}
             />
           ) : (
             <AiOutlineUser className="profile-icon" /> // Ícone de foto de perfil padrão
@@ -145,7 +148,7 @@ const InfoProfile = () => {
           <h1>{username}</h1>
           {isOwner && !isEditMode && (
             <button className="edit-button" onClick={handleEditClick}>
-              Editar
+              {t("Edit")}
             </button>
           )}
         </div>
@@ -156,18 +159,18 @@ const InfoProfile = () => {
             ) : (
               <strong>0</strong>
             )}
-            Publicações
+            {t("Posts")}
           </p>
           {numberOfFollowers !== null && (
             <p className="followers-count" onClick={handleShowFollowers}>
-              <strong>{formattedFollowers}</strong>
-              Seguidores
+              <strong>{numberOfFollowers}</strong>
+              {t("Followers")}
             </p>
           )}
           {numberOfFollowing !== null && (
             <p className="following-count" onClick={handleShowFollowing}>
               <strong>{numberOfFollowing}</strong>
-              Seguindo
+              {t("Following")}
             </p>
           )}
         </div>
@@ -189,7 +192,7 @@ const InfoProfile = () => {
               }
             }}
           >
-            {isFollowing ? "Seguindo" : "Seguir"}
+            {isFollowing ? t("Following") : t("Follow")}
           </button>
         )}
       </div>
@@ -199,7 +202,7 @@ const InfoProfile = () => {
             <span className="closed-follow" onClick={handleCloseModal}>
               &times;
             </span>
-            <h3>Seguidores</h3>
+            <h3>{t("Followers")}</h3>
             <ul>
               {followers.map((follower) => (
                 <li key={follower.id} className="follower-user">
@@ -236,10 +239,10 @@ const InfoProfile = () => {
             <span className="closed-follow" onClick={handleCloseModal}>
               &times;
             </span>
-            <h3>Seguindo</h3>
+            <h3>{t("Following")}</h3>
             <ul>
               {following.map((followee) => (
-                <li key={followee.Id} className="following-user">
+                <li key={followee.id} className="following-user">
                   <a href={`/profile/${followee._id}`} className="profile-link">
                     <div className="user-avatar">
                       {followee.profileImageUrl ? (

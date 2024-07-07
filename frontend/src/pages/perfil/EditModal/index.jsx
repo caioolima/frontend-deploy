@@ -5,6 +5,7 @@ import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { useMyContext } from "../../../contexts/profile-provider";
 import useModalEdit from "../hooks/useModalEdit.jsx";
+import { useTranslation } from 'react-i18next';
 
 const EditModal = () => {
   const {
@@ -82,7 +83,7 @@ const EditModal = () => {
       newUsername !== initialState.initialUsername ||
       newBiography !== initialState.initialBiography ||
       phoneNumber !== initialState.initialPhoneNumber;
-    
+
     // Habilita ou desabilita o botão de salvar com base nas alterações nos campos
     const saveButton = document.getElementById("save-button");
     if (saveButton) {
@@ -91,6 +92,8 @@ const EditModal = () => {
   }, [newUsername, newBiography, phoneNumber]);
 
   document.body.style.overflow = "hidden";
+
+  const { t } = useTranslation();
 
   return (
     <div className={styles["modal-edit"]}>
@@ -102,11 +105,11 @@ const EditModal = () => {
             handleCloseModal();
           }}
         >
-          X
+          {t("close_button")}
         </button>
 
         <div className={styles["text-edit"]}>
-          <label>Nome de usuário:</label>
+          <label>{t("username_label")}</label>
           <input
             type="text"
             value={newUsername}
@@ -118,7 +121,7 @@ const EditModal = () => {
           )}
         </div>
         <div className={styles.bio_text_edit}>
-          <label htmlFor="biography">Biografia:</label>
+          <label htmlFor="biography">{t("bio_label")}</label>
           <textarea
             id="biography"
             rows={4}
@@ -130,7 +133,7 @@ const EditModal = () => {
         </div>
 
         <div className={styles["text-edit"]}>
-          <label>Nome Completo:</label>
+          <label>{t("full_name_label")}</label>
           <input
             type="text"
             value={modalFullName}
@@ -140,15 +143,15 @@ const EditModal = () => {
           />
         </div>
         <div className={styles["text-edit"]}>
-          <label>Data de Nascimento:</label>
+          <label>{t("dob_label")}</label>
           <p className={styles["black-text"]}>
             {new Date(modalDateOfBirth).toLocaleDateString()}
           </p>
         </div>
         <div className={styles["text-edit"]}>
-          <label>Número de Telefone:</label>
+          <label>{t("phone_number_label")}</label>
           <PhoneInput
-            placeholder="Número de Telefone"
+            placeholder={t("phone_placeholder")}
             value={phoneNumber}
             onChange={handleInputChange}
             inputClassName={`${styles["phone-input"]} ${
@@ -165,7 +168,7 @@ const EditModal = () => {
             className={styles["delete-account-button"]}
             onClick={openConfirmDeleteAccountModal}
           >
-            Excluir Conta
+            {t("delete_account_button")}
           </button>
         </div>
 
@@ -173,58 +176,59 @@ const EditModal = () => {
           <button
             id="save-button"
             className={`${styles["save-button"]} ${
-              !newUsername || (
-                newUsername === initialState.initialUsername &&
+              !newUsername ||
+              (newUsername === initialState.initialUsername &&
                 newBiography === initialState.initialBiography &&
-                phoneNumber === initialState.initialPhoneNumber
-              ) ? styles["disabled"] : ""
+                phoneNumber === initialState.initialPhoneNumber)
+                ? styles["disabled"]
+                : ""
             }`}
             onClick={handleSaveEdits}
-            disabled={!newUsername || (
-              newUsername === initialState.initialUsername &&
-              newBiography === initialState.initialBiography &&
-              phoneNumber === initialState.initialPhoneNumber
-            )}
+            disabled={
+              !newUsername ||
+              (newUsername === initialState.initialUsername &&
+                newBiography === initialState.initialBiography &&
+                phoneNumber === initialState.initialPhoneNumber)
+            }
           >
-            Salvar
+            {t("save_button")}
           </button>
         </div>
 
         {/* Modal de confirmação de exclusão de biografia */}
         {showConfirmDeleteModal && (
           <div className={styles["confirm-delete-modal"]}>
-            <p>Você realmente deseja excluir sua biografia?</p>
+            <p>{t("confirm_delete_bio")}</p>
             <button
               className={styles["confirm-delete-button"]}
               onClick={handleDeleteBiography}
             >
-              Sim
+              {t("yes")}
             </button>
             <button
               onClick={closeConfirmDeleteModal}
               className={styles["cancel-button-bio"]}
             >
-              Cancelar
+              {t("cancel")}
             </button>
           </div>
         )}
         {showConfirmDeleteAccountModal && (
           <div className={styles["confirm-delete-modal"]}>
             <p className={styles["text-delete-modal"]}>
-              Você realmente deseja excluir sua conta? A conta será desativada
-              após 30 dias.
+              {t("confirm_delete_account")}
             </p>
             <button
               onClick={handleDeleteAccount}
               className={styles["confirm-delete-button"]}
             >
-              Sim
+              {t("yes")}
             </button>
             <button
               onClick={closeConfirmDeleteAccountModal}
               className={styles["cancel-button-bio"]}
             >
-              Cancelar
+              {t("cancel")}
             </button>
           </div>
         )}

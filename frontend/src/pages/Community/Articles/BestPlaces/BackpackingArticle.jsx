@@ -5,16 +5,16 @@ import LocationCard from "./LocationCard";
 import DetailedInfo from "./DetailedInfo";
 import TipsSection from "./TipsSection";
 import SidebarMenu from "../../../perfil/SidebarMenu/index";
-import Footer from "../../../../components/Footer/footer.jsx";
 
 const BackpackingArticle = () => {
-  const { t } = useTranslation();  // Importe o hook useTranslation
+  const { t } = useTranslation(); // Importe o hook useTranslation
 
   const locations = [
     {
       name: t("locations.patagonia.name"),
       description: t("locations.patagonia.description"),
-      image: "https://s2.static.brasilescola.uol.com.br/be/2023/01/parque-nacional-patagonia.jpg",
+      image:
+        "https://s2.static.brasilescola.uol.com.br/be/2023/01/parque-nacional-patagonia.jpg",
       bestTime: t("locations.patagonia.bestTime"),
       tips: [
         t("locations.patagonia.tips.0"),
@@ -34,7 +34,8 @@ const BackpackingArticle = () => {
     {
       name: t("locations.santiago.name"),
       description: t("locations.santiago.description"),
-      image: "https://www.dicasbarcelona.com.br/wp-content/plugins/seox-image-magick/imagick_convert.php?width=800&height=600&format=.jpg&quality=91&imagick=/wp-content/uploads/sites/15/2017/09/Caminho-Portugues-ate-Santiago-de-Compostela.jpg",
+      image:
+        "https://www.dicasbarcelona.com.br/wp-content/plugins/seox-image-magick/imagick_convert.php?width=800&height=600&format=.jpg&quality=91&imagick=/wp-content/uploads/sites/15/2017/09/Caminho-Portugues-ate-Santiago-de-Compostela.jpg",
       bestTime: t("locations.santiago.bestTime"),
       tips: [
         t("locations.santiago.tips.0"),
@@ -54,7 +55,8 @@ const BackpackingArticle = () => {
     {
       name: t("locations.gili.name"),
       description: t("locations.gili.description"),
-      image: "https://www.maladeaventuras.com/wp-content/uploads/2024/02/ilhas-gili-Estatuas-Gili-Meno.jpg",
+      image:
+        "https://www.maladeaventuras.com/wp-content/uploads/2024/02/ilhas-gili-Estatuas-Gili-Meno.jpg",
       bestTime: t("locations.gili.bestTime"),
       tips: [
         t("locations.gili.tips.0"),
@@ -74,7 +76,8 @@ const BackpackingArticle = () => {
     {
       name: t("locations.machuPicchu.name"),
       description: t("locations.machuPicchu.description"),
-      image: "https://i.natgeofe.com/n/819ea774-aa80-435e-af5a-ae56efee7ce3/92491.jpg?w=718&h=538",
+      image:
+        "https://i.natgeofe.com/n/819ea774-aa80-435e-af5a-ae56efee7ce3/92491.jpg?w=718&h=538",
       bestTime: t("locations.machuPicchu.bestTime"),
       tips: [
         t("locations.machuPicchu.tips.0"),
@@ -94,7 +97,8 @@ const BackpackingArticle = () => {
     {
       name: t("locations.newZealand.name"),
       description: t("locations.newZealand.description"),
-      image: "https://www.egali.com.br/wp-content/uploads/2015/12/new-zealand-g8cdf0f7ab_1920.jpg",
+      image:
+        "https://www.egali.com.br/wp-content/uploads/2015/12/new-zealand-g8cdf0f7ab_1920.jpg",
       bestTime: t("locations.newZealand.bestTime"),
       tips: [
         t("locations.newZealand.tips.0"),
@@ -156,7 +160,6 @@ const BackpackingArticle = () => {
         ))}
         <TipsSection tips={locations.flatMap((location) => location.tips)} />
       </div>
-      <Footer />
     </div>
   );
 };

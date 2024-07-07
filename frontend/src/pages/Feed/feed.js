@@ -8,6 +8,7 @@ import { AiOutlineUser } from "react-icons/ai"; // Importando o ícone de usuár
 import { FaBookmark, FaRegBookmark } from "react-icons/fa"; // Importe os ícones de salvar (cheio e vazio)
 import { MdComment } from "react-icons/md";
 import CommentModal from "./commentModal";
+import { useTranslation } from 'react-i18next';
 
 const FeedPage = () => {
   const { user } = useAuth();
@@ -22,6 +23,7 @@ const FeedPage = () => {
   const [commentModalOpen, setCommentModalOpen] = useState(false);
   const [selectedPostImageUrl, setSelectedPostImageUrl] = useState("");
   const [imageLoadStatus, setImageLoadStatus] = useState({});
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (user) {
@@ -280,7 +282,7 @@ const FeedPage = () => {
   return (
     <main className="feed-page-container">
       <div className="feed-page">
-        <h1 className="welcome-explore">Bem-vindo ao Explorar.</h1>
+        <h1 className="welcome-explore">{t("welcome_explore")}</h1>
         <SidebarMenu /> {/* Menu */}
         {loading ? (
           <>
@@ -339,7 +341,9 @@ const FeedPage = () => {
                     }`}
                   >
                     <div className="post-caption-container">
-                      <p className="post-caption-highlight">{post.caption}</p>
+                      <p className="post-caption-highlight">
+                        {post.caption || t("post_caption_placeholder")}
+                      </p>
                     </div>
                   </div>
 
@@ -380,7 +384,7 @@ const FeedPage = () => {
                       className="view-likes-button"
                       onClick={() => handleViewLikes(post.url)}
                     >
-                      Ver quem curtiu
+                      {t("view_likes_button")}
                     </button>
                     {post.isSaved ? (
                       <FaBookmark
@@ -398,7 +402,8 @@ const FeedPage = () => {
                       />
                     )}
                     <p className="post-date-feed">
-                      Publicado em: {new Date(post.postedAt).toLocaleString()}
+                      {t("posted_at")}{" "}
+                      {new Date(post.postedAt).toLocaleString()}
                     </p>
                   </div>
                 </>
@@ -415,7 +420,7 @@ const FeedPage = () => {
                     {modalUsers.length > 0 ? (
                       <ul className="feed-modal-list">
                         <h2 className="feed-modal-title">
-                          Usuários que curtiram o post:
+                          {t("users_liked_post_title")}
                         </h2>
                         {modalUsers.map((user) => (
                           <li className="feed-modal-item" key={user.userId}>
@@ -439,9 +444,7 @@ const FeedPage = () => {
                         ))}
                       </ul>
                     ) : (
-                      <p className="no-likes">
-                        Nenhum usuário curtiu esta postagem ainda.
-                      </p>
+                      <p className="no-likes">{t("no_likes_message")}</p>
                     )}
                   </div>
                 </div>
