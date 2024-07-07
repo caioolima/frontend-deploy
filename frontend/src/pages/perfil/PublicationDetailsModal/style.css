@@ -183,8 +183,18 @@
 }
 
 .rounded-image {
-  width: 100px; /* Ajuste a largura da imagem redonda conforme necessário */
-  height: 100px; /* Ajuste a altura da imagem redonda conforme necessário */
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover; /* Garantir que a imagem mantenha a proporção correta */
+  margin-right: 10px;
+}
+
+.photo-modal-profile-icon {
+  background-color: black;
+  color: gray;
+  width: 70px; /* Ajuste a largura da imagem redonda conforme necessário */
+  height: 70px; /* Ajuste a altura da imagem redonda conforme necessário */
   object-fit: cover;
   border-radius: 50%;
 }
@@ -344,11 +354,3 @@
   color: white;
 }
 
-.photo-modal-profile-icon {
-  background-color: black;
-  color: gray;
-  width: 50px; /* Ajuste a largura da imagem redonda conforme necessário */
-  height: 50px; /* Ajuste a altura da imagem redonda conforme necessário */
-  object-fit: cover;
-  border-radius: 50%;
-}

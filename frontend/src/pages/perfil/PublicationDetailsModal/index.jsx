@@ -9,7 +9,6 @@ import {
   FaArrowAltCircleLeft,
   FaEllipsisH,
 } from "react-icons/fa";
-
 import { AiFillFire, AiOutlineFire, AiOutlineUser } from "react-icons/ai";
 import { useTranslation } from "react-i18next"; // Importa o hook useTranslation
 
@@ -347,9 +346,9 @@ const PublicationDetailsModal = () => {
                 <Link to={`/profile/${userId}`}>
                   {profileImage ? (
                     <img
+                      className="rounded-image"
                       src={profileImage}
-                      alt="Imagem de perfil"
-                      className="photo-modal-profile-img"
+                      alt="Profile"
                     />
                   ) : (
                     <AiOutlineUser className="photo-modal-profile-icon" /> // Ícone de usuário padrão
