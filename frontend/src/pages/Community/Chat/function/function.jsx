@@ -148,7 +148,6 @@ const Function = () => {
       return colorClass;
     }
   };
-
   // Async Function
   // No useEffect que carrega as mensagens da comunidade
   const loadCommunityMessages = async () => {
@@ -224,6 +223,28 @@ const Function = () => {
 
   const sendMessage = async () => {
     setSendingMessage(true);
+
+    const fetchUsernames = async (userIds) => {
+      const uniqueUserIds = [...new Set(userIds)];
+      const fetchedUsernames = {};
+
+      for (const userId of uniqueUserIds) {
+        const response = await fetch(
+          `https://connecter-server-033a278d1512.herokuapp.com/auth/user/${userId}/username`,
+          { method: "GET" }
+        );
+        if (response.ok) {
+          const userData = await response.json();
+          fetchedUsernames[userId] = userData.username;
+        } else {
+          console.error(`Erro ao buscar username para o userId: ${userId}`);
+        }
+      }
+      return fetchedUsernames;
+    };
+
+    const usernames = await fetchUsernames([userId]);
+
     if (messageInput.trim() !== "" && ws.readyState === WebSocket.OPEN) {
       const newMessage = {
         userId: userId,
@@ -235,7 +256,6 @@ const Function = () => {
         isSending: true,
       };
 
-      // Armazene a mensagem localmente se o usuário estiver offline
       if (!navigator.onLine) {
         const pendingMessages =
           JSON.parse(localStorage.getItem("pendingMessages")) || [];
@@ -243,16 +263,15 @@ const Function = () => {
           "pendingMessages",
           JSON.stringify([...pendingMessages, newMessage])
         );
-        setMessages((prevMessages) => [...prevMessages, newMessage]); // Adicione a mensagem localmente para exibição imediata
+        setMessages((prevMessages) => [...prevMessages, newMessage]);
         setMessageInput("");
         setMediaFile(null);
         setSelectedFileName("");
+        setSendingMessage(false);
         return;
       }
 
-      // Envie a mensagem pelo WebSocket
       ws.send(JSON.stringify(newMessage));
-      setSendingMessage(true); // Define o estado de envio da mensagem como verdadeiro
 
       try {
         const response = await fetch(
@@ -270,7 +289,7 @@ const Function = () => {
           throw new Error("Erro ao enviar mensagem");
         }
         newMessage.isSending = false;
-        setSendingMessage(false); // Define o estado de envio da mensagem como falso após o envio bem-sucedido
+        setSendingMessage(false);
         setMessages((prevMessages) => [...prevMessages, newMessage]);
         setScrollToBottomNeeded(true);
         setMessageInput("");
@@ -281,6 +300,8 @@ const Function = () => {
         console.error("Erro:", error.message);
         setSendingMessage(false);
       }
+    } else {
+      setSendingMessage(false);
     }
   };
 
@@ -431,7 +452,9 @@ const Function = () => {
 
   useEffect(() => {
     // Estabelece a conexão WebSocket
-    const ws = new WebSocket("wss://websocket-deploy-ac202d6667db.herokuapp.com/");
+    const ws = new WebSocket(
+      "wss://websocket-deploy-ac202d6667db.herokuapp.com/"
+    );
     let pingInterval; // Variável para armazenar o intervalo do ping
 
     ws.onopen = () => {
