@@ -1,0 +1,180 @@
+/* TopLikedPosts.module.css */
+
+/* Estilo geral */
+.topLikedTitle {
+  font-size: 1.5rem;
+  color: var(--color-dark);
+  text-align: center;
+}
+
+.hrTop {
+  border: none;
+  border-top: 2px solid var(--color-details);
+  width: 60%;
+  margin: 10px auto;
+}
+
+.postWrapper {
+  position: relative;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center; /* Centraliza o carrossel */
+}
+
+.carousel {
+  display: flex;
+  overflow: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  padding-bottom: 10px;
+  width:76%; /* Ocupa toda a largura disponível */
+  max-width: 100%; /* Limita a largura máxima */
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.postItem {
+  flex: 0 0 auto;
+  margin-right: 9px;
+  margin-left: 12px;
+  scroll-snap-align: start;
+  transition: transform 0.3s ease;
+  width: calc(
+    (100% - 20px) / 3
+  ); /* Calcula a largura para três itens por linha */
+  max-width: 297px; /* Largura máxima dos itens */
+}
+
+.postItem:last-child {
+  margin-right: 0;
+}
+
+.postLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.postImage {
+  width: 100%;
+  height: 200px; /* Altura ajustável */
+  object-fit: cover;
+  margin: auto;
+}
+
+.postDetails {
+  padding: 20px;
+}
+
+.profileImage {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: auto;
+}
+
+.profileImagenone {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: auto;
+  background-color: rgb(0, 0, 0);
+  color: gray;
+}
+.postUser,
+.postLikes {
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.postButton {
+  background-color: var(--color-primary-focus);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  margin: 10px auto;
+  transition: background-color 0.3s ease;
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
+}
+
+.postButton:hover {
+  background-color: var(--color-primary);
+}
+
+.noPostsMessage,
+.loadingMessage {
+  text-align: center;
+  font-size: 16px;
+  margin-top: 20px;
+  color: var(--color-dark);
+  font-weight: bold;
+}
+
+.carouselButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  color: var(--color-dark);
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  font-weight: bold;
+}
+
+.carouselButton:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  transform: scale(1.1);
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+@media screen and (max-width: 900px) {
+  .postItem {
+    width: calc((100% - 20px) / 2); /* Dois itens por linha em telas menores */
+  }
+  
+}
+
+@media screen and (max-width: 600px) {
+  .postItem {
+    width: 100%; /* Um item por linha em telas pequenas */
+    margin: auto;
+    padding: 10px;
+  }
+
+  .carousel {
+    width: 65%;
+    height: 440px;
+  }
+
+  .carouselButton {
+    font-size: 1.5rem;
+    padding: 8px;
+  }
+
+  .topLikedTitle {
+    font-size: 1rem;
+    margin-top: 50px;
+  }
+  .hrTop {
+    width: 100%;
+  }
+}
