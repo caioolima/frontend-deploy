@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next"; // Importar hook de tradução
 import { Link } from "react-router-dom";
 
@@ -7,7 +7,15 @@ import "./NotFoundPage.css"; // Importe o arquivo de estilo CSS
 
 function NotFoundPage() {
   const { t } = useTranslation(); // Hook de tradução
+  useEffect(() => {
+    // Aplica overflow-x: hidden ao elemento html para remover o scroll horizontal
+    document.documentElement.style.overflow = "hidden";
 
+    // Cleanup: remove overflow-x: hidden ao desmontar o componente
+    return () => {
+      document.documentElement.style.overflow = "auto";
+    };
+  }, []);
   return (
     <div>
       <div className="logo_term">
