@@ -1,6 +1,7 @@
 .container-overflow {
   width: 100%;
-  overflow-x: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   margin-left: 180px;
   position: relative;
 }
