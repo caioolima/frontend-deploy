@@ -39,7 +39,6 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -112,7 +111,7 @@
   align-items: self-start;
 }
 
-.black-block p {
+.black-block p{
   color: white;
   font-size: 20px;
   height: 100%;
@@ -135,7 +134,7 @@
   /* Transforma o cursor em uma mão ao passar sobre o botão */
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
   /* Adiciona transição suave ao hover */
-  margin: 15px 0;
+  margin: 10px;
   font-weight: bold;
   font-family: "Raleway", sans-serif;
 }

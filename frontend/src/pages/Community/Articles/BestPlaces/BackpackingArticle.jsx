@@ -138,11 +138,11 @@ const BackpackingArticle = () => {
   ];
 
   return (
-    <div>
+    <div className={styles.pageWrapper}>
+      <SidebarMenu /> {/* Menu */}
       <div className={styles.articleContainer}>
-        <SidebarMenu /> {/* Menu */}
         <h1 className={styles.title}>
-          {t("backpackingArticle.title")} {/* Título traduzido */}
+          {t("backpackingArticle.title")}
         </h1>
         <div className={styles.locationsGrid}>
           {locations.map((location, index) => (
