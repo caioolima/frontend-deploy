@@ -21,7 +21,7 @@ Connecter Life é uma rede social destinada a mochileiros e viajantes, onde os u
   - Instalação
 
 ** Clone o repositório do frontend:
-  - git clone https://github.com/seu-usuario/connecter-life-frontend.git
+  - https://github.com/caioolima/frontend-deploy
 
 ** Navegue até o diretório do projeto:
   - cd frontend
