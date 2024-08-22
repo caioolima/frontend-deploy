@@ -1,7 +1,6 @@
-Connecter Life - Frontend
 Connecter Life é uma rede social destinada a mochileiros e viajantes, onde os usuários podem se conectar com comunidades criadas por outros viajantes ou explorar comunidades globais baseadas em países. Cada comunidade funciona como um chat onde os usuários podem compartilhar experiências, dicas e aventuras.
 
-## Tecnologias Utilizadas
+## Tecnologias Utilizadas no Frontend
 - React.js: Biblioteca JavaScript para construção de interfaces de usuário.
 - React Router: Para navegação entre páginas.
 -React Icons: Ícones para enriquecer a interface.
